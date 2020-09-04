@@ -22,34 +22,37 @@
 
 <script>
 import XLSX from 'xlsx'
+import {importExcelAPI} from "@/api/upload";
 
 export default {
   data() {
     return {
-      fileList:[],
+      fileList: [],
       current: {
         name: "",
         content: {}
       },
-      allFile: [],
+      allFile: {},
     }
   },
   methods: {
     // :on-change
     // 检查和导入Excel文件
     handleChange(file) {
-      const tempList = this.fileList
       const fileNameInfo = file.name.split('.')
       const type = fileNameInfo[fileNameInfo.length - 1]
       const fileType = ['xlsx', 'xlc', 'xlm', 'xls', 'xlt', 'xlw', 'csv'].some(item => item === type)
       this.fileList.push(file)
-      if (fileType) {
-        console.log(true)
-      }else{
-        this.fileList.pop()
+      for (let i = 0; i < this.fileList.length - 1; i++) {
+        if (file.name === this.fileList[0].name) {
+          this.fileList.pop()
+          this.$message("重复上传！请重新选择")
+          return
+        }
+      }
+      if (!fileType) {
         this.$message('格式错误！请重新选择')
-        console.log(false)
-        return null
+        return
       }
       this.fileToExcel(file).then(tabJson => {
         if (tabJson && tabJson.length > 0) {
@@ -61,23 +64,26 @@ export default {
     },
 
     // :on-preview
-    handlePreview(file){
+    handlePreview(file) {
       console.log(file)
     },
 
     // :before-remove
     beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
+      return this.$confirm(`确定移除 ${file.name}？`);
     },
 
     // :on-remove
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      this.fileList.splice(this.fileList.indexOf(file), 1)
     },
 
     // 确定导入完成后发送数据
     uploadAck() {
-      console.log(this.allFile)
+      const data = {
+        jsonString: JSON.stringify(this.allFile)
+      }
+      const res = importExcelAPI(data)
     },
 
     // 网上找的JS读取Excel文件的方法
