@@ -22,11 +22,12 @@
 
 <script>
 import XLSX from 'xlsx'
+import {importExcelAPI} from "@/api/upload";
 
 export default {
   data() {
     return {
-      fileList:[],
+      fileList: [],
       current: {
         name: "",
         content: {}
@@ -45,7 +46,7 @@ export default {
       this.fileList.push(file)
       if (fileType) {
         console.log(true)
-      }else{
+      } else {
         this.fileList.pop()
         this.$message('格式错误！请重新选择')
         console.log(false)
@@ -61,13 +62,13 @@ export default {
     },
 
     // :on-preview
-    handlePreview(file){
+    handlePreview(file) {
       console.log(file)
     },
 
     // :before-remove
     beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
+      return this.$confirm(`确定移除 ${file.name}？`);
     },
 
     // :on-remove
@@ -78,6 +79,12 @@ export default {
     // 确定导入完成后发送数据
     uploadAck() {
       console.log(this.allFile)
+      console.log([{a: 1, b: 2}, [2, 3]])
+      const data = {
+        jsonString: JSON.stringify({a: [{a: 1, b: 2}, [2, 3]]})
+      }
+      console.log(data.jsonString)
+      const res = importExcelAPI(data)
     },
 
     // 网上找的JS读取Excel文件的方法
