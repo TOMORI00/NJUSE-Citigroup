@@ -1,27 +1,30 @@
 <template>
   <div class="my-homepage">
-    <el-header class="my-header" height="200px">
-      <div class="div-logo">
-        <a href="https://www.nju.edu.cn/">
-          <img class="logo-img" src="../assets/logo.png">
-        </a>
-      </div>
-      <div class="div-about">
-        <router-link class="home-link" to="/home">
-          <h2>Home</h2>
-        </router-link>
-        <router-link class="about-link" to="/about">
-          <h2>About</h2>
-        </router-link>
-      </div>
-    </el-header>
-    <el-main>
-      <div>
-        <el-button @click="toAdvanced">Advanced</el-button>
-        <el-button @click="toNormal">Normal</el-button>
-      </div>
+    <el-container height="818px">
+      <el-header height="160px">
+        <div class="div-logo">
+          <a href="https://www.nju.edu.cn/">
+            <img class="logo-img" src="../assets/logo.png">
+          </a>
+        </div>
+        <div class="div-more">
+          <div class="more-link">
+            <a href="/home"><h2>Home</h2></a>
+          </div>
+          <div class="more-link">
+            <a href="/about"><h2>About</h2></a>
+          </div>
+        </div>
+      </el-header>
       <el-divider></el-divider>
-    </el-main>
+      <el-main>
+        <div class="div-choose">
+          <h1 style="position: relative;top:58px;font-family: 楷体">首次进入请选择一个身份</h1>
+          <el-button class="choose-button" @click="toAdvanced">Advanced</el-button>
+          <el-button class="choose-button" @click="toNormal">Normal</el-button>
+        </div>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
@@ -30,10 +33,10 @@ export default {
   name: "HomePage",
   methods: {
     toAdvanced() {
-      this.$router.replace('/advanced')
+      this.$router.push('/advanced')
     },
     toNormal() {
-      this.$router.replace('/normal')
+      this.$router.push('/normal')
     }
   }
 }
@@ -43,42 +46,60 @@ export default {
 <style scoped>
 .my-homepage {
   margin: auto;
-  width: 100%;
-  height: 900px;
-  background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/illust_83645290_20200817_194209.jpg");
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: 1600px 900px;
+  width: 1440px;
+  height: 817px;
+  /*background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/illust_83645290_20200817_194209.jpg");*/
+  /*background-position: center top;*/
+  /*background-repeat: no-repeat;*/
+  /*background-size: 1600px 900px;*/
 }
 
-.div-logo{
+.div-logo {
   width: 300px;
   height: 200px;
-  float: left;
+  display: inline-block;
 }
 
 .logo-img {
   width: 130px;
   height: 130px;
-  position: absolute;
-  top: 35px;
-  left:80px
+  position: relative;
+  top: 25px;
+  left: -100px;
 }
 
-.div-about{
+.div-more {
+  width: 800px;
   height: 200px;
-  float: left;
+  display: inline-block;
 }
 
-.about-link{
-  position: absolute;
-  top: 90px;
-  right: 90px;
+.more-link {
+  width: 70px;
+  height: 30px;
+  display: inline-block;
+  margin: auto;
+  position: relative;
+  top: 25px;
+  right: -350px;
 }
 
-.home-link{
-  position: absolute;
-  top: 90px;
-  right: 160px;
+.div-choose {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  width: 800px;
+  height: 450px;
+  background: white;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.choose-button {
+  margin: 50px;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: 65px;
 }
 </style>

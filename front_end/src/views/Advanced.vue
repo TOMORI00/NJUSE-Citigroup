@@ -21,7 +21,7 @@ export default {
   },
   methods:{
     toHome(){
-      this.$router.replace('/')
+      this.$router.back()
     }
   }
 }
