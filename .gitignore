@@ -20,7 +20,7 @@ target/
 *.ipr
 
 ### Pycharm ###
-back-end/venv
+venv
 __pycache__
 *.pyc
 
