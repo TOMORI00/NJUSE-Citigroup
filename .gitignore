@@ -19,6 +19,7 @@ target/
 *.iws
 *.iml
 *.ipr
+__pycache__
 
 ### NetBeans ###
 /nbproject/private/
