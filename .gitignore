@@ -14,11 +14,12 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-### Pycharm ###
 .idea
 *.iws
 *.iml
 *.ipr
+
+### Pycharm ###
 __pycache__
 *.pyc
 
