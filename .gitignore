@@ -20,6 +20,7 @@ target/
 *.iml
 *.ipr
 __pycache__
+*.pyc
 
 ### NetBeans ###
 /nbproject/private/
