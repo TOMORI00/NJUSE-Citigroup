@@ -1,23 +1,20 @@
 <template>
-  <div>
+  <div class="div-main">
     <!--    1-->
     <heading></heading>
-    <!--    2-->
-    <div id="div-choose">
-      <el-button class="choose-button" @click="clickToInside">场内</el-button>
-      <el-button class="choose-button" @click="clickToOutSide">场外</el-button>
-    </div>
+    <!--    &lt;!&ndash;    2&ndash;&gt;-->
+    <!--    <div id="div-choose">-->
+    <!--      <el-button class="choose-button" @click="clickToInside">场内</el-button>-->
+    <!--      <el-button class="choose-button" @click="clickToOutSide">场外</el-button>-->
+    <!--    </div>-->
 
     <!--    3-->
-    <el-container id="my-container" style="display: none">
-      <el-header style="margin: 20px">
-        <div id="my-select">
-          <el-select v-model="value" placeholder="请选择" @change="handleTypeChange">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select>
-        </div>
+    <el-container id="my-container">
+      <el-header height="40px" style="margin: 20px">
+        <el-select v-model="value" @change="handleTypeChange">
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        </el-select>
       </el-header>
-      <el-divider></el-divider>
 
       <!--      4-->
       <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview"
@@ -27,64 +24,65 @@
         <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
       </el-upload>
       <br>
-      <el-button id="upload-ack" @click="uploadAck">确 认</el-button>
+      <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认</el-button>
       <el-divider></el-divider>
 
       <!--      5-->
-      <div class="div-analysis">
-        <p style="margin: 20px">Analysis</p>
-        <el-button @click="changeFund">修改基金池</el-button>
-        <el-button @click="getRecommend">查看投资建议</el-button>
-        <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-        <el-checkbox v-model="checked" @change="changeCheckBox">对比复现</el-checkbox>
-      </div>
+      <div class="div-result" id="div-result" style="display: none">
+        <div class="div-analysis">
+          <p style="margin: 20px">Analysis</p>
+          <el-button @click="changeFund">修改基金池</el-button>
+          <el-button @click="getRecommend">查看投资建议</el-button>
+          <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
+          <el-checkbox v-model="checked" @change="changeCheckBox">对比复现</el-checkbox>
+        </div>
 
-      <!--      6-->
-      <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
-        <span>修改基金池细节</span>
-        <span slot="footer" class="dialog-footer">
+        <!--      6-->
+        <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
+          <span>修改基金池细节</span>
+          <span slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
         </span>
-      </el-dialog>
+        </el-dialog>
 
-      <!--      7-->
-      <div class="div-recommend" id="div-recommend" style="display: none">
-        <br>
-        <p>投资建议饼状图</p>
-        <div class="div-risk" id="div-risk">
-          <el-radio-group v-model="radio">
-            <el-radio :label="3">低风险</el-radio>
-            <el-radio :label="6">中风险</el-radio>
-            <el-radio :label="9">高风险</el-radio>
-          </el-radio-group>
+        <!--      7-->
+        <div class="div-recommend" id="div-recommend" style="display: none">
+          <br>
+          <p>投资建议饼状图</p>
+          <div class="div-risk" id="div-risk">
+            <el-radio-group v-model="radio">
+              <el-radio :label="3">低风险</el-radio>
+              <el-radio :label="6">中风险</el-radio>
+              <el-radio :label="9">高风险</el-radio>
+            </el-radio-group>
+          </div>
         </div>
+
+
+        <el-divider></el-divider>
+
+        <!--        8-->
+        <p style="margin: 20px">Recommend</p>
+        <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
+        <span>开始时间   </span>
+        <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="选择开始时间"
+                        @change="handleDateChange"></el-date-picker>
+        <br>
+        <el-button @click="getRecommendCombination" style="margin-top: 20px">生成历史推荐组合</el-button>
+
+
+        <el-divider></el-divider>
+
+        <!--        9-->
+        <el-button @click="getReport">一键生成报告</el-button>
+        <el-button @click="toHome">HomePage</el-button>
       </div>
-
-
-      <el-divider></el-divider>
-
-      <!--        8-->
-      <p style="margin: 20px">Recommend</p>
-      <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-      <span>开始时间   </span>
-      <el-date-picker v-model="dataValue" type="month" format="yyyy年MM月" placeholder="选择开始时间"></el-date-picker>
-      <br>
-      <el-button style="margin-top: 20px">生成历史推荐组合</el-button>
-
-
-      <el-divider></el-divider>
-
-      <!--        9-->
-      <el-button>一键生成报告</el-button>
-      <el-button @click="toHome">HomePage</el-button>
     </el-container>
   </div>
 </template>
 
 <script>
-    import Analysis from "@/components/Analysis";
-    import Recommend from "@/components/Recommend";
     import Heading from "../components/Heading";
     import XLSX from 'xlsx'
     import {importExcelAPI} from "@/api/upload";
@@ -93,19 +91,8 @@
         name: "Advanced",
         data() {
             return {
-                currentType: 'none',
-                chartData: [
-                    ['x-line', 'number1', 'number2'],
-                    [20, 25, 30],
-                    [25, 40, 56],
-                    [30, 56, 24]
-                ],
-                chartOption: {
-                    charts: {
-                        title: 'testChart'
-                    },
-                    focusTarget: 'category'
-                },
+                // 切换场内场外的选项
+                value: 'inside',
                 options: [{
                     value: 'inside',
                     label: '场内'
@@ -113,17 +100,42 @@
                     value: 'outside',
                     label: '场外'
                 }],
-                value: '',
+
+                // 上传的文件列表
                 fileList: [],
+
+                currentType: 'none',
+
+                // 画图
+                chartData: [
+                    ['x-line', 'number1', 'number2'],
+                    [20, 25, 30],
+                    [25, 40, 56],
+                    [30, 56, 24]
+                ],
+                // 画图
+                chartOption: {
+                    charts: {
+                        title: 'testChart'
+                    },
+                    focusTarget: 'category'
+                },
+
+                // 对比复现
+                checked: false,
+                // 修改基金池
+                dialogVisible: false,
+                // 风险
+                radio: 3,
+                // 开始日期
+                dateValue: '',
+
+                //
                 current: {
                     name: "",
                     content: {}
                 },
                 allFile: {},
-                checked: false,
-                dialogVisible: false,
-                radio: 3,
-                dataValue: '',
             }
         },
         components: {
@@ -209,10 +221,18 @@
 
             // 确定导入完成后发送数据
             uploadAck() {
-                const data = {
-                    jsonString: JSON.stringify(this.allFile)
+                if (this.fileList.length > 0) {
+                    document.getElementById('div-result').style.display = 'unset'
+                    const data = {
+                        jsonString: JSON.stringify(this.allFile)
+                    }
+                    const res = importExcelAPI(data)
+                } else {
+                    this.$message({
+                        message: '请上传文件！',
+                        type: 'warning'
+                    });
                 }
-                const res = importExcelAPI(data)
             },
 
             // 网上找的JS读取Excel文件的方法
@@ -250,12 +270,37 @@
             // click to get recommend
             getRecommend() {
                 document.getElementById('div-recommend').style.display = "unset"
+            },
+
+            // click to get report
+            getReport() {
+                console.log('getReport')
+            },
+
+            // click to get recommend combination
+            getRecommendCombination() {
+                console.log('getRecommendCombination')
+            },
+
+            // date Change
+            handleDateChange(value) {
+                console.log(value)
             }
         }
     }
 </script>
 
 <style scoped>
+  .div-main {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 1440px) {
+    .div-main {
+      width: 1440px;
+    }
+  }
+
   #div-choose {
     border-radius: 15px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
