@@ -22,6 +22,7 @@
 
 <script>
 import XLSX from 'xlsx'
+import {mapGetters,mapMutations,mapActions} from 'vuex'
 import {importExcelAPI} from "@/api/upload";
 
 export default {
@@ -35,7 +36,18 @@ export default {
       allFile: {},
     }
   },
+  computed:{
+    ...mapGetters([
+      'returnData'
+    ])
+  },
   methods: {
+    ...mapMutations([
+      'setExcelData'
+    ]),
+    ...mapActions([
+      'uploadExcel'
+    ]),
     // :on-change
     // 检查和导入Excel文件
     handleChange(file) {
@@ -83,7 +95,9 @@ export default {
       const data = {
         jsonString: JSON.stringify(this.allFile)
       }
-      const res = importExcelAPI(data)
+      this.setExcelData(data)
+      this.uploadExcel()
+      console.log(this.returnData)
     },
 
     // 网上找的JS读取Excel文件的方法
