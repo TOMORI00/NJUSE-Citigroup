@@ -6,7 +6,7 @@
           <img class="logo-img" src="../assets/logo.png">
         </a>
       </div>
-      <div class="div-name"><h2 style="margin:auto;font-size: 30px">花旗杯</h2></div>
+      <div class="div-name"><h2 style="margin:auto;font-size: 30px">基金推荐系统</h2></div>
     </div>
     <el-divider id="heading-divider" style="margin: 0;padding: 0;height: 2px"></el-divider>
   </div>

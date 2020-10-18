@@ -1,12 +1,23 @@
+此页为专业用户页，是银行经理使用的页面
+- 本页元素与交互
+  - 图片背景
+  - 左上图标》跳转至某页面（目前为NJU主页）
+  - 右上软件名称
+  - 中央
+    - 理财、基金选择框
+    - excel上传
+    - 功能页
+      - 复现
+        - 历史复现
+        - 对比复现
+      - 推荐
+        - 实时推荐
+        - 推荐历史
+
 <template>
   <div class="div-main">
-    <!--    1-->
+      
     <heading></heading>
-    <!--    &lt;!&ndash;    2&ndash;&gt;-->
-    <!--    <div id="div-choose">-->
-    <!--      <el-button class="choose-button" @click="clickToInside">场内</el-button>-->
-    <!--      <el-button class="choose-button" @click="clickToOutSide">场外</el-button>-->
-    <!--    </div>-->
 
     <!--    3-->
     <el-container id="my-container">
@@ -91,14 +102,14 @@
         name: "Advanced",
         data() {
             return {
-                // 切换场内场外的选项
-                value: 'inside',
+                // 切换基金理财的选项
+                value: '基金',
                 options: [{
-                    value: 'inside',
-                    label: '场内'
+                    value: 'fundation',
+                    label: '基金'
                 }, {
-                    value: 'outside',
-                    label: '场外'
+                    value: 'financing',
+                    label: '理财'
                 }],
 
                 // 上传的文件列表

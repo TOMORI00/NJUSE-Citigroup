@@ -1,3 +1,15 @@
+此页为首页，是程序的入口
+- 本页元素与交互
+  - 图片背景
+  - 左上图标》跳转至某页面（目前为NJU主页）
+  - 上方中央软件名称
+  - 右上“关于”按钮》跳转至“关于”页面
+  - 中央选择框
+    - 选择提示语句
+    - Advanced：高级用户》银行经理
+    - Normal：普通用户》个人客户
+    - Analysis：分析用户》数据分析者
+
 <template>
   <div class="div-background-image">
     <div class="div-homepage">
@@ -9,20 +21,26 @@
             </a>
           </div>
           <div class="div-more-link">
+            
+            <!-- 测试模块用 -->
             <div class="link-text">
-              <a href="/home"><h2>Home</h2></a>
+              <a href="/test"><h2>Test</h2></a>
             </div>
+
             <div class="link-text">
               <a href="/about"><h2>About</h2></a>
             </div>
           </div>
         </el-header>
+        
+        <div>基金推荐系统</div>
         <el-divider></el-divider>
         <el-main>
           <div class="div-choose" id="div-choose">
-            <h1 style="position: relative;top:58px;font-family: 楷体">首次进入请选择一个身份</h1>
+            <h1 style="position: relative;top:58px;font-family: 楷体">请选择您的用户类型</h1>
             <el-button class="choose-button" @click="toAdvanced">Advanced</el-button>
             <el-button class="choose-button" @click="toNormal">Normal</el-button>
+            <el-button class="choose-button" @click="toAnalysis">Analysis</el-button>
           </div>
         </el-main>
       </el-container>
@@ -39,6 +57,9 @@ export default {
     },
     toNormal() {
       this.$router.push('/normal')
+    },
+    toAnalysis() {
+      //TODO，下载pdf
     }
   }
 }
@@ -109,12 +130,21 @@ export default {
 .div-choose {
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  width: 800px;
-  height: 450px;
-  background: white;
+  width: 1000px;
+  height: 400px;
+  background: rgba(255, 254, 254, 0.4);
   margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.choose-button {
+  margin: 50px;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: 65px;
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 1170px) {
@@ -129,13 +159,5 @@ export default {
     position: absolute;
     left: 50px;
   }
-}
-
-.choose-button {
-  margin: 50px;
-  width: 200px;
-  height: 200px;
-  position: relative;
-  top: 65px;
 }
 </style>
