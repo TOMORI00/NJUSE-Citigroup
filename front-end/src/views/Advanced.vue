@@ -16,80 +16,78 @@
 
 <template>
   <div class="div-main">
-      
+
     <heading></heading>
 
-    <!--    3-->
+    <!-- 选择基金/理财 -->
     <el-container id="my-container">
       <el-header height="40px" style="margin: 20px">
         <el-select v-model="value" @change="handleTypeChange">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-header>
-
-      <!--      4-->
-      <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview"
-                 :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
-        <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
-      </el-upload>
-      <br>
-      <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认</el-button>
-      <el-divider></el-divider>
-
-      <!--      5-->
-      <div class="div-result" id="div-result" style="display: none">
-        <div class="div-analysis">
-          <p style="margin: 20px">Analysis</p>
-          <el-button @click="changeFund">修改基金池</el-button>
-          <el-button @click="getRecommend">查看投资建议</el-button>
-          <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-          <el-checkbox v-model="checked" @change="changeCheckBox">对比复现</el-checkbox>
-        </div>
-
-        <!--      6-->
-        <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
-          <span>修改基金池细节</span>
-          <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-        </span>
-        </el-dialog>
-
-        <!--      7-->
-        <div class="div-recommend" id="div-recommend" style="display: none">
-          <br>
-          <p>投资建议饼状图</p>
-          <div class="div-risk" id="div-risk">
-            <el-radio-group v-model="radio">
-              <el-radio :label="3">低风险</el-radio>
-              <el-radio :label="6">中风险</el-radio>
-              <el-radio :label="9">高风险</el-radio>
-            </el-radio-group>
-          </div>
-        </div>
-
-
-        <el-divider></el-divider>
-
-        <!--        8-->
-        <p style="margin: 20px">Recommend</p>
-        <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-        <span>开始时间   </span>
-        <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="选择开始时间"
-                        @change="handleDateChange"></el-date-picker>
-        <br>
-        <el-button @click="getRecommendCombination" style="margin-top: 20px">生成历史推荐组合</el-button>
-
-
-        <el-divider></el-divider>
-
-        <!--        9-->
-        <el-button @click="getReport">一键生成报告</el-button>
-        <el-button @click="toHome">HomePage</el-button>
-      </div>
     </el-container>
+
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+        
+        <el-tab-pane label="文件上传" name="first">
+
+            <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview" :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
+        </el-upload>
+        <br>
+        <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认</el-button>
+
+        </el-tab-pane>
+
+        <el-tab-pane label="投资复现" name="second">
+
+            <div class="div-analysis">
+            <p style="margin: 20px">历史复现</p>
+            <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
+            </div>
+            <div class="div-analysis">
+            <p style="margin: 20px">对比复现</p>
+            <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
+            </div>
+
+            <!-- 备用的修改基金池功能 -->
+            <el-button @click="changeFund" v-if="false">修改基金池</el-button>
+            <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
+            <span>修改基金池细节</span>
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+            </span>
+            </el-dialog>
+
+        </el-tab-pane>
+
+        <el-tab-pane label="投资建议" name="third">
+
+                    <p>投资建议</p>
+                    <div class="div-risk" id="div-risk">
+                        <el-radio-group v-model="radio">
+                        <el-radio :label="3">低风险</el-radio>
+                        <el-radio :label="6">中风险</el-radio>
+                        <el-radio :label="9">高风险</el-radio>
+                        </el-radio-group>
+                    </div>
+                    <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
+                    
+                    <p style="margin: 20px">历史推荐</p>
+                    <span>开始时间   </span>
+                    <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="选择开始时间"
+                                    @change="handleDateChange"></el-date-picker>
+                    <br>
+                    <el-button @click="getRecommendCombination" style="margin-top: 20px">历史推荐</el-button>
+        </el-tab-pane>
+        
+    </el-tabs>
+    <el-divider></el-divider>
+
   </div>
 </template>
 
@@ -165,16 +163,16 @@
                 this.value = this.currentType
             },
 
-            // 设置场内相关数据
+            // 设置基金相关数据
             clickToInside() {
-                this.currentType = 'inside'
+                this.currentType = 'fundation'
                 document.getElementById('div-risk').style.display = "none"
                 this.clickToInit()
             },
 
-            // 设置场外相关数据
+            // 设置理财相关数据
             clickToOutSide() {
-                this.currentType = 'outside'
+                this.currentType = 'financing'
                 this.clickToInit()
             },
 
