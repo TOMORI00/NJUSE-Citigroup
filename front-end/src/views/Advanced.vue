@@ -85,7 +85,7 @@
                     </el-radio-group>
                 </div>
                         
-                <GChart class="analysis-chart" type="PieChart" :data=chartData :options="chartOption"/>
+                <GChart class="analysis-chart" type="PieChart" :data=chartData1 :options="chartOption"/>
 
                 <el-divider></el-divider>
 
@@ -97,7 +97,7 @@
                 <br>
                 <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
             
-                <GChart class="analysis-chart" type="PieChart" :data=chartData :options="chartOption"/>
+                <GChart class="analysis-chart" type="PieChart" :data=chartData1 :options="chartOption"/>
 
             </el-tab-pane>
             
@@ -151,6 +151,13 @@
                     [65, 25, 30],
                     [70, 40, 56],
                     [75, 56, 24],
+                ],
+                chartData1: [
+                    ['name', 'contribution'],
+                    ['ss', 25],
+                    ['ljl', 40],
+                    ['dqj', 56],
+                    ['mjh',100]
                 ],
                 // 画图
                 chartOption: {
