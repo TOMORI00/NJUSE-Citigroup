@@ -48,7 +48,6 @@ def get_data():
             }
 
     print('finish')
-    print(data)
     return jsonify(data)
 
 
@@ -84,6 +83,30 @@ def upload():
             file.save(os.path.join("input", filename))
             return "fine"
     return render_template('gui_data.html')
+
+
+@app.route("/api/output/getChart", methods=['GET', 'POST'])
+def get_chart():
+    success = True
+    message = ""
+    data = {
+        "success": success,
+        "message": message,
+        "content": "/TODO this is a Chart"
+    }
+    return jsonify(data)
+
+
+@app.route("/api/output/getPDF", methods=['GET', 'POST'])
+def get_pdf():
+    success = True
+    message = ""
+    data = {
+        "success": success,
+        "message": message,
+        "content": "/TODO this is a PDF"
+    }
+    return jsonify(data)
 
 
 if __name__ == '__main__':

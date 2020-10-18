@@ -10,3 +10,16 @@ export function getDataAPI(){
     })
 }
 
+export function getChartAPI(){
+    return axios({
+        url: `${api.outputPre}/getChart`,
+        method: 'GET'
+    })
+}
+
+export function getPDFAPI(){
+    return axios({
+        url: `${api.outputPre}/getPDF`,
+        method: 'GET'
+    })
+}
