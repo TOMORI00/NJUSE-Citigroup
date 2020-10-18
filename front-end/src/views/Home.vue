@@ -1,3 +1,14 @@
+此页为入口页
+- 本页元素与交互
+  - 图片背景
+  - 左上图标》跳转至某页面（目前为NJU主页）
+  - 上方中央软件名称
+  - 右上“关于”按钮》跳转至“关于”页面
+  - 中央登录框
+    - 输入用户名
+    - 输入密码
+    - 点击登录
+
 <template>
   <div class="div-background-image">
     <div class="div-homepage">
@@ -10,13 +21,12 @@
           </div>
           <div class="div-more-link">
             <div class="link-text">
-              <a href="/home"><h2>Home</h2></a>
-            </div>
-            <div class="link-text">
               <a href="/about"><h2>About</h2></a>
             </div>
           </div>
         </el-header>
+                
+        <div>基金推荐系统</div>
         <el-divider></el-divider>
         <el-main>
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="div-choose">
@@ -152,12 +162,5 @@ export default {
     position: absolute;
     left: 50px;
   }
-}
-
-.choose-button {
-  width: 80px;
-  height: 40px;
-  position: relative;
-  top: 20px;
 }
 </style>

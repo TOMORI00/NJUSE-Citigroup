@@ -22,70 +22,89 @@
     <!-- 选择基金/理财 -->
     <el-container id="my-container">
       <el-header height="40px" style="margin: 20px">
-        <el-select v-model="value" @change="handleTypeChange">
+        <el-select v-model="type" @change="handleTypeChange">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-header>
     </el-container>
 
-    <el-tabs v-model="activeName" @tab-click="handleClick">
-        
-        <el-tab-pane label="文件上传" name="first">
+    <el-container>
+        <el-aside></el-aside>
+        <el-main>
+        <el-tabs v-model="activeName" >
+            
+            <el-tab-pane label="文件上传" name="first">
 
-            <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview" :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
-        </el-upload>
-        <br>
-        <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认</el-button>
+                <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview" :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
+            </el-upload>
+            <br>
+            <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认</el-button>
 
-        </el-tab-pane>
+            </el-tab-pane>
 
-        <el-tab-pane label="投资复现" name="second">
+            <el-tab-pane label="投资复现" name="second" v-if='uploaded'>
 
-            <div class="div-analysis">
-            <p style="margin: 20px">历史复现</p>
-            <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-            </div>
-            <div class="div-analysis">
-            <p style="margin: 20px">对比复现</p>
-            <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-            </div>
+                <div class="div-analysis">
+                <p>历史复现</p>
+                
+                <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
+                
+                </div>
 
-            <!-- 备用的修改基金池功能 -->
-            <el-button @click="changeFund" v-if="false">修改基金池</el-button>
-            <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
-            <span>修改基金池细节</span>
-            <span slot="footer" class="dialog-footer">
-            <el-button @click="dialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-            </span>
-            </el-dialog>
+                <el-divider></el-divider>
 
-        </el-tab-pane>
+                <div class="div-analysis">
+                <p>对比复现</p>
+                
+                <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
+                
+                </div>
 
-        <el-tab-pane label="投资建议" name="third">
+                <!-- 备用的修改基金池功能 -->
+                <!-- <el-button @click="changeFund" v-if="false">修改基金池</el-button>
+                <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
+                <span>修改基金池细节</span>
+                <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                </span>
+                </el-dialog> -->
+            </el-tab-pane>
 
-                    <p>投资建议</p>
-                    <div class="div-risk" id="div-risk">
-                        <el-radio-group v-model="radio">
-                        <el-radio :label="3">低风险</el-radio>
-                        <el-radio :label="6">中风险</el-radio>
-                        <el-radio :label="9">高风险</el-radio>
-                        </el-radio-group>
-                    </div>
-                    <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-                    
-                    <p style="margin: 20px">历史推荐</p>
-                    <span>开始时间   </span>
-                    <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="选择开始时间"
-                                    @change="handleDateChange"></el-date-picker>
-                    <br>
-                    <el-button @click="getRecommendCombination" style="margin-top: 20px">历史推荐</el-button>
-        </el-tab-pane>
-        
-    </el-tabs>
+            <el-tab-pane label="投资建议" name="third" v-if='uploaded'>
+
+                <p>投资建议</p>
+                <div class="div-risk" id="div-risk">
+                    <el-radio-group v-model="radio">
+                    <el-radio :label="3">低风险</el-radio>
+                    <el-radio :label="6">中风险</el-radio>
+                    <el-radio :label="9">高风险</el-radio>
+                    </el-radio-group>
+                </div>
+                        
+                <GChart class="analysis-chart" type="PieChart" :data=chartData :options="chartOption"/>
+
+                <el-divider></el-divider>
+
+                <p>历史推荐</p>
+                <span>开始时间   </span>
+                <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
+                    @change="handleDateChange">
+                </el-date-picker>
+                <br>
+                <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
+            
+                <GChart class="analysis-chart" type="PieChart" :data=chartData :options="chartOption"/>
+
+            </el-tab-pane>
+            
+        </el-tabs>
+        </el-main>
+        <el-aside></el-aside>
+    </el-container>
     <el-divider></el-divider>
 
   </div>
@@ -101,26 +120,37 @@
         data() {
             return {
                 // 切换基金理财的选项
-                value: '基金',
+                type: '基金',
                 options: [{
-                    value: 'fundation',
+                    value: '基金',
                     label: '基金'
                 }, {
-                    value: 'financing',
+                    value: '理财',
                     label: '理财'
                 }],
 
+                //默认先上传文件
+                activeName: 'first',
+                uploaded: true,
+
                 // 上传的文件列表
                 fileList: [],
-
-                currentType: 'none',
 
                 // 画图
                 chartData: [
                     ['x-line', 'number1', 'number2'],
                     [20, 25, 30],
                     [25, 40, 56],
-                    [30, 56, 24]
+                    [30, 56, 24],
+                    [35, 25, 30],
+                    [40, 40, 56],
+                    [45, 56, 24],
+                    [50, 25, 30],
+                    [55, 40, 56],
+                    [60, 56, 24],
+                    [65, 25, 30],
+                    [70, 40, 56],
+                    [75, 56, 24],
                 ],
                 // 画图
                 chartOption: {
@@ -130,8 +160,6 @@
                     focusTarget: 'category'
                 },
 
-                // 对比复现
-                checked: false,
                 // 修改基金池
                 dialogVisible: false,
                 // 风险
@@ -139,7 +167,7 @@
                 // 开始日期
                 dateValue: '',
 
-                //
+                // 文件
                 current: {
                     name: "",
                     content: {}
@@ -156,34 +184,9 @@
                 this.$router.back()
             },
 
-            // 隐藏选择界面进入具体界面
-            clickToInit() {
-                document.getElementById('div-choose').style.display = "none"
-                document.getElementById('my-container').style.display = "unset"
-                this.value = this.currentType
-            },
-
-            // 设置基金相关数据
-            clickToInside() {
-                this.currentType = 'fundation'
-                document.getElementById('div-risk').style.display = "none"
-                this.clickToInit()
-            },
-
-            // 设置理财相关数据
-            clickToOutSide() {
-                this.currentType = 'financing'
-                this.clickToInit()
-            },
-
             // 修改场内场外类型
             handleTypeChange(value) {
-                this.currentType = value
-                if (value === 'inside') {
-                    document.getElementById('div-risk').style.display = "none"
-                } else {
-                    document.getElementById('div-risk').style.display = "unset"
-                }
+                // console.log(value)
             },
 
             // :on-change
@@ -230,6 +233,7 @@
 
             // 确定导入完成后发送数据
             uploadAck() {
+                this.uploaded = true
                 if (this.fileList.length > 0) {
                     document.getElementById('div-result').style.display = 'unset'
                     const data = {
@@ -266,25 +270,10 @@
                 })
             },
 
-            // checkbox change
-            changeCheckBox(check) {
-                console.log(check)
-            },
-
             // click to change fund
-            changeFund() {
-                this.dialogVisible = true
-            },
-
-            // click to get recommend
-            getRecommend() {
-                document.getElementById('div-recommend').style.display = "unset"
-            },
-
-            // click to get report
-            getReport() {
-                console.log('getReport')
-            },
+            // changeFund() {
+            //     this.dialogVisible = true
+            // },
 
             // click to get recommend combination
             getRecommendCombination() {
@@ -308,25 +297,6 @@
     .div-main {
       width: 1440px;
     }
-  }
-
-  #div-choose {
-    border-radius: 15px;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    width: 800px;
-    height: 450px;
-    background: white;
-    margin-top: 75px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .choose-button {
-    margin: 50px;
-    width: 200px;
-    height: 200px;
-    position: relative;
-    top: 65px;
   }
 
   .analysis-chart {
