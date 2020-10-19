@@ -32,7 +32,7 @@
         <el-aside></el-aside>
         <el-main>
         <el-tabs v-model="activeName" >
-            
+
             <el-tab-pane label="文件上传" name="first">
 
                 <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview" :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
@@ -49,18 +49,18 @@
 
                 <div class="div-analysis">
                 <p>历史复现</p>
-                
+
                 <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-                
+
                 </div>
 
                 <el-divider></el-divider>
 
                 <div class="div-analysis">
                 <p>对比复现</p>
-                
+
                 <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-                
+
                 </div>
 
                 <!-- 备用的修改基金池功能 -->
@@ -84,7 +84,7 @@
                     <el-radio :label="9">高风险</el-radio>
                     </el-radio-group>
                 </div>
-                        
+
                 <GChart class="analysis-chart" type="PieChart" :data=chartData1 :options="chartOption"/>
 
                 <el-divider></el-divider>
@@ -96,16 +96,16 @@
                 </el-date-picker>
                 <br>
                 <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
-            
+
                 <GChart class="analysis-chart" type="PieChart" :data=chartData1 :options="chartOption"/>
 
             </el-tab-pane>
-            
+
         </el-tabs>
+        <el-divider></el-divider>
         </el-main>
         <el-aside></el-aside>
     </el-container>
-    <el-divider></el-divider>
 
   </div>
 </template>
@@ -211,6 +211,7 @@
                     }
                 }
                 if (!fileType) {
+                    this.fileList.pop()
                     this.$message('格式错误！请重新选择')
                     return
                 }
@@ -307,8 +308,8 @@
   }
 
   .analysis-chart {
-    width: 960px;
-    height: 480px;
+    width: 800px;
+    height: 450px;
     margin: auto;
   }
 </style>
