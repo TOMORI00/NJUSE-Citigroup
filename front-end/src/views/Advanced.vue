@@ -20,20 +20,22 @@
     <heading></heading>
 
     <!-- 选择基金/理财 -->
-    <el-container id="my-container">
-      <el-header height="40px" style="margin: 20px">
-        <el-select v-model="type" @change="handleTypeChange">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
-      </el-header>
-    </el-container>
+
 
     <el-container>
         <el-aside></el-aside>
         <el-main>
         <el-tabs v-model="activeName" >
 
-            <el-tab-pane label="文件上传" name="first">
+            <el-tab-pane label="文件上传" name="first" v-if='!uploaded'>
+
+            <el-container id="my-container">
+                <el-header height="40px" style="margin: 20px">
+                 <el-select v-model="type" @change="handleTypeChange">
+                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                 </el-select>
+                </el-header>
+            </el-container>
 
                 <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview" :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
                 <i class="el-icon-upload"></i>
@@ -42,6 +44,7 @@
             </el-upload>
             <br>
             <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认</el-button>
+
 
             </el-tab-pane>
 
@@ -131,7 +134,7 @@
 
                 //默认先上传文件
                 activeName: 'first',
-                uploaded: true,
+                uploaded: false,
 
                 // 上传的文件列表
                 fileList: [],
