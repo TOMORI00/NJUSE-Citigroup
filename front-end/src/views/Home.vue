@@ -16,19 +16,20 @@
         <el-header class="homepage-header" height="160px">
           <div class="div-logo">
             <a href="https://www.nju.edu.cn/">
-              <img class="logo-img" src="../assets/logo.png">
+              <img class="logo-img" src="../assets/nju.png">
             </a>
           </div>
           <div class="div-more-link">
             <div class="link-text">
-              <a href="/about"><h2>About</h2></a>
+              <a href="/about"><h2>关于</h2></a>
             </div>
           </div>
         </el-header>
                 
-        <div>基金推荐系统</div>
+        <div class="title">公募基金分析推荐系统</div>
+
         <el-divider></el-divider>
-        <el-main>
+        <el-main class="input-form">
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="div-choose">
             <el-form-item prop="name">
               <el-input v-model="ruleForm.name" placeholder="用户名"></el-input>
@@ -86,6 +87,7 @@ export default {
   width: 100%;
   position: fixed;
   background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/illust_83645290_20200817_194209.jpg");
+  /* background-image: url("../assets/background.jpg"); */
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -116,15 +118,6 @@ export default {
   top: 15px;
 }
 
-/*.div-more {*/
-/*  width: 800px;*/
-/*  height: 160px;*/
-/*  display: inline-block;*/
-/*  position: relative;*/
-/*  !*right: 20px;*!*/
-/*  top: -46px;*/
-/*}*/
-
 .div-more-link {
   width: 150px;
   height: 30px;
@@ -140,6 +133,14 @@ export default {
   height: 30px;
   display: inline-block;
   margin: auto;
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  width: 80px;
+  height: 30px;
+  background: rgba(255, 254, 254, 0.4);
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .div-choose {
@@ -148,6 +149,19 @@ export default {
   margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.title {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 60px;
+  background: rgba(255, 254, 254, 0.4);
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight:bold;
+  font-size:40px;
 }
 
 @media screen and (max-width: 1170px) {

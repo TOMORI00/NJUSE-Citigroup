@@ -88,7 +88,7 @@
                     </el-radio-group>
                 </div>
 
-                <GChart class="analysis-chart" type="PieChart" :data=chartData1 :options="chartOption"/>
+                <GChart type="PieChart" :data=chartData1 :options="chartOption"/>
 
                 <el-divider></el-divider>
 
@@ -100,7 +100,7 @@
                 <br>
                 <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
 
-                <GChart class="analysis-chart" type="PieChart" :data=chartData1 :options="chartOption"/>
+                <GChart type="PieChart" :data=chartData1 :options="chartOption"/>
 
             </el-tab-pane>
 
@@ -167,7 +167,10 @@
                     charts: {
                         title: 'testChart'
                     },
-                    focusTarget: 'category'
+                    focusTarget: 'category',
+                    width:960,
+                    height:480,
+                    is3D:true,
                 },
 
                 // 修改基金池
@@ -310,9 +313,4 @@
     }
   }
 
-  .analysis-chart {
-    width: 800px;
-    height: 450px;
-    margin: auto;
-  }
 </style>
