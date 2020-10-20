@@ -19,8 +19,6 @@
 
     <heading></heading>
 
-    <!-- 选择基金/理财 -->
-
 
     <el-container>
         <el-aside></el-aside>
@@ -29,41 +27,35 @@
 
             <el-tab-pane label="文件上传" name="first" v-if='!uploaded'>
 
-            <el-container id="my-container">
-                <el-header height="40px" style="margin: 20px">
-                 <el-select v-model="type" @change="handleTypeChange">
-                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                 </el-select>
-                </el-header>
-            </el-container>
+                <!-- 选择基金/理财 -->
+                <el-container id="my-container">
+                    <el-header height="40px" style="margin: 20px">
+                        <el-select v-model="type" @change="handleTypeChange">
+                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                    </el-header>
+                </el-container>
 
                 <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview" :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
-            </el-upload>
-            <br>
-            <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认</el-button>
-
-
+                    <i class="el-icon-upload"></i>
+                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
+                </el-upload>
+                <br>
+                <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认</el-button>
             </el-tab-pane>
 
             <el-tab-pane label="投资复现" name="second" v-if='uploaded'>
 
                 <div class="div-analysis">
                 <p>历史复现</p>
-
                 <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-
                 </div>
 
                 <el-divider></el-divider>
-
                 <div class="div-analysis">
-                <p>对比复现</p>
-
-                <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
-
+                    <p>对比复现</p>
+                    <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
                 </div>
 
                 <!-- 备用的修改基金池功能 -->
@@ -87,7 +79,6 @@
                     <el-radio :label="9">高风险</el-radio>
                     </el-radio-group>
                 </div>
-
                 <GChart type="PieChart" :data=chartData1 :options="chartOption"/>
 
                 <el-divider></el-divider>
@@ -99,9 +90,7 @@
                 </el-date-picker>
                 <br>
                 <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
-
                 <GChart type="PieChart" :data=chartData1 :options="chartOption"/>
-
             </el-tab-pane>
 
         </el-tabs>

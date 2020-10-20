@@ -29,7 +29,7 @@
         <div class="title">公募基金分析推荐系统</div>
 
         <el-divider></el-divider>
-        <el-main class="input-form">
+        <el-main>
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="div-choose">
             <el-form-item prop="name">
               <el-input v-model="ruleForm.name" placeholder="用户名"></el-input>
@@ -87,7 +87,6 @@ export default {
   width: 100%;
   position: fixed;
   background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/illust_83645290_20200817_194209.jpg");
-  /* background-image: url("../assets/background.jpg"); */
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
