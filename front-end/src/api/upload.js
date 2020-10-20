@@ -11,3 +11,12 @@ export function importExcelAPI(data){
         data
     })
 }
+
+export function uploadAPI(data){
+    return axios({
+        url:`${api.importExcel}/uploadExcel`,
+        method:'post',
+        data
+    })
+}
+

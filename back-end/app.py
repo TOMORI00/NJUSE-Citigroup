@@ -85,6 +85,25 @@ def upload():
     return render_template('gui_data.html')
 
 
+@app.route("/api/upload/uploadExcel", methods=['GET', 'POST'])
+def uploadExcel():
+    success = False
+    message = "上传失败"
+    print("uploadExcel")
+    if request.method == 'POST':
+        file = request.files['files']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join("input", filename))
+            success = True
+            message = ''
+    data = {"success": success,
+            "message": message,
+            "content": ''
+            }
+    return jsonify(data)
+
+
 @app.route("/api/output/getChart", methods=['GET', 'POST'])
 def get_chart():
     success = True

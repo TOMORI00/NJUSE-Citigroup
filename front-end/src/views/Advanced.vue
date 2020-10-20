@@ -117,7 +117,7 @@
     import Heading from "../components/Heading";
     import XLSX from 'xlsx'
     import {importExcelAPI} from "@/api/upload";
-
+    import {uploadAPI} from "@/api/upload";
     export default {
         name: "Advanced",
         data() {
@@ -244,7 +244,7 @@
 
             // 确定导入完成后发送数据
             uploadAck() {
-                this.uploaded = true
+/*                 this.uploaded = true
                 if (this.fileList.length > 0) {
                     document.getElementById('div-result').style.display = 'unset'
                     const data = {
@@ -252,6 +252,23 @@
                     }
                     const res = importExcelAPI(data)
                 } else {
+                    this.$message({
+                        message: '请上传文件！',
+                        type: 'warning'
+                    });
+                } */
+                this.uploaded=true
+                if (this.fileList.length > 0) {
+                    //document.getElementById('div-result').style.display = 'unset'
+                    let fd = new FormData();
+                    this.fileList.forEach(item=>{
+                        //文件信息中raw才是真的文件
+                        fd.append("files",item.raw);
+                        console.log(item.raw)
+                    })
+                    console.log(fd)
+                    const res=uploadAPI(fd)
+                }else{
                     this.$message({
                         message: '请上传文件！',
                         type: 'warning'
