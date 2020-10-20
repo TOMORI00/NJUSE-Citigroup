@@ -87,16 +87,23 @@ def upload():
 
 @app.route("/api/upload/uploadExcel", methods=['GET', 'POST'])
 def uploadExcel():
-    success = False
-    message = "上传失败"
+    success = True
+    message = ''
     print("uploadExcel")
     if request.method == 'POST':
-        file = request.files['files']
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join("input", filename))
-            success = True
-            message = ''
+        files = request.files.getlist('files')
+        print(files)
+        for file in files:
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join("input", filename))
+            else:
+                success = False
+                content = '上传失败'
+                break
+    else:
+        success = False
+        message = "上传失败"
     data = {"success": success,
             "message": message,
             "content": ''
