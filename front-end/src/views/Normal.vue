@@ -85,7 +85,9 @@
                     charts: {
                         title: 'testChart'
                     },
-                    is3D:true
+                    is3D:true,
+                    width:960,
+                    height:480,
                 },
 
                 //默认实时推荐页面
