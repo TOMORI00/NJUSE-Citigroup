@@ -1,14 +1,14 @@
 此页为首页
 - 本页元素与交互
-  - 图片背景
-  - 左上图标》跳转至某页面（目前为NJU主页）
-  - 上方中央软件名称
-  - 右上“关于”按钮》跳转至“关于”页面
-  - 中央选择框
-    - 选择提示语句
-    - Advanced：高级用户》银行经理
-    - Normal：普通用户》个人客户
-    - Analysis：分析用户》数据分析者
+- 图片背景
+- 左上图标》跳转至某页面（目前为NJU主页）
+- 上方中央软件名称
+- 右上“关于”按钮》跳转至“关于”页面
+- 中央选择框
+- 选择提示语句
+- Advanced：高级用户》银行经理
+- Normal：普通用户》个人客户
+- Analysis：分析用户》数据分析者
 
 <template>
   <div class="div-background-image">
@@ -17,11 +17,11 @@
         <el-header class="homepage-header" height="160px">
           <div class="div-logo">
             <a href="https://www.nju.edu.cn/">
-              <img class="logo-img" src="../assets/logo.png">
+              <img class="logo-img" src="../assets/nju.png">
             </a>
           </div>
           <div class="div-more-link">
-            
+
             <!-- 测试模块用 -->
             <div class="link-text">
               <a href="/test"><h2>Test</h2></a>
@@ -32,7 +32,7 @@
             </div>
           </div>
         </el-header>
-        
+
         <div>基金推荐系统</div>
         <el-divider></el-divider>
         <el-main>
@@ -51,6 +51,11 @@
 <script>
 export default {
   name: "HomePage",
+  data() {
+    return {
+      reportURL: "https://mjh1.oss-cn-hangzhou.aliyuncs.com/illust_80820235_20200817_194855.jpg"
+    }
+  },
   methods: {
     toAdvanced() {
       this.$router.push('/advanced')
@@ -60,6 +65,7 @@ export default {
     },
     toAnalysis() {
       //TODO，下载pdf
+      window.open(this.reportURL)
     }
   }
 }
@@ -95,8 +101,8 @@ export default {
 
 .logo-img {
   margin: auto;
-  width: 130px;
-  height: 130px;
+  width: 131.58px;
+  height: 164.74px;
   position: relative;
   top: 15px;
 }

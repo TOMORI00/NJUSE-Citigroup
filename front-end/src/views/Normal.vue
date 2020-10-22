@@ -35,7 +35,7 @@
 
                   <p>投资建议</p>
                           
-                  <GChart class="analysis-chart" type="PieChart" :data=chartData :options="chartOption"/>
+                  <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
 
                   <el-divider></el-divider>
 
@@ -51,7 +51,7 @@
                   <br>
                   <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
               
-                  <GChart class="analysis-chart" type="PieChart" :data=chartData :options="chartOption"/>      
+                  <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
 
               </el-tab-pane>
               
@@ -81,7 +81,7 @@
                     ['mjh',100]
                 ],
                 // 画图
-                chartOption: {
+                PieChartOptions: {
                     charts: {
                         title: 'testChart'
                     },
@@ -99,14 +99,14 @@
         },
         methods: {
             changePieChart(val){
-                if(val==3)this.chartData=[
+                if(val===3)this.chartData=[
                     ['name', 'contribution'],
                     ['ss', 25],
                     ['ljl', 40],
                     ['dqj', 56],
                     ['mjh',100]
                 ]
-                else if(val==6)this.chartData=[
+                else if(val===6)this.chartData=[
                     ['name', 'contribution'],
                     ['ss', 75],
                     ['ljl', 40],
@@ -134,11 +134,5 @@
     .div-main {
       width: 1440px;
     }
-  }
-
-  .analysis-chart {
-    width: 960px;
-    height: 480px;
-    margin: auto;
   }
 </style>
