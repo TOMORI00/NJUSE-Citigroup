@@ -1,14 +1,14 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    <el-button id="getData" @click="getData">getData</el-button>
+    <el-button id="getData" @click="getData">getFvData测试</el-button>
     <div>{{outputData}}</div>
   </div>
 </template>
 
 
 <script>
-import {getDataAPI} from "@/api/output";
+import {getFvDataAPI} from "@/api/output";
 export default {
   data(){
     return {
@@ -16,9 +16,10 @@ export default {
     }
   },
   methods:{
+    // 测试用
     async getData(){
       let that=this
-      const res =await getDataAPI()
+      const res =await getFvDataAPI()
       console.log(res)
       that.outputData=res
     }

@@ -65,8 +65,14 @@
 
             <div class="div-analysis">
               <p>对比复现</p>
-
-              <GChart type="LineChart" :data=chartData :options="LineChartOptions"/>
+              <div class="div-risk" id="div-risk">
+                <el-radio-group v-model="radio">
+                  <el-radio :label="3">低风险</el-radio>
+                  <el-radio :label="6">中风险</el-radio>
+                  <el-radio :label="9">高风险</el-radio>
+                </el-radio-group>
+              </div>
+              <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
 
             </div>
 
@@ -114,6 +120,7 @@
       <el-aside></el-aside>
     </el-container>
 
+    <div>{{ outputData }}</div>
   </div>
 </template>
 
@@ -122,6 +129,8 @@ import Heading from "../components/Heading";
 import XLSX from 'xlsx'
 import {importExcelAPI} from "@/api/upload";
 import {uploadAPI} from "@/api/upload";
+import {getFvDataAPI} from "@/api/output";
+import {getFpvDataAPI} from "@/api/output";
 
 export default {
   name: "Advanced",
@@ -177,7 +186,9 @@ export default {
         height: 480,
         is3D: true,
       },
-      LineChartOptions:{
+      // 后端返回的数据
+      outputData: '',
+      LineChartOptions: {
         charts: {
           title: 'testChart'
         },
@@ -329,7 +340,50 @@ export default {
     handleDateChange(value) {
       console.log(value)
     }
-  }
+  },
+  // 确定导入完成后发送数据
+  async uploadAck() {
+    /*                 this.uploaded = true
+                    if (this.fileList.length > 0) {
+                        document.getElementById('div-result').style.display = 'unset'
+                        const data = {
+                            jsonString: JSON.stringify(this.allFile)
+                        }
+                        const res = importExcelAPI(data)
+                    } else {
+                        this.$message({
+                            message: '请上传文件！',
+                            type: 'warning'
+                        });
+                    } */
+    let that = this
+    if (this.fileList.length > 0) {
+      //document.getElementById('div-result').style.display = 'unset'
+      that.outputData = '正在计算'
+      this.uploaded = true
+      let fd = new FormData();
+      fd.append('type', that.type)
+      console.log(that.type)
+      this.fileList.forEach(item => {
+        //文件信息中raw才是真的文件
+        fd.append("files", item.raw);
+        console.log(item.raw)
+      })
+      console.log(fd)
+      const res = await uploadAPI(fd)
+      if (that.type == '基金') {
+        that.outputData = await getFvDataAPI()
+      } else if (that.type == '理财') {
+        that.outputData = await getFpvDataAPI()
+      }
+
+    } else {
+      this.$message({
+        message: '请上传文件！',
+        type: 'warning'
+      });
+    }
+  },
 }
 </script>
 
