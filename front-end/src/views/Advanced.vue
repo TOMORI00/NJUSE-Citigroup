@@ -61,7 +61,13 @@
 
                 <div class="div-analysis">
                 <p>对比复现</p>
-
+                <div class="div-risk" id="div-risk">
+                    <el-radio-group v-model="radio">
+                    <el-radio :label="3">低风险</el-radio>
+                    <el-radio :label="6">中风险</el-radio>
+                    <el-radio :label="9">高风险</el-radio>
+                    </el-radio-group>
+                </div>
                 <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
 
                 </div>
