@@ -110,6 +110,7 @@
         <el-aside></el-aside>
     </el-container>
 
+    <div>{{outputData}}</div>
   </div>
 </template>
 
@@ -118,6 +119,8 @@
     import XLSX from 'xlsx'
     import {importExcelAPI} from "@/api/upload";
     import {uploadAPI} from "@/api/upload";
+    import {getFvDataAPI} from "@/api/output";
+    import {getFpvDataAPI} from "@/api/output";
     export default {
         name: "Advanced",
         data() {
@@ -186,6 +189,9 @@
                     content: {}
                 },
                 allFile: {},
+
+                // 后端返回的数据
+                outputData:''
             }
         },
         components: {
@@ -246,7 +252,7 @@
             },
 
             // 确定导入完成后发送数据
-            uploadAck() {
+            async uploadAck() {
 /*                 this.uploaded = true
                 if (this.fileList.length > 0) {
                     document.getElementById('div-result').style.display = 'unset'
@@ -260,17 +266,27 @@
                         type: 'warning'
                     });
                 } */
-                this.uploaded=true
+                let that=this
                 if (this.fileList.length > 0) {
                     //document.getElementById('div-result').style.display = 'unset'
+                    that.outputData='正在计算'
+                    this.uploaded=true
                     let fd = new FormData();
+                    fd.append('type',that.type)
+                    console.log(that.type)
                     this.fileList.forEach(item=>{
                         //文件信息中raw才是真的文件
                         fd.append("files",item.raw);
                         console.log(item.raw)
                     })
                     console.log(fd)
-                    const res=uploadAPI(fd)
+                    const res=await uploadAPI(fd)
+                    if (that.type=='基金'){
+                        that.outputData=await getFvDataAPI()
+                    }else if(that.type=='理财'){
+                        that.outputData=await getFpvDataAPI()
+                    }
+
                 }else{
                     this.$message({
                         message: '请上传文件！',
