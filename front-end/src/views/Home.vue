@@ -111,8 +111,8 @@ export default {
 
 .logo-img {
   margin: auto;
-  width: 130px;
-  height: 130px;
+  width: 131.58px;
+  height: 164.74px;
   position: relative;
   top: 15px;
 }
@@ -128,10 +128,10 @@ export default {
 }
 
 .link-text {
-  width: 70px;
-  height: 30px;
+  /*width: 70px;*/
+  /*height: 30px;*/
   display: inline-block;
-  margin: auto;
+  /*margin: auto;*/
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   width: 80px;

@@ -2,8 +2,8 @@
   <div>
     <div class="div-heading">
       <div class="div-logo">
-        <a href="/">
-          <img class="logo-img" src="../assets/logo.png">
+        <a href="/homepage">
+          <img class="logo-img" src="../assets/nju.png">
         </a>
       </div>
       <div class="div-name"><h2 style="margin:auto;font-size: 30px">基金推荐系统</h2></div>
@@ -53,8 +53,8 @@
   }
 
   .logo-img {
-    width: 60px;
-    height: 60px;
+    width: 60.02px;
+    height: 75.15px;
   }
 
   .div-name {

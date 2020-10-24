@@ -1,14 +1,14 @@
 此页为首页
 - 本页元素与交互
-  - 图片背景
-  - 左上图标》跳转至某页面（目前为NJU主页）
-  - 上方中央软件名称
-  - 右上“关于”按钮》跳转至“关于”页面
-  - 中央选择框
-    - 选择提示语句
-    - Advanced：高级用户》银行经理
-    - Normal：普通用户》个人客户
-    - Analysis：分析用户》数据分析者
+- 图片背景
+- 左上图标》跳转至某页面（目前为NJU主页）
+- 上方中央软件名称
+- 右上“关于”按钮》跳转至“关于”页面
+- 中央选择框
+- 选择提示语句
+- Advanced：高级用户》银行经理
+- Normal：普通用户》个人客户
+- Analysis：分析用户》数据分析者
 
 <template>
   <div class="div-background-image">
@@ -21,14 +21,19 @@
             </a>
           </div>
           <div class="div-more-link">
+
+            <!-- 测试模块用 -->
+            <div class="link-text">
+              <a href="/test"><h2>Test</h2></a>
+            </div>
+
             <div class="link-text">
               <a href="/about"><h2>About</h2></a>
             </div>
           </div>
         </el-header>
-        
-        <div class="title">公募基金分析推荐系统</div>
 
+        <div>基金推荐系统</div>
         <el-divider></el-divider>
         <el-main>
           <div class="div-choose" id="div-choose">
@@ -46,6 +51,11 @@
 <script>
 export default {
   name: "HomePage",
+  data() {
+    return {
+      reportURL: "https://mjh1.oss-cn-hangzhou.aliyuncs.com/illust_80820235_20200817_194855.jpg"
+    }
+  },
   methods: {
     toAdvanced() {
       this.$router.push('/advanced')
@@ -55,6 +65,7 @@ export default {
     },
     toAnalysis() {
       //TODO，下载pdf
+      window.open(this.reportURL)
     }
   }
 }
@@ -90,11 +101,20 @@ export default {
 
 .logo-img {
   margin: auto;
-  width: 130px;
-  height: 130px;
+  width: 131.58px;
+  height: 164.74px;
   position: relative;
   top: 15px;
 }
+
+/*.div-more {*/
+/*  width: 800px;*/
+/*  height: 160px;*/
+/*  display: inline-block;*/
+/*  position: relative;*/
+/*  !*right: 20px;*!*/
+/*  top: -46px;*/
+/*}*/
 
 .div-more-link {
   width: 150px;
@@ -111,14 +131,6 @@ export default {
   height: 30px;
   display: inline-block;
   margin: auto;
-  border-radius: 15px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  width: 80px;
-  height: 30px;
-  background: rgba(255, 254, 254, 0.4);
-  margin-top: 25px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .div-choose {
@@ -139,19 +151,6 @@ export default {
   position: relative;
   top: 65px;
   opacity: 0.7;
-}
-
-.title {
-  border-radius: 15px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  width: 500px;
-  height: 60px;
-  background: rgba(255, 254, 254, 0.4);
-  margin-top: 25px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight:bold;
-  font-size:40px;
 }
 
 @media screen and (max-width: 1170px) {

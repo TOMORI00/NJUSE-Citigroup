@@ -3,9 +3,18 @@ const api = {
     outputPre: '/api/output'
 }
 
-export function getDataAPI(){
+// 获取基金数据
+export function getFvDataAPI(){
     return axios({
-        url: `${api.outputPre}/getData`,
+        url: `${api.outputPre}/getFvData`,
+        method: 'GET'
+    })
+}
+
+// 获取理财数据
+export function getFpvDataAPI(){
+    return axios({
+        url: `${api.outputPre}/getFpvData`,
         method: 'GET'
     })
 }
