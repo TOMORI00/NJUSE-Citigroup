@@ -122,11 +122,8 @@ export default {
 }
 
 .link-text {
-  /*width: 70px;*/
-  /*height: 30px;*/
   display: inline-block;
-  /*margin: auto;*/
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   width: 80px;
   height: 30px;
@@ -140,7 +137,7 @@ export default {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   width: 1000px;
   height: 400px;
-  background: rgba(255, 254, 254, 0.4);
+  background: rgba(0, 0, 0, 0.25);
   margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
@@ -162,19 +159,21 @@ export default {
   height: 200px;
   position: relative;
   top: 15px;
-  opacity: 0.7;
+  opacity: 0.9;
   font-weight:bold; 
   font-size:26px;
   background-image: url('../assets/user.png');
   padding: 14% 0% 0%;
 }
 
+.choose-button--active
+
 .title {
-  border-radius: 15px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
   width: 500px;
   height: 60px;
-  background: rgba(255, 254, 254, 0.4);
+  background: rgba(0, 0, 0, 0.1);
   margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
