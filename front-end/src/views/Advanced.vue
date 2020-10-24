@@ -15,144 +15,141 @@
 - 推荐历史
 
 <template>
-  <div class="div-main">
+  <div>
+    <div class="div-bg"></div>
+    <div class="div-main">
 
-    <heading></heading>
+      <heading></heading>
 
-    <el-container>
-      <el-aside></el-aside>
-      <el-main>
-        <div class="mainblock">
-          <el-tabs v-model="activeTab">
+      <el-container>
+        <el-aside></el-aside>
+        <el-main>
+          <div class="mainblock">
+            <el-tabs v-model="activeTab">
 
-            <el-tab-pane label="投资记录上传" name="first" v-if='!uploaded'>
+              <el-tab-pane label="投资记录上传" name="first" v-if='!uploaded'>
 
-              <el-container id="my-container">
-                <el-header height="40px" style="margin: 20px">
-                  <el-select v-model="type" @change="handleTypeChange">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label"
-                              :value="item.value"></el-option>
-                  </el-select>
-                </el-header>
-              </el-container>
+                <el-container id="my-container">
+                  <el-header height="40px" style="margin: 20px">
+                    <el-select v-model="type" @change="handleTypeChange">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                 :value="item.value"></el-option>
+                    </el-select>
+                  </el-header>
+                </el-container>
 
-              <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview"
-                        :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList"
-                        :auto-upload="false">
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
-              </el-upload>
-              <br>
-              <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认
-              </el-button>
+                <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange"
+                           :on-preview="handlePreview"
+                           :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList"
+                           :auto-upload="false">
+                  <i class="el-icon-upload"></i>
+                  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                  <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
+                </el-upload>
+                <br>
+                <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认
+                </el-button>
 
-            </el-tab-pane>
+              </el-tab-pane>
 
-            <el-tab-pane label="投资复现" name="second" v-if='uploaded'>
+              <el-tab-pane label="投资复现" name="second" v-if='uploaded'>
 
-              <div class="div-analysis">
-                <p style="font-weight:bold; 
+                <div class="div-analysis">
+                  <p style="font-weight:bold;
                           font-size:20px;
                           border-radius: 15px;
                           box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
                           background: rgba(0, 0, 0, 0.15);
                           margin-top: 25px;
                           padding:1%;"
-                          >历史复现</p>
-                <GChart type="LineChart" :data=historyLine :options="LineChartOptions"/>
-              </div>
+                  >历史复现</p>
+                  <GChart type="LineChart" :data=historyLine :options="LineChartOptions"/>
+                </div>
 
-              <el-divider></el-divider>
+                <el-divider></el-divider>
 
-              <div class="div-analysis">
-                <p style="font-weight:bold; 
+                <div class="div-analysis">
+                  <p style="font-weight:bold;
                           font-size:20px;
                           border-radius: 15px;
                           box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
                           background: rgba(0, 0, 0, 0.15);
                           margin-top: 25px;
                           padding:1%;"
-                          >对比复现</p>
+                  >对比复现</p>
+                  <div class="div-risk" id="div-risk">
+                    <el-radio-group v-model="compRadio" @change="compareLineChange">
+                      <el-radio :label="3">低风险</el-radio>
+                      <el-radio :label="6">中风险</el-radio>
+                      <el-radio :label="9">高风险</el-radio>
+                    </el-radio-group>
+                  </div>
+                  <GChart type="LineChart" :data=compareLine :options="LineChartOptions"/>
+
+                </div>
+
+                <!-- 备用的修改基金池功能 -->
+                <!-- <el-button @click="changeFund" v-if="false">修改基金池</el-button>
+                <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
+                <span>修改基金池细节</span>
+                <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                </span>
+                </el-dialog> -->
+              </el-tab-pane>
+
+              <el-tab-pane label="投资建议" name="third" v-if='uploaded'>
+
+                <p style="font-weight:bold;
+                          font-size:20px;
+                          border-radius: 15px;
+                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                          background: rgba(0, 0, 0, 0.15);
+                          margin-top: 25px;
+                          padding:1%;"
+                >投资建议</p>
                 <div class="div-risk" id="div-risk">
-                  <el-radio-group v-model="compRadio" @change="compareLineChange">
+                  <el-radio-group v-model="recRadio" @change="recommendChange">
                     <el-radio :label="3">低风险</el-radio>
                     <el-radio :label="6">中风险</el-radio>
                     <el-radio :label="9">高风险</el-radio>
                   </el-radio-group>
                 </div>
-                <GChart type="LineChart" :data=compareLine :options="LineChartOptions"/>
 
-              </div>
+                <GChart type="PieChart" :data=recommendPie :options="PieChartOptions"/>
 
-              <!-- 备用的修改基金池功能 -->
-              <!-- <el-button @click="changeFund" v-if="false">修改基金池</el-button>
-              <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
-              <span>修改基金池细节</span>
-              <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogVisible = false">取 消</el-button>
-              <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-              </span>
-              </el-dialog> -->
-            </el-tab-pane>
+                <el-divider></el-divider>
 
-            <el-tab-pane label="投资建议" name="third" v-if='uploaded'>
-
-              <p style="font-weight:bold; 
-                          font-size:20px;
-                          border-radius: 15px;
-                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                          background: rgba(0, 0, 0, 0.15);
-                          margin-top: 25px;
-                          padding:1%;"
-                          >投资建议</p>
-              <div class="div-risk" id="div-risk">
-                <el-radio-group v-model="recRadio" @change="recommendChange">
-                  <el-radio :label="3">低风险</el-radio>
-                  <el-radio :label="6">中风险</el-radio>
-                  <el-radio :label="9">高风险</el-radio>
-                </el-radio-group>
-              </div>
-
-              <GChart type="PieChart" :data=recommendPie :options="PieChartOptions"/>
-
-              <el-divider></el-divider>
-
-              <p style="font-weight:bold; 
+                <p style="font-weight:bold;
                         font-size:20px;
                         border-radius: 15px;
                         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
                         background: rgba(0, 0, 0, 0.15);
                         margin-top: 25px;
                         padding:1%;"
-                        >历史推荐</p>
-              <div class="timeblock">
-                <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
-                <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
-                                @change="handleDateChange">
-                </el-date-picker>
-                <br>
-                <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
-              </div>
-              <GChart type="PieChart" :data=historyPie :options="PieChartOptions"/>
+                >历史推荐</p>
+                <div class="timeblock">
+                  <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
+                  <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
+                                  @change="handleDateChange">
+                  </el-date-picker>
+                  <br>
+                  <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
+                </div>
+                <GChart type="PieChart" :data=historyPie :options="PieChartOptions"/>
 
-            </el-tab-pane>
+              </el-tab-pane>
 
-          </el-tabs>
-        </div>
-        <el-divider></el-divider>
-        <div id="brs">
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-        </div>
-      </el-main>
-      <el-aside></el-aside>
-    </el-container>
+            </el-tabs>
+          </div>
+          <el-divider></el-divider>
+        </el-main>
+        <el-aside></el-aside>
+      </el-container>
 
-    <div>{{ chartData }}</div>
+      <div>{{ chartData }}</div>
+    </div>
   </div>
 </template>
 
@@ -211,24 +208,24 @@ export default {
       },
       // 后端返回的数据
       outputData: {
-            "date": '', 
-            "chart1": '', 
-            "in1": '',
+        "date": '',
+        "chart1": '',
+        "in1": '',
 
-            "duration": '',
+        "duration": '',
 
-            "chart2_high": '', 
-            "chart2_mid": '', 
-            "chart2_low": '',
+        "chart2_high": '',
+        "chart2_mid": '',
+        "chart2_low": '',
 
-            "chartadd2_high": '', 
-            "chartadd2_mid": '', 
-            "chartadd2_low": '',
+        "chartadd2_high": '',
+        "chartadd2_mid": '',
+        "chartadd2_low": '',
 
-            "in2_high": '', 
-            "in2_mid": '', 
-            "in2_low": ''
-        },
+        "in2_high": '',
+        "in2_mid": '',
+        "in2_low": ''
+      },
       LineChartOptions: {
         charts: {
           title: 'testChart'
@@ -245,7 +242,7 @@ export default {
       compRadio: 3,
       // 推荐组合风险
       recRadio: 3,
-      chartData:'',
+      chartData: '',
       // 开始日期
       dateValue: '',
 
@@ -273,11 +270,10 @@ export default {
 
     // 确定导入完成后发送数据
     async uploadAck() {
-      document.getElementById("brs").style.display = "none"
       let that = this
       if (this.fileList.length > 0) {
         that.outputData = '正在计算'
-        that.chartData='正在计算饼图数据'
+        that.chartData = '正在计算饼图数据'
         this.uploaded = true
         let fd = new FormData();
         fd.append('type', that.type)
@@ -296,9 +292,9 @@ export default {
           that.outputData = await getFpvDataAPI()
         }
         console.log(that.outputData)
-        that.historyLine=that.outputData.chart1
-        that.compareLine=that.outputData.chart2_low
-        that.chartData=await getChartAPI()
+        that.historyLine = that.outputData.chart1
+        that.compareLine = that.outputData.chart2_low
+        that.chartData = await getChartAPI()
       } else {
         this.$message({
           message: '请上传文件！',
@@ -387,19 +383,18 @@ export default {
     },
 
     //
-    compareLineChange(val){
-      let that=this
-      if(val===3){
-        that.compareLine=that.outputData.chart2_low
-      }else if(val===6){
-        that.compareLine=that.outputData.chart2_mid
-      }else if(val===9){
-        that.compareLine=that.outputData.chart2_high
+    compareLineChange(val) {
+      let that = this
+      if (val === 3) {
+        that.compareLine = that.outputData.chart2_low
+      } else if (val === 6) {
+        that.compareLine = that.outputData.chart2_mid
+      } else if (val === 9) {
+        that.compareLine = that.outputData.chart2_high
       }
     }
-  
 
-  
+
   },
 
 }
@@ -407,44 +402,54 @@ export default {
 
 <style>
 
-.el-tabs__item.is-active{
-  color:rgb(0,0,0);
+.el-tabs__item.is-active {
+  color: rgb(0, 0, 0);
   padding: 2%;
   border-radius: 5px;
-  font-size:18px;
+  font-size: 18px;
 }
 
-.el-tabs__item{
-  font-weight:bold; 
-  font-size:15px;
+.el-tabs__item {
+  font-weight: bold;
+  font-size: 15px;
 }
 
-.el-tabs__active-bar{
-  background-color:rgb(0, 0, 0);
+.el-tabs__active-bar {
+  background-color: rgb(0, 0, 0);
 }
 
-.el-radio{
-  font-weight:bold; 
+.el-radio {
+  font-weight: bold;
 }
-
 
 
 </style>
 
 <style scoped>
-.div-main {
+.div-bg {
   width: 100%;
+  position: fixed;
   background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/1542.jpg");
+  /* background-image: url("../assets/background.jpg"); */
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 100%;
-  background-attachment: fixed;
+  background-size: cover;
+  height: 100%;
+}
+
+.div-main {
+  width: 100%;
+  /*background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/1542.jpg");*/
+  /*background-position: center center;*/
+  /*background-repeat: no-repeat;*/
+  /*background-size: 100%;*/
+  /*background-attachment: fixed;*/
 }
 
 @media screen and (max-width: 1440px) {
   .div-main {
     width: 1440px;
-    background-size: 1440px;
+    /*background-size: 1440px;*/
   }
 }
 
@@ -453,7 +458,7 @@ export default {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   background: rgba(0, 0, 0, 0.055);
   margin-top: 25px;
-  padding:5%;
+  padding: 5%;
 }
 
 .div-risk {
