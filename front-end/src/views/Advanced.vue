@@ -427,6 +427,7 @@ export default {
 
 <style scoped>
 .div-bg {
+  z-index: -1;
   width: 100%;
   position: fixed;
   background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/1542.jpg");
