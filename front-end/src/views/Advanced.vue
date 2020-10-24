@@ -52,29 +52,16 @@
             <el-tab-pane label="投资复现" name="second" v-if='uploaded'>
 
               <div class="div-analysis">
-                <p style="font-weight:bold; 
-                          font-size:20px;
-                          border-radius: 15px;
-                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                          background: rgba(0, 0, 0, 0.15);
-                          margin-top: 25px;
-                          padding:1%;"
-                          >历史复现</p>
+                <p style="font-weight:bold; font-size:20px;">历史复现</p>
                 <GChart type="LineChart" :data=historyLine :options="LineChartOptions"/>
               </div>
 
               <el-divider></el-divider>
+
               <div class="div-analysis">
-                <p style="font-weight:bold; 
-                          font-size:20px;
-                          border-radius: 15px;
-                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                          background: rgba(0, 0, 0, 0.15);
-                          margin-top: 25px;
-                          padding:1%;"
-                          >对比复现</p>
+                <p style="font-weight:bold; font-size:20px;">对比复现</p>
                 <div class="div-risk" id="div-risk">
-                  <el-radio-group v-model="radio">
+                  <el-radio-group v-model="compRadio" @change="compareLineChange">
                     <el-radio :label="3">低风险</el-radio>
                     <el-radio :label="6">中风险</el-radio>
                     <el-radio :label="9">高风险</el-radio>
@@ -97,16 +84,9 @@
 
             <el-tab-pane label="投资建议" name="third" v-if='uploaded'>
 
-              <p style="font-weight:bold; 
-                          font-size:20px;
-                          border-radius: 15px;
-                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                          background: rgba(0, 0, 0, 0.15);
-                          margin-top: 25px;
-                          padding:1%;"
-                          >投资建议</p>
+              <p style="font-weight:bold; font-size:20px;">投资建议</p>
               <div class="div-risk" id="div-risk">
-                <el-radio-group v-model="radio">
+                <el-radio-group v-model="recRadio" @change="recommendChange">
                   <el-radio :label="3">低风险</el-radio>
                   <el-radio :label="6">中风险</el-radio>
                   <el-radio :label="9">高风险</el-radio>
@@ -116,17 +96,10 @@
               <GChart type="PieChart" :data=recommendPie :options="PieChartOptions"/>
 
               <el-divider></el-divider>
-              <p style="font-weight:bold; 
-                        font-size:20px;
-                        border-radius: 15px;
-                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                        background: rgba(0, 0, 0, 0.15);
-                        margin-top: 25px;
-                        padding:1%;"
-                        >历史推荐记录</p>
 
               <div class="timeblock">
-                <span style="font-weight:bold; font-size:15px;">选择时段:   </span>
+                <p style="font-weight:bold; font-size:20px;">历史推荐</p>
+                <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
                 <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
                                 @change="handleDateChange">
                 </el-date-picker>
@@ -241,8 +214,10 @@ export default {
 
       // 修改基金池
       dialogVisible: false,
-      // 风险
-      radio: 3,
+      // 对比复现风险
+      compRadio: 3,
+      // 推荐组合风险
+      recRadio: 3,
       // 开始日期
       dateValue: '',
 
@@ -290,6 +265,9 @@ export default {
         } else if (that.type == '理财') {
           that.outputData = await getFpvDataAPI()
         }
+        console.log(that.outputData)
+        that.historyLine=that.outputData.chart1
+        that.compareLine=that.outputData.chart2_low
 
       } else {
         this.$message({
@@ -298,8 +276,8 @@ export default {
         });
       }
 
-      
-      
+
+      //
     },
     // :on-change
     // 检查和导入Excel文件
@@ -379,6 +357,18 @@ export default {
     // date Change
     handleDateChange(value) {
       console.log(value)
+    },
+
+    //
+    compareLineChange(val){
+      let that=this
+      if(val===3){
+        that.compareLine=that.outputData.chart2_low
+      }else if(val===6){
+        that.compareLine=that.outputData.chart2_mid
+      }else if(val===9){
+        that.compareLine=that.outputData.chart2_high
+      }
     }
   
 
@@ -410,6 +400,8 @@ export default {
   font-weight:bold; 
 }
 
+
+
 </style>
 
 <style scoped>
@@ -428,7 +420,7 @@ export default {
 .div-risk {
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.107);
   margin-top: 25px;
   margin-bottom: 25px;
   padding: 2%;
