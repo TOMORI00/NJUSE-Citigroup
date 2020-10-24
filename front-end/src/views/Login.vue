@@ -88,11 +88,23 @@ export default {
 }
 </script>
 
+<style>
+
+.el-button{
+  color:rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.25);
+  font-size: 15px;
+  font-weight:bold;
+  
+}
+
+</style>
+
 <style scoped>
 .div-background-image {
   width: 100%;
   position: fixed;
-  background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/illust_83645290_20200817_194209.jpg");
+  background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/1542.jpg");
   /* background-image: url("../assets/background.jpg"); */
   background-position: center center;
   background-repeat: no-repeat;
@@ -108,8 +120,8 @@ export default {
 }
 
 .div-logo {
-  width: 150px;
-  height: 150px;
+  width: 130px;
+  height: 130px;
   display: inline-block;
   position: relative;
   top: 10px;
@@ -157,16 +169,16 @@ export default {
   margin-right: auto;
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.377);
+  background: rgba(0, 0, 0, 0.3);
   padding: 3%;
 }
 
 .title {
   border-radius: 15px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
   width: 500px;
   height: 60px;
-  background: rgba(255, 254, 254, 0.4);
+  background: rgba(0, 0, 0, 0.1);
   margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
