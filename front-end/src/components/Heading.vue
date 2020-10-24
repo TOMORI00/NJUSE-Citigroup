@@ -53,8 +53,8 @@
   }
 
   .logo-img {
-    width: 60.02px;
-    height: 75.15px;
+    width: 70.02px;
+    height: 85.15px;
   }
 
   .div-name {

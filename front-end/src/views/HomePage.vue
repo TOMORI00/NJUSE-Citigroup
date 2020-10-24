@@ -13,8 +13,8 @@
 <template>
   <div class="div-background-image">
     <div class="div-homepage">
-      <el-container height="817px">
-        <el-header class="homepage-header" height="160px">
+      <el-container height="617px">
+        <el-header class="homepage-header" height="100px">
           <div class="div-logo">
             <a href="https://www.nju.edu.cn/">
               <img class="logo-img" src="../assets/nju.png">
@@ -82,7 +82,7 @@ export default {
   position: center;
   margin: auto;
   width: 1440px;
-  height: 817px;
+  height: 617px;
 }
 
 .div-logo {

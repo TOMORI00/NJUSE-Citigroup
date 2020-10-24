@@ -30,17 +30,19 @@
 
         <el-divider></el-divider>
         <el-main>
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="div-choose">
-            <el-form-item prop="name">
-              <el-input v-model="ruleForm.name" placeholder="用户名"></el-input>
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input v-model="ruleForm.password" placeholder="密码" show-password></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type='primary' @click="login('ruleForm')" class="choose-button">登录</el-button>
-            </el-form-item>
-          </el-form>
+          <div class="loginblock">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="div-choose">
+              <el-form-item prop="name">
+                <el-input v-model="ruleForm.name" placeholder="用户名"></el-input>
+              </el-form-item>
+              <el-form-item prop="password">
+                <el-input v-model="ruleForm.password" placeholder="密码" show-password></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type='primary' @click="login('ruleForm')" class="choose-button">登录</el-button>
+              </el-form-item>
+            </el-form>
+          </div>
         </el-main>
       </el-container>
     </div>
@@ -158,6 +160,15 @@ export default {
   margin-right: auto;
   font-weight:bold;
   font-size:40px;
+}
+
+.loginblock{
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.092);
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 2%;
 }
 
 @media screen and (max-width: 1170px) {

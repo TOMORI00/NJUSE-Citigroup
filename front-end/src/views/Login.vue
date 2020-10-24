@@ -12,8 +12,8 @@
 <template>
   <div class="div-background-image">
     <div class="div-homepage">
-      <el-container height="817px">
-        <el-header class="homepage-header" height="160px">
+      <el-container height="617px">
+        <el-header class="homepage-header" height="130px">
           <div class="div-logo">
             <a href="https://www.nju.edu.cn/">
               <img class="logo-img" src="../assets/nju.png">
@@ -29,19 +29,25 @@
         <div class="title">公募基金分析推荐系统</div>
 
         <el-divider></el-divider>
-        <el-main class="input-form">
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="div-choose">
-            <el-form-item prop="name">
-              <el-input v-model="ruleForm.name" placeholder="用户名"></el-input>
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input v-model="ruleForm.password" placeholder="密码" show-password></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type='primary' @click="login('ruleForm')" class="choose-button">登录</el-button>
-            </el-form-item>
-          </el-form>
-        </el-main>
+        <el-container>
+          <el-aside></el-aside>
+          <el-main class="input-form">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="div-choose">
+              <el-form-item prop="name">
+                <el-input v-model="ruleForm.name" placeholder="用户名"></el-input>
+              </el-form-item>
+              <el-form-item prop="password">
+                <el-input v-model="ruleForm.password" placeholder="密码" show-password></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type='primary' @click="login('ruleForm')" class="choose-button">登录</el-button>
+              </el-form-item>
+            </el-form>
+          </el-main>
+          <el-aside></el-aside>
+        </el-container>
+        <el-aside></el-aside>
+        <el-aside></el-aside>
       </el-container>
     </div>
   </div>
@@ -98,12 +104,12 @@ export default {
   position: center;
   margin: auto;
   width: 1440px;
-  height: 817px;
+  height: 617px;
 }
 
 .div-logo {
-  width: 160px;
-  height: 160px;
+  width: 150px;
+  height: 150px;
   display: inline-block;
   position: relative;
   top: 10px;
@@ -145,10 +151,14 @@ export default {
 
 .div-choose {
   width: 800px;
-  height: 450px;
-  margin-top: 25px;
+  height: 230px;
+  margin-top: 5px;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.377);
+  padding: 3%;
 }
 
 .title {
