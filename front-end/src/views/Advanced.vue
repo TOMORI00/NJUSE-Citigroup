@@ -57,11 +57,11 @@
               </div>
 
               <el-divider></el-divider>
-              '\u4ea4\u94f6\u65b0\u6210\u957f'
+
               <div class="div-analysis">
                 <p style="font-weight:bold; font-size:20px;">对比复现</p>
                 <div class="div-risk" id="div-risk">
-                  <el-radio-group v-model="radio">
+                  <el-radio-group v-model="compRadio" @change="compareLineChange">
                     <el-radio :label="3">低风险</el-radio>
                     <el-radio :label="6">中风险</el-radio>
                     <el-radio :label="9">高风险</el-radio>
@@ -86,7 +86,7 @@
 
               <p style="font-weight:bold; font-size:20px;">投资建议</p>
               <div class="div-risk" id="div-risk">
-                <el-radio-group v-model="radio">
+                <el-radio-group v-model="recRadio" @change="recommendChange">
                   <el-radio :label="3">低风险</el-radio>
                   <el-radio :label="6">中风险</el-radio>
                   <el-radio :label="9">高风险</el-radio>
@@ -214,8 +214,10 @@ export default {
 
       // 修改基金池
       dialogVisible: false,
-      // 风险
-      radio: 3,
+      // 对比复现风险
+      compRadio: 3,
+      // 推荐组合风险
+      recRadio: 3,
       // 开始日期
       dateValue: '',
 
@@ -263,6 +265,9 @@ export default {
         } else if (that.type == '理财') {
           that.outputData = await getFpvDataAPI()
         }
+        console.log(that.outputData)
+        that.historyLine=that.outputData.chart1
+        that.compareLine=that.outputData.chart2_low
 
       } else {
         this.$message({
@@ -352,6 +357,18 @@ export default {
     // date Change
     handleDateChange(value) {
       console.log(value)
+    },
+
+    //
+    compareLineChange(val){
+      let that=this
+      if(val===3){
+        that.compareLine=that.outputData.chart2_low
+      }else if(val===6){
+        that.compareLine=that.outputData.chart2_mid
+      }else if(val===9){
+        that.compareLine=that.outputData.chart2_high
+      }
     }
   
 
