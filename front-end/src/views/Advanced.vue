@@ -117,7 +117,7 @@
       <el-aside></el-aside>
     </el-container>
 
-    <div>{{ outputData }}</div>
+    <div>{{ chartData }}</div>
   </div>
 </template>
 
@@ -128,6 +128,7 @@ import {importExcelAPI} from "@/api/upload";
 import {uploadAPI} from "@/api/upload";
 import {getFvDataAPI} from "@/api/output";
 import {getFpvDataAPI} from "@/api/output";
+import {getChartAPI} from "@/api/output";
 
 export default {
   name: "Advanced",
@@ -153,25 +154,16 @@ export default {
       // 画图
       historyLine: '',
       compareLine: '',
-      recommendPie: '',
+      recommendPie: [
+        ['name', 'contribution'],
+        ['ss', 25],
+        ['ljl', 40],
+        ['dqj', 56],
+        ['mjh', 100]
+      ],
       histroyPie: '',
 
 
-
-      chartData: [
-        ['name', 'contribution'],
-        ['ss', 25],
-        ['ljl', 40],
-        ['dqj', 56],
-        ['mjh', 100]
-      ],
-      chartData1: [
-        ['name', 'contribution'],
-        ['ss', 25],
-        ['ljl', 40],
-        ['dqj', 56],
-        ['mjh', 100]
-      ],
       // 画图
       PieChartOptions: {
         charts: {
@@ -218,6 +210,7 @@ export default {
       compRadio: 3,
       // 推荐组合风险
       recRadio: 3,
+      chartData:'',
       // 开始日期
       dateValue: '',
 
@@ -248,6 +241,7 @@ export default {
       let that = this
       if (this.fileList.length > 0) {
         that.outputData = '正在计算'
+        that.chartData='正在计算饼图数据'
         this.uploaded = true
         let fd = new FormData();
         fd.append('type', that.type)
@@ -268,6 +262,10 @@ export default {
         console.log(that.outputData)
         that.historyLine=that.outputData.chart1
         that.compareLine=that.outputData.chart2_low
+
+        that.chartData=await getChartAPI()
+
+
 
       } else {
         this.$message({
