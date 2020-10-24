@@ -166,8 +166,8 @@
 
   .mainblock {
   border-radius: 15px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.075);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.15);
   margin-top: 25px;
   padding:5%;
 }
@@ -175,7 +175,7 @@
 .div-risk {
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.107);
+  background: rgba(0, 0, 0, 0.09);
   margin-top: 25px;
   margin-bottom: 25px;
   padding: 2%;

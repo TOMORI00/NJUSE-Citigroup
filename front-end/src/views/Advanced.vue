@@ -56,7 +56,7 @@
                           font-size:20px;
                           border-radius: 15px;
                           box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                          background: rgba(0, 0, 0, 0.15);
+                          background: rgba(0, 0, 0, 0.2);
                           margin-top: 25px;
                           padding:1%;"
                           >历史复现</p>
@@ -70,7 +70,7 @@
                           font-size:20px;
                           border-radius: 15px;
                           box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                          background: rgba(0, 0, 0, 0.15);
+                          background: rgba(0, 0, 0, 0.2);
                           margin-top: 25px;
                           padding:1%;"
                           >对比复现</p>
@@ -102,7 +102,7 @@
                           font-size:20px;
                           border-radius: 15px;
                           box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                          background: rgba(0, 0, 0, 0.15);
+                          background: rgba(0, 0, 0, 0.2);
                           margin-top: 25px;
                           padding:1%;"
                           >投资建议</p>
@@ -122,7 +122,7 @@
                         font-size:20px;
                         border-radius: 15px;
                         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                        background: rgba(0, 0, 0, 0.15);
+                        background: rgba(0, 0, 0, 0.2);
                         margin-top: 25px;
                         padding:1%;"
                         >历史推荐</p>
@@ -450,8 +450,8 @@ export default {
 
 .mainblock {
   border-radius: 15px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.055);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.15);
   margin-top: 25px;
   padding:5%;
 }
@@ -459,7 +459,7 @@ export default {
 .div-risk {
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.107);
+  background: rgba(0, 0, 0, 0.09);
   margin-top: 25px;
   margin-bottom: 25px;
   padding: 2%;

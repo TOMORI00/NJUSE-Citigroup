@@ -166,7 +166,7 @@ export default {
   margin-right: auto;
   border-radius: 10px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.20);
   padding: 5% 15% 0%;
 }
 
