@@ -37,30 +37,16 @@
                     
                     <el-tab-pane label="实时推荐" name="first">
 
-                        <p style="font-weight:bold; 
-                          font-size:20px;
-                          border-radius: 15px;
-                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                          background: rgba(0, 0, 0, 0.15);
-                          margin-top: 25px;
-                          padding:1%;"
-                          >投资建议</p>
+                        <p style="font-weight:bold; font-size:20px;">投资建议</p>
                         <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
                         <el-divider></el-divider>
 
                     </el-tab-pane>
 
-                    <el-tab-pane label="历史推荐" name="third">
-                      <p style="font-weight:bold; 
-                        font-size:20px;
-                        border-radius: 15px;
-                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-                        background: rgba(0, 0, 0, 0.15);
-                        margin-top: 25px;
-                        padding:1%;"
-                        >历史推荐记录</p>
+                    <el-tab-pane label="推荐历史" name="third">
                       <div class="timeblock">
-                        <span style="font-weight:bold; font-size:15px;">选择时段:   </span>
+                        <p style="font-weight:bold; font-size:20px;">历史推荐</p>
+                        <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
                         <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
                                         @change="handleDateChange">
                         </el-date-picker>
