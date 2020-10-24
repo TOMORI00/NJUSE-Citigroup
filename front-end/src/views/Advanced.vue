@@ -184,7 +184,25 @@ export default {
         is3D: true,
       },
       // 后端返回的数据
-      outputData: '',
+      outputData: {
+            "date": '', 
+            "chart1": '', 
+            "in1": '',
+
+            "duration": '',
+
+            "chart2_high": '', 
+            "chart2_mid": '', 
+            "chart2_low": '',
+
+            "chartadd2_high": '', 
+            "chartadd2_mid": '', 
+            "chartadd2_low": '',
+
+            "in2_high": '', 
+            "in2_mid": '', 
+            "in2_low": ''
+        },
       LineChartOptions: {
         charts: {
           title: 'testChart'
