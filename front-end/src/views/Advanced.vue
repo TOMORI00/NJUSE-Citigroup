@@ -116,6 +116,13 @@
 
         </el-tabs>
         <el-divider></el-divider>
+        <div id="brs">
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        </div>
       </el-main>
       <el-aside></el-aside>
     </el-container>
@@ -227,6 +234,38 @@ export default {
       // console.log(value)
     },
 
+  // 确定导入完成后发送数据
+  async uploadAck() {
+    document.getElementById("brs").style.display = "none"
+    let that = this
+    if (this.fileList.length > 0) {
+      //document.getElementById('div-result').style.display = 'unset'
+      that.outputData = '正在计算'
+      this.uploaded = true
+      let fd = new FormData();
+      fd.append('type', that.type)
+      console.log(that.type)
+      this.fileList.forEach(item => {
+        //文件信息中raw才是真的文件
+        fd.append("files", item.raw);
+        console.log(item.raw)
+      })
+      console.log(fd)
+      const res = await uploadAPI(fd)
+      if (that.type == '基金') {
+        that.outputData = await getFvDataAPI()
+      } else if (that.type == '理财') {
+        that.outputData = await getFpvDataAPI()
+      }
+
+    } else {
+      this.$message({
+        message: '请上传文件！',
+        type: 'warning'
+      });
+    }
+  },
+
     // :on-change
     // 检查和导入Excel文件
     handleChange(file) {
@@ -270,40 +309,6 @@ export default {
       this.fileList.splice(this.fileList.indexOf(file), 1)
     },
 
-    // 确定导入完成后发送数据
-    uploadAck() {
-      /*                 this.uploaded = true
-                      if (this.fileList.length > 0) {
-                          document.getElementById('div-result').style.display = 'unset'
-                          const data = {
-                              jsonString: JSON.stringify(this.allFile)
-                          }
-                          const res = importExcelAPI(data)
-                      } else {
-                          this.$message({
-                              message: '请上传文件！',
-                              type: 'warning'
-                          });
-                      } */
-      this.uploaded = true
-      if (this.fileList.length > 0) {
-        //document.getElementById('div-result').style.display = 'unset'
-        let fd = new FormData();
-        this.fileList.forEach(item => {
-          //文件信息中raw才是真的文件
-          fd.append("files", item.raw);
-          console.log(item.raw)
-        })
-        console.log(fd)
-        const res = uploadAPI(fd)
-      } else {
-        this.$message({
-          message: '请上传文件！',
-          type: 'warning'
-        });
-      }
-    },
-
     // 网上找的JS读取Excel文件的方法
     fileToExcel(file) {
       return new Promise(function (resolve, reject) {
@@ -341,61 +346,50 @@ export default {
       console.log(value)
     }
   },
-  // 确定导入完成后发送数据
-  async uploadAck() {
-    /*                 this.uploaded = true
-                    if (this.fileList.length > 0) {
-                        document.getElementById('div-result').style.display = 'unset'
-                        const data = {
-                            jsonString: JSON.stringify(this.allFile)
-                        }
-                        const res = importExcelAPI(data)
-                    } else {
-                        this.$message({
-                            message: '请上传文件！',
-                            type: 'warning'
-                        });
-                    } */
-    let that = this
-    if (this.fileList.length > 0) {
-      //document.getElementById('div-result').style.display = 'unset'
-      that.outputData = '正在计算'
-      this.uploaded = true
-      let fd = new FormData();
-      fd.append('type', that.type)
-      console.log(that.type)
-      this.fileList.forEach(item => {
-        //文件信息中raw才是真的文件
-        fd.append("files", item.raw);
-        console.log(item.raw)
-      })
-      console.log(fd)
-      const res = await uploadAPI(fd)
-      if (that.type == '基金') {
-        that.outputData = await getFvDataAPI()
-      } else if (that.type == '理财') {
-        that.outputData = await getFpvDataAPI()
-      }
-
-    } else {
-      this.$message({
-        message: '请上传文件！',
-        type: 'warning'
-      });
-    }
-  },
 }
 </script>
 
 <style scoped>
 .div-main {
   width: 100%;
+  background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/1542.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-attachment: fixed;
 }
 
 @media screen and (max-width: 1440px) {
   .div-main {
     width: 1440px;
+    background-size: 1440px;
   }
+}
+
+.mainblock {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.055);
+  margin-top: 25px;
+  padding:5%;
+}
+
+.div-risk {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.107);
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 2%;
+}
+
+.timeblock {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.092);
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 2%;
 }
 
 </style>

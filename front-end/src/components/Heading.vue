@@ -24,10 +24,10 @@
     width: 100%;
     height: 120px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    background: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/heading2.jpg");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size:2059.86px 130px;
+    /*background: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/1542.jpg");*/
+    /*background-position: center center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size:2059.86px 130px;*/
     /*background: -moz-linear-gradient(top, #000000 0%, #ffffff 100%);*/
     /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#000000), color-stop(100%,#ffffff));*/
     /*background: -webkit-linear-gradient(top, #000000 0%,#ffffff 100%);*/

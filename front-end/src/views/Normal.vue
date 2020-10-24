@@ -126,13 +126,44 @@
 </script>
 
 <style scoped>
-  .div-main {
-    width: 100%;
-  }
+.div-main {
+  width: 100%;
+  background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/1542.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-attachment: fixed;
+}
 
-  @media screen and (max-width: 1440px) {
-    .div-main {
-      width: 1440px;
-    }
+@media screen and (max-width: 1440px) {
+  .div-main {
+    width: 1440px;
+    background-size: 1440px;
   }
+}
+  .mainblock {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.055);
+  margin-top: 25px;
+  padding:5%;
+}
+
+.div-risk {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.107);
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 2%;
+}
+
+.timeblock {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.092);
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 2%;
+}
 </style>
