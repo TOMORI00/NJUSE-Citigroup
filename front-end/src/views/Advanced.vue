@@ -53,11 +53,11 @@
 
               <div class="div-analysis">
                 <p style="font-weight:bold; font-size:20px;">历史复现</p>
-                <GChart type="LineChart" :data=chartData :options="LineChartOptions"/>
+                <GChart type="LineChart" :data=historyLine :options="LineChartOptions"/>
               </div>
 
               <el-divider></el-divider>
-
+              '\u4ea4\u94f6\u65b0\u6210\u957f'
               <div class="div-analysis">
                 <p style="font-weight:bold; font-size:20px;">对比复现</p>
                 <div class="div-risk" id="div-risk">
@@ -67,7 +67,7 @@
                     <el-radio :label="9">高风险</el-radio>
                   </el-radio-group>
                 </div>
-                <GChart type="LineChart" :data=chartData :options="LineChartOptions"/>
+                <GChart type="LineChart" :data=compareLine :options="LineChartOptions"/>
 
               </div>
 
@@ -93,7 +93,7 @@
                 </el-radio-group>
               </div>
 
-              <GChart type="PieChart" :data=chartData1 :options="PieChartOptions"/>
+              <GChart type="PieChart" :data=recommendPie :options="PieChartOptions"/>
 
               <el-divider></el-divider>
 
@@ -106,7 +106,7 @@
                 <br>
                 <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
               </div>
-              <GChart type="PieChart" :data=chartData1 :options="PieChartOptions"/>
+              <GChart type="PieChart" :data=historyPie :options="PieChartOptions"/>
 
             </el-tab-pane>
 
@@ -151,20 +151,19 @@ export default {
       fileList: [],
 
       // 画图
+      historyLine: '',
+      compareLine: '',
+      recommendPie: '',
+      histroyPie: '',
+
+
+
       chartData: [
-        ['x-line', 'number1', 'number2'],
-        [20, 25, 30],
-        [25, 40, 56],
-        [30, 56, 24],
-        [35, 25, 30],
-        [40, 40, 56],
-        [45, 56, 24],
-        [50, 25, 30],
-        [55, 40, 56],
-        [60, 56, 24],
-        [65, 25, 30],
-        [70, 40, 56],
-        [75, 56, 24],
+        ['name', 'contribution'],
+        ['ss', 25],
+        ['ljl', 40],
+        ['dqj', 56],
+        ['mjh', 100]
       ],
       chartData1: [
         ['name', 'contribution'],
@@ -246,7 +245,6 @@ export default {
     async uploadAck() {
       let that = this
       if (this.fileList.length > 0) {
-        //document.getElementById('div-result').style.display = 'unset'
         that.outputData = '正在计算'
         this.uploaded = true
         let fd = new FormData();
@@ -272,6 +270,9 @@ export default {
           type: 'warning'
         });
       }
+
+
+      //
     },
     // :on-change
     // 检查和导入Excel文件
@@ -316,7 +317,7 @@ export default {
       this.fileList.splice(this.fileList.indexOf(file), 1)
     },
 
-    // 网上找的JS读取Excel文件的方法
+    // 读取Excel文件
     fileToExcel(file) {
       return new Promise(function (resolve, reject) {
         const reader = new FileReader()
@@ -352,6 +353,9 @@ export default {
     handleDateChange(value) {
       console.log(value)
     }
+  
+
+  
   },
 
 }
