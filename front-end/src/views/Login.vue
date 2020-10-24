@@ -95,7 +95,7 @@ export default {
   background: rgba(0, 0, 0, 0.25);
   font-size: 15px;
   font-weight:bold;
-  
+  width: 30%;
 }
 
 </style>
@@ -147,10 +147,7 @@ export default {
 }
 
 .link-text {
-  /*width: 70px;*/
-  /*height: 30px;*/
   display: inline-block;
-  /*margin: auto;*/
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   width: 80px;
@@ -167,14 +164,14 @@ export default {
   margin-top: 5px;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.3);
-  padding: 3%;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 5% 15% 0%;
 }
 
 .title {
-  border-radius: 15px;
+  border-radius: 12px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
   width: 500px;
   height: 60px;

@@ -52,14 +52,28 @@
             <el-tab-pane label="投资复现" name="second" v-if='uploaded'>
 
               <div class="div-analysis">
-                <p style="font-weight:bold; font-size:20px;">历史复现</p>
+                <p style="font-weight:bold; 
+                          font-size:20px;
+                          border-radius: 15px;
+                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                          background: rgba(0, 0, 0, 0.15);
+                          margin-top: 25px;
+                          padding:1%;"
+                          >历史复现</p>
                 <GChart type="LineChart" :data=historyLine :options="LineChartOptions"/>
               </div>
 
               <el-divider></el-divider>
 
               <div class="div-analysis">
-                <p style="font-weight:bold; font-size:20px;">对比复现</p>
+                <p style="font-weight:bold; 
+                          font-size:20px;
+                          border-radius: 15px;
+                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                          background: rgba(0, 0, 0, 0.15);
+                          margin-top: 25px;
+                          padding:1%;"
+                          >对比复现</p>
                 <div class="div-risk" id="div-risk">
                   <el-radio-group v-model="compRadio" @change="compareLineChange">
                     <el-radio :label="3">低风险</el-radio>
@@ -84,7 +98,14 @@
 
             <el-tab-pane label="投资建议" name="third" v-if='uploaded'>
 
-              <p style="font-weight:bold; font-size:20px;">投资建议</p>
+              <p style="font-weight:bold; 
+                          font-size:20px;
+                          border-radius: 15px;
+                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                          background: rgba(0, 0, 0, 0.15);
+                          margin-top: 25px;
+                          padding:1%;"
+                          >投资建议</p>
               <div class="div-risk" id="div-risk">
                 <el-radio-group v-model="recRadio" @change="recommendChange">
                   <el-radio :label="3">低风险</el-radio>
@@ -97,8 +118,15 @@
 
               <el-divider></el-divider>
 
+              <p style="font-weight:bold; 
+                        font-size:20px;
+                        border-radius: 15px;
+                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                        background: rgba(0, 0, 0, 0.15);
+                        margin-top: 25px;
+                        padding:1%;"
+                        >历史推荐</p>
               <div class="timeblock">
-                <p style="font-weight:bold; font-size:20px;">历史推荐</p>
                 <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
                 <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
                                 @change="handleDateChange">
@@ -418,7 +446,7 @@ export default {
 .div-risk {
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.107);
+  background: rgba(0, 0, 0, 0.1);
   margin-top: 25px;
   margin-bottom: 25px;
   padding: 2%;
