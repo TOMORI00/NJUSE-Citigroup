@@ -457,7 +457,7 @@ export default {
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
   background: rgba(0, 0, 0, 0.15);
-  margin-top: 25px;
+  /*margin-top: 25px;*/
   padding: 5%;
 }
 
