@@ -19,15 +19,13 @@
 
     <heading></heading>
 
-    <!-- 选择基金/理财 -->
-
     <el-container>
       <el-aside></el-aside>
       <el-main>
         <div class="mainblock">
           <el-tabs v-model="activeTab">
 
-            <el-tab-pane label="文件上传" name="first" v-if='!uploaded'>
+            <el-tab-pane label="投资记录上传" name="first" v-if='!uploaded'>
 
               <el-container id="my-container">
                 <el-header height="40px" style="margin: 20px">
@@ -101,7 +99,7 @@
 
               <div class="timeblock">
                 <p style="font-weight:bold; font-size:20px;">历史推荐</p>
-                <span>开始时间   </span>
+                <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
                 <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
                                 @change="handleDateChange">
                 </el-date-picker>
@@ -383,7 +381,7 @@ export default {
 .div-risk {
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.137);
+  background: rgba(0, 0, 0, 0.107);
   margin-top: 25px;
   margin-bottom: 25px;
   padding: 2%;

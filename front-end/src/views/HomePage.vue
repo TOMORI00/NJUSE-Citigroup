@@ -27,15 +27,15 @@
           </div>
         </el-header>
 
-        <div class="title">公募基金分析推荐系统</div>
+        <div class="title" >公募基金分析推荐系统</div>
 
         <el-divider></el-divider>
         <el-main>
           <div class="div-choose" id="div-choose">
-            <h1 style="position: relative;top:58px;font-family: 楷体">请选择您的用户类型</h1>
-            <el-button class="choose-button" @click="toAdvanced">Advanced</el-button>
-            <el-button class="choose-button" @click="toNormal">Normal</el-button>
-            <el-button class="choose-button" @click="toAnalysis">Analysis</el-button>
+            <h1 style="position: relative;top:40px; font-weight:bold; font-size:35px;">请选择您的用户类型</h1>
+            <el-button class="choose-button" @click="toAdvanced">专业用户</el-button>
+            <el-button class="choose-button" @click="toNormal">普通用户</el-button>
+            <el-button class="choose-button" @click="toAnalysis">分析用户</el-button>
           </div>
         </el-main>
       </el-container>
@@ -161,8 +161,10 @@ export default {
   width: 200px;
   height: 200px;
   position: relative;
-  top: 65px;
+  top: 15px;
   opacity: 0.7;
+  font-weight:bold; 
+  font-size:30px;
 }
 
 .title {
