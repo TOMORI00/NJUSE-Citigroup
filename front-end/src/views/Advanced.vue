@@ -227,6 +227,36 @@ export default {
       // console.log(value)
     },
 
+    // 确定导入完成后发送数据
+    async uploadAck() {
+      let that = this
+      if (this.fileList.length > 0) {
+        //document.getElementById('div-result').style.display = 'unset'
+        that.outputData = '正在计算'
+        this.uploaded = true
+        let fd = new FormData();
+        fd.append('type', that.type)
+        console.log(that.type)
+        this.fileList.forEach(item => {
+          //文件信息中raw才是真的文件
+          fd.append("files", item.raw);
+          console.log(item.raw)
+        })
+        console.log(fd)
+        const res = await uploadAPI(fd)
+        if (that.type == '基金') {
+          that.outputData = await getFvDataAPI()
+        } else if (that.type == '理财') {
+          that.outputData = await getFpvDataAPI()
+        }
+
+      } else {
+        this.$message({
+          message: '请上传文件！',
+          type: 'warning'
+        });
+      }
+    },
     // :on-change
     // 检查和导入Excel文件
     handleChange(file) {
@@ -270,40 +300,6 @@ export default {
       this.fileList.splice(this.fileList.indexOf(file), 1)
     },
 
-    // 确定导入完成后发送数据
-    uploadAck() {
-      /*                 this.uploaded = true
-                      if (this.fileList.length > 0) {
-                          document.getElementById('div-result').style.display = 'unset'
-                          const data = {
-                              jsonString: JSON.stringify(this.allFile)
-                          }
-                          const res = importExcelAPI(data)
-                      } else {
-                          this.$message({
-                              message: '请上传文件！',
-                              type: 'warning'
-                          });
-                      } */
-      this.uploaded = true
-      if (this.fileList.length > 0) {
-        //document.getElementById('div-result').style.display = 'unset'
-        let fd = new FormData();
-        this.fileList.forEach(item => {
-          //文件信息中raw才是真的文件
-          fd.append("files", item.raw);
-          console.log(item.raw)
-        })
-        console.log(fd)
-        const res = uploadAPI(fd)
-      } else {
-        this.$message({
-          message: '请上传文件！',
-          type: 'warning'
-        });
-      }
-    },
-
     // 网上找的JS读取Excel文件的方法
     fileToExcel(file) {
       return new Promise(function (resolve, reject) {
@@ -341,49 +337,7 @@ export default {
       console.log(value)
     }
   },
-  // 确定导入完成后发送数据
-  async uploadAck() {
-    /*                 this.uploaded = true
-                    if (this.fileList.length > 0) {
-                        document.getElementById('div-result').style.display = 'unset'
-                        const data = {
-                            jsonString: JSON.stringify(this.allFile)
-                        }
-                        const res = importExcelAPI(data)
-                    } else {
-                        this.$message({
-                            message: '请上传文件！',
-                            type: 'warning'
-                        });
-                    } */
-    let that = this
-    if (this.fileList.length > 0) {
-      //document.getElementById('div-result').style.display = 'unset'
-      that.outputData = '正在计算'
-      this.uploaded = true
-      let fd = new FormData();
-      fd.append('type', that.type)
-      console.log(that.type)
-      this.fileList.forEach(item => {
-        //文件信息中raw才是真的文件
-        fd.append("files", item.raw);
-        console.log(item.raw)
-      })
-      console.log(fd)
-      const res = await uploadAPI(fd)
-      if (that.type == '基金') {
-        that.outputData = await getFvDataAPI()
-      } else if (that.type == '理财') {
-        that.outputData = await getFpvDataAPI()
-      }
 
-    } else {
-      this.$message({
-        message: '请上传文件！',
-        type: 'warning'
-      });
-    }
-  },
 }
 </script>
 
