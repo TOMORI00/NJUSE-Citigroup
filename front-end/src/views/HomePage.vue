@@ -128,7 +128,7 @@ export default {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   width: 1000px;
   height: 400px;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.20);
   margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
