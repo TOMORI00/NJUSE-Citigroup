@@ -32,7 +32,7 @@
         <el-divider></el-divider>
         <el-main>
           <div class="div-choose" id="div-choose">
-            <h1 style="position: relative;top:40px; font-weight:bold; font-size:35px;">请选择您的用户类型</h1>
+            <h1 style="position: relative;top:40px; font-size:30px;">请选择您的用户类型</h1>
             <el-button class="choose-button" @click="toAdvanced">专业用户</el-button>
             <el-button class="choose-button" @click="toNormal">普通用户</el-button>
             <el-button class="choose-button" @click="toAnalysis">分析用户</el-button>
@@ -164,7 +164,9 @@ export default {
   top: 15px;
   opacity: 0.7;
   font-weight:bold; 
-  font-size:30px;
+  font-size:26px;
+  background-image: url('../assets/user.png');
+  padding: 14% 0% 0%;
 }
 
 .title {
