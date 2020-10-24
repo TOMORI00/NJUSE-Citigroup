@@ -6,7 +6,7 @@
           <img class="logo-img" src="../assets/nju.png">
         </a>
       </div>
-      <div class="div-name"><h2 style="margin:auto;font-size: 30px">基金推荐系统</h2></div>
+      <div class="div-name"><h2 style="margin:auto;font-size: 30px">基金分析推荐系统</h2></div>
     </div>
     <el-divider id="heading-divider" style="margin: 0;padding: 0;height: 2px"></el-divider>
   </div>
@@ -53,8 +53,8 @@
   }
 
   .logo-img {
-    width: 60.02px;
-    height: 75.15px;
+    width: 70.02px;
+    height: 85.15px;
   }
 
   .div-name {

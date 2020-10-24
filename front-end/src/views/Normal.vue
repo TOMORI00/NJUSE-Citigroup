@@ -16,49 +16,71 @@
 
     <heading></heading>
 
-    <el-container id="my-container">
-
-      <el-header height="40px" style="margin: 20px">
-        <el-radio-group v-model="radio" @change="changePieChart(radio)">
-          <el-radio :label="3">低风险</el-radio>
-          <el-radio :label="6">中风险</el-radio>
-          <el-radio :label="9">高风险</el-radio>
-        </el-radio-group>
-      </el-header>
-    </el-container>
     <el-container>
       <el-aside></el-aside>
       <el-main>
-        <el-tabs v-model="activeName" >
-              
-              <el-tab-pane label="实时推荐" name="first">
+        <div class="mainblock">
 
-                  <p>投资建议</p>
-                          
-                  <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
+          <el-header height="40px" style="margin: 20px">
+            <div class="div-risk">
+              <el-radio-group v-model="radio" @change="changePieChart(radio)">
+                <el-radio :label="3">低风险</el-radio>
+                <el-radio :label="6">中风险</el-radio>
+                <el-radio :label="9">高风险</el-radio>
+              </el-radio-group>
+            </div>
+          </el-header>
 
-                  <el-divider></el-divider>
+          <el-container>
+            <el-main>
+              <el-tabs v-model="activeName" >
+                    
+                    <el-tab-pane label="实时推荐" name="first">
 
-              </el-tab-pane>
+                        <p style="font-weight:bold; 
+                          font-size:20px;
+                          border-radius: 15px;
+                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                          background: rgba(0, 0, 0, 0.15);
+                          margin-top: 25px;
+                          padding:1%;"
+                          >投资建议</p>
+                        <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
+                        <el-divider></el-divider>
 
-              <el-tab-pane label="推荐历史" name="third">
+                    </el-tab-pane>
 
-                  <p>历史推荐</p>
-                  <span>开始时间   </span>
-                  <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
-                      @change="handleDateChange">
-                  </el-date-picker>
-                  <br>
-                  <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
-              
-                  <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
-
-              </el-tab-pane>
-              
-        </el-tabs>
+                    <el-tab-pane label="推荐历史" name="third">
+                      <p style="font-weight:bold; 
+                        font-size:20px;
+                        border-radius: 15px;
+                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                        background: rgba(0, 0, 0, 0.15);
+                        margin-top: 25px;
+                        padding:1%;"
+                        >历史推荐</p>
+                      <div class="timeblock">
+                        <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
+                        <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
+                                        @change="handleDateChange">
+                        </el-date-picker>
+                        <br>
+                        <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
+                      </div>
+                      <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
+                    </el-tab-pane>
+                    
+              </el-tabs>
+            </el-main>
+          </el-container>
+        </div>
       </el-main>
       <el-aside></el-aside>
     </el-container>
+
+
+
+
   </div>
 </template>
 
@@ -141,10 +163,11 @@
     background-size: 1440px;
   }
 }
+
   .mainblock {
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.055);
+  background: rgba(0, 0, 0, 0.075);
   margin-top: 25px;
   padding:5%;
 }
