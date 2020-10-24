@@ -21,19 +21,14 @@
             </a>
           </div>
           <div class="div-more-link">
-
-            <!-- 测试模块用 -->
             <div class="link-text">
-              <a href="/test"><h2>Test</h2></a>
-            </div>
-
-            <div class="link-text">
-              <a href="/about"><h2>About</h2></a>
+              <a href="/about"><h2>关于</h2></a>
             </div>
           </div>
         </el-header>
 
-        <div>基金推荐系统</div>
+        <div class="title">公募基金分析推荐系统</div>
+
         <el-divider></el-divider>
         <el-main>
           <div class="div-choose" id="div-choose">
@@ -127,12 +122,19 @@ export default {
 }
 
 .link-text {
-  width: 70px;
-  height: 30px;
+  /*width: 70px;*/
+  /*height: 30px;*/
   display: inline-block;
-  margin: auto;
+  /*margin: auto;*/
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  width: 80px;
+  height: 30px;
+  background: rgba(255, 254, 254, 0.4);
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 .div-choose {
   border-radius: 15px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
@@ -144,6 +146,16 @@ export default {
   margin-right: auto;
 }
 
+.div-more-link {
+  width: 150px;
+  height: 30px;
+  margin: auto;
+  position: relative;
+  top: 30px;
+  right: -450px;
+  display: inline-block;
+}
+
 .choose-button {
   margin: 50px;
   width: 200px;
@@ -151,6 +163,19 @@ export default {
   position: relative;
   top: 65px;
   opacity: 0.7;
+}
+
+.title {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 60px;
+  background: rgba(255, 254, 254, 0.4);
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight:bold;
+  font-size:40px;
 }
 
 @media screen and (max-width: 1170px) {

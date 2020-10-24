@@ -21,50 +21,72 @@
 
     <!-- 选择基金/理财 -->
 
-
     <el-container>
       <el-aside></el-aside>
       <el-main>
-        <el-tabs v-model="activeName">
+        <div class="mainblock">
+          <el-tabs v-model="activeTab">
 
-          <el-tab-pane label="文件上传" name="first" v-if='!uploaded'>
+            <el-tab-pane label="文件上传" name="first" v-if='!uploaded'>
 
-            <el-container id="my-container">
-              <el-header height="40px" style="margin: 20px">
-                <el-select v-model="type" @change="handleTypeChange">
-                  <el-option v-for="item in options" :key="item.value" :label="item.label"
-                             :value="item.value"></el-option>
-                </el-select>
-              </el-header>
-            </el-container>
+              <el-container id="my-container">
+                <el-header height="40px" style="margin: 20px">
+                  <el-select v-model="type" @change="handleTypeChange">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label"
+                              :value="item.value"></el-option>
+                  </el-select>
+                </el-header>
+              </el-container>
 
-            <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview"
-                       :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList"
-                       :auto-upload="false">
-              <i class="el-icon-upload"></i>
-              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-              <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
-            </el-upload>
-            <br>
-            <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认
-            </el-button>
+              <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange" :on-preview="handlePreview"
+                        :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList"
+                        :auto-upload="false">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
+              </el-upload>
+              <br>
+              <el-button id="upload-ack" @click="uploadAck" style="margin: auto;width:73.9px;height: 39.6px">确 认
+              </el-button>
 
+            </el-tab-pane>
 
-          </el-tab-pane>
+            <el-tab-pane label="投资复现" name="second" v-if='uploaded'>
 
-          <el-tab-pane label="投资复现" name="second" v-if='uploaded'>
+              <div class="div-analysis">
+                <p style="font-weight:bold; font-size:20px;">历史复现</p>
+                <GChart type="LineChart" :data=chartData :options="LineChartOptions"/>
+              </div>
 
-            <div class="div-analysis">
-              <p>历史复现</p>
+              <el-divider></el-divider>
 
-              <GChart type="LineChart" :data=chartData :options="LineChartOptions"/>
+              <div class="div-analysis">
+                <p style="font-weight:bold; font-size:20px;">对比复现</p>
+                <div class="div-risk" id="div-risk">
+                  <el-radio-group v-model="radio">
+                    <el-radio :label="3">低风险</el-radio>
+                    <el-radio :label="6">中风险</el-radio>
+                    <el-radio :label="9">高风险</el-radio>
+                  </el-radio-group>
+                </div>
+                <GChart type="LineChart" :data=chartData :options="LineChartOptions"/>
 
-            </div>
+              </div>
 
-            <el-divider></el-divider>
+              <!-- 备用的修改基金池功能 -->
+              <!-- <el-button @click="changeFund" v-if="false">修改基金池</el-button>
+              <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
+              <span>修改基金池细节</span>
+              <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+              </span>
+              </el-dialog> -->
+            </el-tab-pane>
 
-            <div class="div-analysis">
-              <p>对比复现</p>
+            <el-tab-pane label="投资建议" name="third" v-if='uploaded'>
+
+              <p style="font-weight:bold; font-size:20px;">投资建议</p>
               <div class="div-risk" id="div-risk">
                 <el-radio-group v-model="radio">
                   <el-radio :label="3">低风险</el-radio>
@@ -72,49 +94,26 @@
                   <el-radio :label="9">高风险</el-radio>
                 </el-radio-group>
               </div>
-              <GChart class="analysis-chart" type="LineChart" :data=chartData :options="chartOption"/>
 
-            </div>
+              <GChart type="PieChart" :data=chartData1 :options="PieChartOptions"/>
 
-            <!-- 备用的修改基金池功能 -->
-            <!-- <el-button @click="changeFund" v-if="false">修改基金池</el-button>
-            <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
-            <span>修改基金池细节</span>
-            <span slot="footer" class="dialog-footer">
-            <el-button @click="dialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-            </span>
-            </el-dialog> -->
-          </el-tab-pane>
+              <el-divider></el-divider>
 
-          <el-tab-pane label="投资建议" name="third" v-if='uploaded'>
+              <div class="timeblock">
+                <p style="font-weight:bold; font-size:20px;">历史推荐</p>
+                <span>开始时间   </span>
+                <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
+                                @change="handleDateChange">
+                </el-date-picker>
+                <br>
+                <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
+              </div>
+              <GChart type="PieChart" :data=chartData1 :options="PieChartOptions"/>
 
-            <p>投资建议</p>
-            <div class="div-risk" id="div-risk">
-              <el-radio-group v-model="radio">
-                <el-radio :label="3">低风险</el-radio>
-                <el-radio :label="6">中风险</el-radio>
-                <el-radio :label="9">高风险</el-radio>
-              </el-radio-group>
-            </div>
+            </el-tab-pane>
 
-            <GChart type="PieChart" :data=chartData1 :options="PieChartOptions"/>
-
-            <el-divider></el-divider>
-
-            <p>历史推荐</p>
-            <span>开始时间   </span>
-            <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
-                            @change="handleDateChange">
-            </el-date-picker>
-            <br>
-            <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
-
-            <GChart type="PieChart" :data=chartData1 :options="PieChartOptions"/>
-
-          </el-tab-pane>
-
-        </el-tabs>
+          </el-tabs>
+        </div>
         <el-divider></el-divider>
       </el-main>
       <el-aside></el-aside>
@@ -147,7 +146,7 @@ export default {
       }],
 
       //默认先上传文件
-      activeName: 'first',
+      activeTab: 'first',
       uploaded: false,
 
       // 上传的文件列表
@@ -182,7 +181,7 @@ export default {
           title: 'testChart'
         },
         focusTarget: 'category',
-        width: 960,
+        width: 800,
         height: 480,
         is3D: true,
       },
@@ -194,7 +193,7 @@ export default {
         },
         focusTarget: 'category',
         width: 800,
-        height: 450,
+        height: 480,
         is3D: true,
       },
 
@@ -243,6 +242,7 @@ export default {
           console.log(item.raw)
         })
         console.log(fd)
+        this.activeTab = 'second'
         const res = await uploadAPI(fd)
         if (that.type == '基金') {
           that.outputData = await getFvDataAPI()
@@ -341,9 +341,61 @@ export default {
 }
 </script>
 
+<style>
+
+.el-tabs__item.is-active{
+  color:rgb(0,0,0);
+  padding: 2%;
+  border-radius: 5px;
+  font-size:18px;
+}
+
+.el-tabs__item{
+  font-weight:bold; 
+  font-size:15px;
+}
+
+.el-tabs__active-bar{
+  background-color:rgb(0, 0, 0);
+}
+
+.el-radio{
+  font-weight:bold; 
+}
+
+
+
+</style>
+
 <style scoped>
 .div-main {
   width: 100%;
+}
+
+.mainblock {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.055);
+  margin-top: 25px;
+  padding:5%;
+}
+
+.div-risk {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.137);
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 2%;
+}
+
+.timeblock {
+  border-radius: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.092);
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 2%;
 }
 
 @media screen and (max-width: 1440px) {
