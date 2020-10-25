@@ -26,9 +26,9 @@
             <el-header height="40px" style="margin: 20px">
               <div class="div-risk">
                 <el-radio-group v-model="radio" @change="changePieChart(radio)">
-                  <el-radio :label="3">低风险</el-radio>
-                  <el-radio :label="6">中风险</el-radio>
-                  <el-radio :label="9">高风险</el-radio>
+                  <el-radio :label="3">瑞安组合</el-radio>
+                  <el-radio :label="6">瑞衡组合</el-radio>
+                  <el-radio :label="9">瑞利组合</el-radio>
                 </el-radio-group>
               </div>
             </el-header>

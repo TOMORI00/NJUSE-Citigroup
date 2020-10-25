@@ -79,9 +79,9 @@
                   >对比复现</p>
                   <div class="div-risk" id="div-risk">
                     <el-radio-group v-model="compRadio" @change="compareLineChange">
-                      <el-radio :label="3">低风险</el-radio>
-                      <el-radio :label="6">中风险</el-radio>
-                      <el-radio :label="9">高风险</el-radio>
+                      <el-radio :label="3">瑞安组合</el-radio>
+                      <el-radio :label="6">瑞衡组合</el-radio>
+                      <el-radio :label="9">瑞利组合</el-radio>
                     </el-radio-group>
                   </div>
                   <GChart type="LineChart" :data=compareLine :options="LineChartOptions"/>
@@ -111,9 +111,9 @@
                 >投资建议</p>
                 <div class="div-risk" id="div-risk">
                   <el-radio-group v-model="recRadio" @change="recommendChange">
-                    <el-radio :label="3">低风险</el-radio>
-                    <el-radio :label="6">中风险</el-radio>
-                    <el-radio :label="9">高风险</el-radio>
+                    <el-radio :label="3">瑞安组合</el-radio>
+                    <el-radio :label="6">瑞衡组合</el-radio>
+                    <el-radio :label="9">瑞利组合</el-radio>
                   </el-radio-group>
                 </div>
 
@@ -205,6 +205,14 @@ export default {
         width: 800,
         height: 480,
         is3D: true,
+        pieSliceText: 'none',
+        legend:{
+          position: 'labeled',
+          textStyle: {
+            fontSize: 30,
+          }
+        },
+        backgroundColor: 'F5F5F5',
       },
       // 后端返回的数据
       outputData: {
@@ -346,6 +354,7 @@ export default {
     },
 
     // 读取Excel文件
+
     fileToExcel(file) {
       return new Promise(function (resolve, reject) {
         const reader = new FileReader()

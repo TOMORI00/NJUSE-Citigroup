@@ -17,7 +17,7 @@
         <el-header class="homepage-header" height="100px">
           <div class="div-logo">
             <a href="https://www.nju.edu.cn/">
-              <img class="logo-img" src="../assets/nju.png">
+              <img class="logo-img" src="../assets/zhinuo.png">
             </a>
           </div>
           <div class="div-more-link">
@@ -33,9 +33,9 @@
         <el-main>
           <div class="div-choose" id="div-choose">
             <h1 style="position: relative;top:40px; font-size:30px;">请选择您的用户类型</h1>
-            <el-button class="choose-button" @click="toAdvanced">专业用户</el-button>
-            <el-button class="choose-button" @click="toNormal">普通用户</el-button>
-            <el-button class="choose-button" @click="toAnalysis">分析用户</el-button>
+            <el-button class="choose-button" id="button1" @click="toAdvanced">我是理财经理</el-button>
+            <el-button class="choose-button" id="button2" @click="toNormal">我是投资者</el-button>
+            <el-button class="choose-button" id="button3" @click="toAnalysis">分行数据分析</el-button>
           </div>
         </el-main>
       </el-container>
@@ -48,7 +48,7 @@ export default {
   name: "HomePage",
   data() {
     return {
-      reportURL: "https://mjh1.oss-cn-hangzhou.aliyuncs.com/illust_80820235_20200817_194855.jpg"
+      reportURL: "../assets/基金组合分析报告.pdf"
     }
   },
   methods: {
@@ -153,8 +153,19 @@ export default {
   opacity: 0.9;
   font-weight:bold; 
   font-size:26px;
-  background-image: url('../assets/user.png');
-  padding: 14% 0% 0%;
+  padding: 15% 0% 0%;
+}
+
+#button1 {
+  background-image: url('../assets/user1.png');
+}
+
+#button2 {
+  background-image: url('../assets/user2.png');
+}
+
+#button3 {
+  background-image: url('../assets/user3.png');
 }
 
 .title {

@@ -16,7 +16,7 @@
         <el-header class="homepage-header" height="130px">
           <div class="div-logo">
             <a href="https://www.nju.edu.cn/">
-              <img class="logo-img" src="../assets/nju.png">
+              <img class="logo-img" src="../assets/zhinuo.png">
             </a>
           </div>
           <div class="div-more-link">
