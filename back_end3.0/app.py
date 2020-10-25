@@ -109,9 +109,21 @@ def get_chart():
     f = open("history.txt", "r")
     history = f.readlines()
     f.close()
-    history[0] = history[0].rstrip('\n')
-    history[1] = history[1].rstrip('\n')
-    history[2] = history[2].rstrip('\n')
+    history[0] = eval(history[0].rstrip('\n'))
+    history[1] = eval(history[1].rstrip('\n'))
+    history[2] = eval(history[2].rstrip('\n'))
+    format_history = []
+
+    for i in range(0, len(history)):
+        tmp_history = []
+        for one_history in history[i]:
+            one_history_dict = {'year': one_history[0], 'month': one_history[1]}
+            pie_list = [['name', 'contribution']]
+            for j in range(0, len(one_history[2])):
+                pie_list.append([one_history[2][j] + ' ' + one_history[3][j], one_history[4][j]])
+            one_history_dict['pieData'] = pie_list
+            tmp_history.append(one_history_dict)
+        format_history.append(tmp_history)
 
     success = True
     message = ""
@@ -120,9 +132,10 @@ def get_chart():
         "success": success,
         "message": message,
         "content": {
-            "history_high": history[0], "history_mid": history[1], "history_low": history[2]
+            "history_high": format_history[0], "history_mid": format_history[1], "history_low": format_history[2]
         }
     }
+    print(data_chart)
 
     return jsonify(data_chart)
     # data_chart = {"history_high":history_high, "history_mid":history_mid,"history_low":history_low}

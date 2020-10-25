@@ -63,7 +63,9 @@
                           margin-top: 25px;
                           padding:1%;"
                   >历史复现</p>
+                  <div style="width: 800px;height: 480px;margin: auto">
                   <GChart type="LineChart" :data=historyLine :options="LineChartOptions"/>
+                  </div>
                 </div>
 
                 <el-divider></el-divider>
@@ -77,14 +79,16 @@
                           margin-top: 25px;
                           padding:1%;"
                   >对比复现</p>
-                  <div class="div-risk" id="div-risk">
+                  <div class="div-risk">
                     <el-radio-group v-model="compRadio" @change="compareLineChange">
                       <el-radio :label="3">瑞安组合</el-radio>
                       <el-radio :label="6">瑞衡组合</el-radio>
                       <el-radio :label="9">瑞利组合</el-radio>
                     </el-radio-group>
                   </div>
+                  <div style="width: 800px;height: 480px;margin: auto">
                   <GChart type="LineChart" :data=compareLine :options="LineChartOptions"/>
+                  </div>
 
                 </div>
 
@@ -109,7 +113,7 @@
                           margin-top: 25px;
                           padding:1%;"
                 >投资建议</p>
-                <div class="div-risk" id="div-risk">
+                <div class="div-risk">
                   <el-radio-group v-model="recRadio" @change="recommendChange">
                     <el-radio :label="3">瑞安组合</el-radio>
                     <el-radio :label="6">瑞衡组合</el-radio>
@@ -117,7 +121,9 @@
                   </el-radio-group>
                 </div>
 
+                <div style="width: 800px;height: 480px;margin: auto">
                 <GChart type="PieChart" :data=recommendPie :options="PieChartOptions"/>
+                </div>
 
                 <el-divider></el-divider>
 
@@ -137,8 +143,9 @@
                   <br>
                   <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
                 </div>
-                <GChart type="PieChart" :data=historyPie :options="PieChartOptions"/>
-
+                <div style="width: 800px;height: 480px;margin: auto">
+                  <GChart type="PieChart" :data=historyPie :options="PieChartOptions" v-if="historyPieDisplay"/>
+                </div>
               </el-tab-pane>
 
             </el-tabs>
@@ -148,7 +155,7 @@
         <el-aside></el-aside>
       </el-container>
 
-      <div>{{ chartData }}</div>
+      <div>{{ loading }}</div>
     </div>
   </div>
 </template>
@@ -187,13 +194,11 @@ export default {
       historyLine: '',
       compareLine: '',
       recommendPie: [
-        ['name', 'contribution'],
-        ['ss', 25],
-        ['ljl', 40],
-        ['dqj', 56],
-        ['mjh', 100]
+        ['name', 'contribution']
       ],
-      histroyPie: '',
+      historyPie: [
+        ['name', 'contribution']
+      ],
 
 
       // 画图
@@ -251,8 +256,15 @@ export default {
       // 推荐组合风险
       recRadio: 3,
       chartData: '',
+      risked_history:'',
       // 开始日期
       dateValue: '',
+      month:'',
+      year:'',
+      // 历史推荐组合饼图显示与否
+      historyPieDisplay:false,
+
+      loading:'',
 
       // 文件
       current: {
@@ -280,9 +292,7 @@ export default {
     async uploadAck() {
       let that = this
       if (this.fileList.length > 0) {
-        that.outputData = '正在计算'
-        that.chartData = '正在计算饼图数据'
-        this.uploaded = true
+        that.loading='正在计算...'
         let fd = new FormData();
         fd.append('type', that.type)
         console.log(that.type)
@@ -292,7 +302,6 @@ export default {
           console.log(item.raw)
         })
         console.log(fd)
-        this.activeTab = 'second'
         const res = await uploadAPI(fd)
         if (that.type == '基金') {
           that.outputData = await getFvDataAPI()
@@ -300,9 +309,21 @@ export default {
           that.outputData = await getFpvDataAPI()
         }
         console.log(that.outputData)
-        that.historyLine = that.outputData.chart1
-        that.compareLine = that.outputData.chart2_low
-        that.chartData = await getChartAPI()
+
+        that.historyLine=that.outputData.chart1
+        that.compareLine=that.outputData.chart2_low
+
+        that.chartData=await getChartAPI()
+        console.log(that.chartData)
+
+        that.risked_history=that.chartData.history_low
+        that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
+        console.log(that.recommendPie)
+
+        that.loading=''
+        this.activeTab = 'second'
+        this.uploaded = true
+
       } else {
         this.$message({
           message: '请上传文件！',
@@ -383,11 +404,22 @@ export default {
 
     // click to get recommend combination
     getRecommendCombination() {
+      for (let index = 0; index < this.risked_history.length; index++) {
+        const element = this.risked_history[this.risked_history.length-1-index];
+        if(this.year>=element['year'] && this.month>=element['month']){
+          this.historyPie=element['pieData']
+          break
+        }
+      }
+      this.historyPieDisplay=true
       console.log('getRecommendCombination')
     },
 
     // date Change
     handleDateChange(value) {
+      var selectedDate=new Date(value)
+      this.month=selectedDate.getMonth()+1
+      this.year=selectedDate.getFullYear()
       console.log(value)
     },
 
@@ -401,6 +433,26 @@ export default {
       } else if (val === 9) {
         that.compareLine = that.outputData.chart2_high
       }
+    },
+
+    recommendChange(val){
+      let that=this
+      that.dateValue= ''
+      that.month=''
+      that.year=''
+      that.historyPieDisplay=false
+      that.historyPie=[['name', 'contribution']]
+      if (val === 3) {
+        that.risked_history=that.chartData.history_low
+        that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
+      } else if (val === 6) {
+        that.risked_history=that.chartData.history_mid
+        that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
+      } else if (val === 9) {
+        that.risked_history=that.chartData.history_high
+        that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
+      }
+
     }
 
 
