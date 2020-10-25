@@ -214,11 +214,11 @@ export default {
         legend:{
           position: 'labeled',
           textStyle: {
-            fontSize: 30,
+            fontSize: 14,
           }
         },
         backgroundColor: 'F5F5F5',
-      },
+      },  
       // 后端返回的数据
       outputData: {
         "date": '',

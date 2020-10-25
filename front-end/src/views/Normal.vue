@@ -25,7 +25,7 @@
 
             <el-header height="40px" style="margin: 20px">
               <div class="div-risk">
-                <el-radio-group v-model="radio" @change="changePieChart(radio)">
+                <el-radio-group v-model="radio" @change="recommendChange">
                   <el-radio :label="3">瑞安组合</el-radio>
                   <el-radio :label="6">瑞衡组合</el-radio>
                   <el-radio :label="9">瑞利组合</el-radio>
@@ -110,10 +110,19 @@ export default {
         charts: {
           title: 'testChart'
         },
-        is3D: true,
+        focusTarget: 'category',
         width: 800,
         height: 480,
-      },
+        is3D: true,
+        pieSliceText: 'none',
+        legend:{
+          position: 'labeled',
+          textStyle: {
+            fontSize: 14,
+          }
+        },
+        backgroundColor: 'F5F5F5',
+      },  
       pieData:'',
       risked_history:'',
       recommendPie:'',
