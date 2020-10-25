@@ -115,7 +115,7 @@
                 >投资建议</p>
                 <div class="div-risk">
                   <el-radio-group v-model="recRadio" @change="recommendChange">
-                    <el-radio :label="3">瑞安组合</el-radio>
+                    <el-radio :label="3" id="radio1">瑞安组合</el-radio>
                     <el-radio :label="6">瑞衡组合</el-radio>
                     <el-radio :label="9">瑞利组合</el-radio>
                   </el-radio-group>
@@ -481,6 +481,10 @@ export default {
 
 .el-radio {
   font-weight: bold;
+}
+
+#radio1.is-checked {
+  color: red;
 }
 
 

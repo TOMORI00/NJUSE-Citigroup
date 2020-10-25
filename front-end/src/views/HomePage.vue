@@ -16,7 +16,7 @@
       <el-container height="617px">
         <el-header class="homepage-header" height="100px">
           <div class="div-logo">
-            <a href="https://www.nju.edu.cn/">
+            <a href="/homepage">
               <img class="logo-img" src="../assets/zhinuo.png">
             </a>
           </div>
@@ -27,7 +27,7 @@
           </div>
         </el-header>
 
-        <div class="title" >公募基金分析推荐系统</div>
+        <div class="title" >公募基金/理财复现与顾问组合系统（EPC）</div>
 
         <el-divider></el-divider>
         <el-main>
@@ -171,7 +171,7 @@ export default {
 .title {
   border-radius: 12px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
-  width: 500px;
+  width: 800px;
   height: 60px;
   background: rgba(0, 0, 0, 0.1);
   margin-top: 25px;
