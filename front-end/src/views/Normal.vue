@@ -47,7 +47,9 @@
                           margin-top: 25px;
                           padding:1%;"
                     >投资建议</p>
-                    <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
+                    <div style="width: 800px;height: 480px;margin: auto">
+                      <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
+                    </div>
                     <el-divider></el-divider>
 
                   </el-tab-pane>
@@ -69,7 +71,9 @@
                       <br>
                       <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
                     </div>
-                    <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
+                    <div style="width: 800px;height: 480px;margin: auto">
+                      <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
+                    </div>
                   </el-tab-pane>
 
                 </el-tabs>
@@ -109,7 +113,7 @@ export default {
           title: 'testChart'
         },
         is3D: true,
-        width: 960,
+        width: 800,
         height: 480,
       },
 

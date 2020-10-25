@@ -63,7 +63,9 @@
                           margin-top: 25px;
                           padding:1%;"
                   >历史复现</p>
+                  <div style="width: 800px;height: 480px;margin: auto">
                   <GChart type="LineChart" :data=historyLine :options="LineChartOptions"/>
+                  </div>
                 </div>
 
                 <el-divider></el-divider>
@@ -77,14 +79,16 @@
                           margin-top: 25px;
                           padding:1%;"
                   >对比复现</p>
-                  <div class="div-risk" id="div-risk">
+                  <div class="div-risk">
                     <el-radio-group v-model="compRadio" @change="compareLineChange">
                       <el-radio :label="3">低风险</el-radio>
                       <el-radio :label="6">中风险</el-radio>
                       <el-radio :label="9">高风险</el-radio>
                     </el-radio-group>
                   </div>
+                  <div style="width: 800px;height: 480px;margin: auto">
                   <GChart type="LineChart" :data=compareLine :options="LineChartOptions"/>
+                  </div>
 
                 </div>
 
@@ -109,7 +113,7 @@
                           margin-top: 25px;
                           padding:1%;"
                 >投资建议</p>
-                <div class="div-risk" id="div-risk">
+                <div class="div-risk">
                   <el-radio-group v-model="recRadio" @change="recommendChange">
                     <el-radio :label="3">低风险</el-radio>
                     <el-radio :label="6">中风险</el-radio>
@@ -117,7 +121,9 @@
                   </el-radio-group>
                 </div>
 
+                <div style="width: 800px;height: 480px;margin: auto">
                 <GChart type="PieChart" :data=recommendPie :options="PieChartOptions"/>
+                </div>
 
                 <el-divider></el-divider>
 
@@ -137,8 +143,9 @@
                   <br>
                   <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
                 </div>
-                <GChart type="PieChart" :data=historyPie :options="PieChartOptions" v-if="historyPieDisplay"/>
-
+                <div style="width: 800px;height: 480px;margin: auto">
+                  <GChart type="PieChart" :data=historyPie :options="PieChartOptions" v-if="historyPieDisplay"/>
+                </div>
               </el-tab-pane>
 
             </el-tabs>
@@ -436,7 +443,7 @@ export default {
         that.risked_history=that.chartData.history_high
         that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
       }
-      
+
     }
 
 
