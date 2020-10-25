@@ -48,7 +48,7 @@ export default {
   name: "HomePage",
   data() {
     return {
-      reportURL: "https://mjh1.oss-cn-hangzhou.aliyuncs.com/illust_80820235_20200817_194855.jpg"
+      reportURL: "https://mjh1.oss-cn-hangzhou.aliyuncs.com/%E5%9F%BA%E9%87%91%E7%BB%84%E5%90%88%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A.pdf"
     }
   },
   methods: {
