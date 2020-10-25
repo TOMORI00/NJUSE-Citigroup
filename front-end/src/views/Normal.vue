@@ -25,7 +25,7 @@
 
             <el-header height="40px" style="margin: 20px">
               <div class="div-risk">
-                <el-radio-group v-model="radio" @change="changePieChart(radio)">
+                <el-radio-group v-model="radio" @change="recommendChange">
                   <el-radio :label="3">低风险</el-radio>
                   <el-radio :label="6">中风险</el-radio>
                   <el-radio :label="9">高风险</el-radio>
@@ -48,7 +48,7 @@
                           padding:1%;"
                     >投资建议</p>
                     <div style="width: 800px;height: 480px;margin: auto">
-                      <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
+                      <GChart type="PieChart" :data=recommendPie :options="PieChartOptions"/>
                     </div>
                     <el-divider></el-divider>
 
@@ -72,7 +72,7 @@
                       <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合</el-button>
                     </div>
                     <div style="width: 800px;height: 480px;margin: auto">
-                      <GChart type="PieChart" :data=chartData :options="PieChartOptions"/>
+                      <GChart type="PieChart" :data=historyPie :options="PieChartOptions" v-if="historyPieDisplay"/>
                     </div>
                   </el-tab-pane>
 
@@ -93,20 +93,18 @@
 import Heading from "../components/Heading";
 import XLSX from 'xlsx'
 import {importExcelAPI} from "@/api/upload";
+import {getChartAPI} from "@/api/output";
 
 export default {
   name: "Advanced",
   data() {
     return {
+      dateValue:'',
+      month:'',
+      year:'',
       radio: 3,
       // 画图
-      chartData: [
-        ['name', 'contribution'],
-        ['ss', 25],
-        ['ljl', 40],
-        ['dqj', 56],
-        ['mjh', 100]
-      ],
+      chartData: '',
       // 画图
       PieChartOptions: {
         charts: {
@@ -116,39 +114,75 @@ export default {
         width: 800,
         height: 480,
       },
+      pieData:'',
+      risked_history:'',
+      recommendPie:'',
+      historyPie:'',
+      historyPieDisplay:false,
 
       //默认实时推荐页面
       activeName: 'first',
     }
   },
+  created(){
+    let that=this
+    this.getChartData()
+    console.log('created')
+  },
   components: {
     Heading
   },
   methods: {
-    changePieChart(val) {
-      if (val === 3) this.chartData = [
-        ['name', 'contribution'],
-        ['ss', 25],
-        ['ljl', 40],
-        ['dqj', 56],
-        ['mjh', 100]
-      ]
-      else if (val === 6) this.chartData = [
-        ['name', 'contribution'],
-        ['ss', 75],
-        ['ljl', 40],
-        ['dqj', 56],
-        ['mjh', 100]
-      ]
-      else this.chartData = [
-          ['name', 'contribution'],
-          ['ss', 125],
-          ['ljl', 40],
-          ['dqj', 56],
-          ['mjh', 100]
-        ]
+    recommendChange(val){
+      let that=this
+      that.dateValue= ''
+      that.month=''
+      that.year=''
+      that.historyPieDisplay=false
+      that.historyPie=[['name', 'contribution']]
+      if (val === 3) {
+        that.risked_history=that.chartData.history_low
+        that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
+      } else if (val === 6) {
+        that.risked_history=that.chartData.history_mid
+        that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
+      } else if (val === 9) {
+        that.risked_history=that.chartData.history_high
+        that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
+      }
+
+    },
+    // click to get recommend combination
+    getRecommendCombination() {
+      for (let index = 0; index < this.risked_history.length; index++) {
+        const element = this.risked_history[this.risked_history.length-1-index];
+        if(this.year>=element['year'] && this.month>=element['month']){
+          this.historyPie=element['pieData']
+          break
+        }
+      }
+      this.historyPieDisplay=true
+      console.log('getRecommendCombination')
+    },
+
+    // date Change
+    handleDateChange(value) {
+      var selectedDate=new Date(value)
+      this.month=selectedDate.getMonth()+1
+      this.year=selectedDate.getFullYear()
+      console.log(value)
+    },
+    async getChartData(){
+      let that=this
+      console.log('getChartData')
+      this.chartData=await getChartAPI()
+      console.log(that.chartData)
+      that.risked_history=that.chartData.history_low
+      that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
+      console.log(that.recommendPie)
     }
-  }
+  },
+
 }
 </script>
 
