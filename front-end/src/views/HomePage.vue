@@ -71,7 +71,7 @@ export default {
 .div-background-image {
   width: 100%;
   position: fixed;
-  background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/1542.jpg");
+  background-image: url("../assets/1542.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
