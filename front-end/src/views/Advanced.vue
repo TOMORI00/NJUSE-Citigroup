@@ -81,9 +81,9 @@
                   >对比复现</p>
                   <div class="div-risk">
                     <el-radio-group v-model="compRadio" @change="compareLineChange">
-                      <el-radio :label="3">瑞安组合</el-radio>
-                      <el-radio :label="6">瑞衡组合</el-radio>
-                      <el-radio :label="9">瑞利组合</el-radio>
+                      <el-radio :label="3">低风险</el-radio>
+                      <el-radio :label="6">中风险</el-radio>
+                      <el-radio :label="9">高风险</el-radio>
                     </el-radio-group>
                   </div>
                   <div style="width: 800px;height: 480px;margin: auto">
@@ -115,9 +115,9 @@
                 >投资建议</p>
                 <div class="div-risk">
                   <el-radio-group v-model="recRadio" @change="recommendChange">
-                    <el-radio :label="3" id="radio1">瑞安组合</el-radio>
-                    <el-radio :label="6">瑞衡组合</el-radio>
-                    <el-radio :label="9">瑞利组合</el-radio>
+                    <el-radio :label="3">低风险</el-radio>
+                    <el-radio :label="6">中风险</el-radio>
+                    <el-radio :label="9">高风险</el-radio>
                   </el-radio-group>
                 </div>
 
@@ -135,6 +135,13 @@
                         margin-top: 25px;
                         padding:1%;"
                 >历史推荐</p>
+                <div class="div-risk">
+                  <el-radio-group v-model="hisRadio" @change="hisrecommendChange">
+                    <el-radio :label="3">低风险</el-radio>
+                    <el-radio :label="6">中风险</el-radio>
+                    <el-radio :label="9">高风险</el-radio>
+                  </el-radio-group>
+                </div>
                 <div class="timeblock">
                   <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
                   <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
@@ -255,8 +262,10 @@ export default {
       compRadio: 3,
       // 推荐组合风险
       recRadio: 3,
+      hisRadio: 3,
       chartData: '',
       risked_history:'',
+      hisrisked_history:'',
       // 开始日期
       dateValue: '',
       month:'',
@@ -404,8 +413,8 @@ export default {
 
     // click to get recommend combination
     getRecommendCombination() {
-      for (let index = 0; index < this.risked_history.length; index++) {
-        const element = this.risked_history[this.risked_history.length-1-index];
+      for (let index = 0; index < this.hisrisked_history.length; index++) {
+        const element = this.hisrisked_history[this.hisrisked_history.length-1-index];
         if(this.year>=element['year'] && this.month>=element['month']){
           this.historyPie=element['pieData']
           break
@@ -437,11 +446,14 @@ export default {
 
     recommendChange(val){
       let that=this
-      that.dateValue= ''
-      that.month=''
-      that.year=''
-      that.historyPieDisplay=false
-      that.historyPie=[['name', 'contribution']]
+      if (that.dateValue==undefined)
+      {
+        that.dateValue= ''
+        that.month=''
+        that.year=''
+        that.historyPieDisplay=false
+        that.historyPie=[['name', 'contribution']]
+      }
       if (val === 3) {
         that.risked_history=that.chartData.history_low
         that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
@@ -452,9 +464,19 @@ export default {
         that.risked_history=that.chartData.history_high
         that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
       }
-
+    },
+    hisrecommendChange(vals){
+      let that=this
+      that.historyPie=[['name', 'contribution']]
+      if (vals === 3) {
+        that.hisrisked_history=that.chartData.history_low
+      } else if (vals === 6) {
+        that.hisrisked_history=that.chartData.history_mid
+      } else if (vals === 9) {
+        that.hisrisked_history=that.chartData.history_high
+      }
+      this.getRecommendCombination()
     }
-
 
   },
 
@@ -482,11 +504,6 @@ export default {
 .el-radio {
   font-weight: bold;
 }
-
-#radio1.is-checked {
-  color: red;
-}
-
 
 </style>
 

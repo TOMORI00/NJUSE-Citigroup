@@ -3,10 +3,10 @@
     <div class="div-heading">
       <div class="div-logo">
         <a href="/homepage">
-          <img class="logo-img" src="../assets/zhinuo.png">
+          <img class="logo-img" src="../assets/nju.png">
         </a>
       </div>
-      <div class="div-name"><h2 style="margin:auto;font-size: 30px">基金分析推荐系统</h2></div>
+      <div class="div-name"><h2 style="margin:auto;font-size: 30px">EPC</h2></div>
     </div>
     <el-divider id="heading-divider" style="margin: 0;padding: 0;height: 2px"></el-divider>
   </div>

@@ -23,14 +23,38 @@
         <el-main>
           <div class="mainblock">
 
-            <el-header height="40px" style="margin: 20px">
+            <el-header height="140px" style="margin: 20px">
               <div class="div-risk">
                 <el-radio-group v-model="radio" @change="recommendChange">
-                  <el-radio :label="3">瑞安组合</el-radio>
-                  <el-radio :label="6">瑞衡组合</el-radio>
-                  <el-radio :label="9">瑞利组合</el-radio>
+                  <el-radio :label="3">低风险</el-radio>
+                  <el-radio :label="6">中风险</el-radio>
+                  <el-radio :label="9">高风险</el-radio>
                 </el-radio-group>
               </div>
+              <p v-if='radio==3' style="font-weight:bold;
+                          font-size:20px;
+                          border-radius: 15px;
+                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                          background: rgba(0, 0, 0, 0.15);
+                          margin-top: 25px;
+                          padding:1%;"
+                    >低风险组合：防御为主，稳中有进。<br>历史模拟中，可能承受的最大亏损约5%  <br>目标为获取超越理财产品的收益</p>
+              <p v-if='radio==6' style="font-weight:bold;
+                          font-size:20px;
+                          border-radius: 15px;
+                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                          background: rgba(0, 0, 0, 0.15);
+                          margin-top: 25px;
+                          padding:1%;"
+                    >中风险组合：进攻为主，攻守兼备。<br>历史模拟中，可能承受的最大亏损约15%  <br>目标为获取远高于理财产品和信托产品的收益</p>
+              <p v-if='radio==9' style="font-weight:bold;
+                          font-size:20px;
+                          border-radius: 15px;
+                          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                          background: rgba(0, 0, 0, 0.15);
+                          margin-top: 25px;
+                          padding:1%;"
+                    >高风险组合：主动进攻，追求高收益。<br>历史模拟中,可能承受的最大亏损约40%  <br>目标为超越大盘和大部分公募基金</p>
             </el-header>
 
             <el-container>
@@ -50,6 +74,136 @@
                     <div style="width: 800px;height: 480px;margin: auto">
                       <GChart type="PieChart" :data=recommendPie :options="PieChartOptions"/>
                     </div>
+
+                    <p style="font-weight:bold;
+                        font-size:20px;
+                        border-radius: 15px;
+                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                        background: rgba(0, 0, 0, 0.15);
+                        margin-top: 25px;
+                        padding:1%;"
+                    >案例展示</p>
+                    <div v-if='radio==3'>
+                      <img src="../assets/cli-C-L.png" style="
+                        height: 400px;
+                        width: 800px;
+                        "/>
+                      <br>
+                      <p align="left" style="font-weight:bold;
+                        font-size:20px;
+                        border-radius: 15px;
+                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                        background: rgba(0, 0, 0, 0.1);
+                        margin-top: 25px;
+                        padding:1%;
+                        "
+                      >
+                      客户C低风险投资案例展示: 红线为推荐组合的收益，蓝线为客户C的历史收益<br>
+                      期间收益：4.64%(9万元)——比原来提高了<font color="red">8%</font><br>
+                      期间最大回撤：4.81%(10万元)——比原来降低了<font color="green">88%</font><br>
+                      期间风险收益比：0.96（即总收益/最大回撤）——比原来提高了<font color="red">166%</font><br>
+                      </p>
+                      <img src="../assets/cli-G-L.png" style="
+                        height: 400px;
+                        width: 800px;
+                        "/>
+                      <br>
+                      <p align="left" style="font-weight:bold;
+                        font-size:20px;
+                        border-radius: 15px;
+                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                        background: rgba(0, 0, 0, 0.1);
+                        margin-top: 25px;
+                        padding:1%;
+                        "
+                      >
+                      客户G低风险投资案例展示: 红线为推荐组合的收益，灰线为理财产品收益<br>
+                      期间收益：23.22%(139万元)——比原来提高了<font color="red">127%</font><br>
+                      组合最大回撤（可能面临的最大风险）：<font color="green">4.87%</font><br>
+                      </p>
+                    </div>
+                    
+                    <div v-if='radio==6'>
+                      <img src="../assets/cli-C-M.png" style="
+                        height: 400px;
+                        width: 800px;
+                        "/>
+                      <br>
+                      <p align="left" style="font-weight:bold;
+                        font-size:20px;
+                        border-radius: 15px;
+                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                        background: rgba(0, 0, 0, 0.1);
+                        margin-top: 25px;
+                        padding:1%;
+                        "
+                      >
+                      客户C低风险投资案例展示: 红线为推荐组合的收益，蓝线为客户C的历史收益<br>
+                      期间收益：23.39%(47万元)——比原来提高了<font color="red">40%</font><br>
+                      期间最大回撤：16.18%(24万元)——比原来降低了<font color="green">60%</font><br>
+                      期间风险收益比：1.45（即总收益/最大回撤）——比原来提高了<font color="red">199%</font><br>
+                      </p>
+                      <img src="../assets/cli-G-M.png" style="
+                        height: 400px;
+                        width: 800px;
+                        "/>
+                      <br>
+                      <p align="left" style="font-weight:bold;
+                        font-size:20px;
+                        border-radius: 15px;
+                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                        background: rgba(0, 0, 0, 0.1);
+                        margin-top: 25px;
+                        padding:1%;
+                        "
+                      >
+                      客户G低风险投资案例展示: 红线为推荐组合的收益，灰线为理财产品收益<br>
+                      期间收益：51.09%(307万元)——比原来提高了<font color="red">398%</font><br>
+                      组合最大回撤（可能面临的最大风险）：<font color="green">13.49%</font><br>
+                      </p>
+                    </div>
+                                        
+                    <div v-if='radio==9'>
+                      <img src="../assets/cli-C-H.png" style="
+                        height: 400px;
+                        width: 800px;
+                        "/>
+                      <br>
+                      <p align="left" style="font-weight:bold;
+                        font-size:20px;
+                        border-radius: 15px;
+                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                        background: rgba(0, 0, 0, 0.1);
+                        margin-top: 25px;
+                        padding:1%;
+                        "
+                      >
+                      客户C低风险投资案例展示: 红线为推荐组合的收益，蓝线为客户C的历史收益<br>
+                      期间收益：55.51%(111万元)——比原来提高了<font color="red">95%</font><br>
+                      期间最大回撤：14.41%(39万元)——比原来降低了<font color="green">64%</font><br>
+                      期间风险收益比：3.85（即总收益/最大回撤）——比原来提高了<font color="red">365%</font><br>
+                      </p>
+
+                      <img src="../assets/cli-G-H.png" style="
+                        height: 400px;
+                        width: 800px;
+                        "/>
+                      <br>
+                      <p align="left" style="font-weight:bold;
+                        font-size:20px;
+                        border-radius: 15px;
+                        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+                        background: rgba(0, 0, 0, 0.1);
+                        margin-top: 25px;
+                        padding:1%;
+                        "
+                      >
+                      客户G低风险投资案例展示: 红线为推荐组合的收益，灰线为理财产品收益<br>
+                      期间收益：59.84%(359万元)——比原来提高了<font color="red">484%</font><br>
+                      组合最大回撤（可能面临的最大风险）：<font color="green">18.37%</font><br>
+                      </p>
+
+                    </div>
                     <el-divider></el-divider>
 
                   </el-tab-pane>
@@ -63,6 +217,13 @@
                         margin-top: 25px;
                         padding:1%;"
                     >历史推荐</p>
+                    <div class="div-risk">
+                      <el-radio-group v-model="hisRadio" @change="hisrecommendChange">
+                        <el-radio :label="3">低风险</el-radio>
+                        <el-radio :label="6">中风险</el-radio>
+                        <el-radio :label="9">高风险</el-radio>
+                      </el-radio-group>
+                    </div>
                     <div class="timeblock">
                       <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
                       <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月" placeholder="请选择时段"
@@ -103,6 +264,7 @@ export default {
       month:'',
       year:'',
       radio: 3,
+      hisRadio: 3,
       // 画图
       chartData: '',
       // 画图
@@ -125,6 +287,7 @@ export default {
       },  
       pieData:'',
       risked_history:'',
+      risked_history_:'',
       recommendPie:'',
       historyPie:'',
       historyPieDisplay:false,
@@ -136,7 +299,7 @@ export default {
   created(){
     let that=this
     this.getChartData()
-    console.log('created')
+    // console.log('created')
   },
   components: {
     Heading
@@ -144,11 +307,13 @@ export default {
   methods: {
     recommendChange(val){
       let that=this
+      if(that.dateValue==undefined)
+      {
       that.dateValue= ''
       that.month=''
       that.year=''
-      that.historyPieDisplay=false
       that.historyPie=[['name', 'contribution']]
+      }
       if (val === 3) {
         that.risked_history=that.chartData.history_low
         that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
@@ -159,19 +324,28 @@ export default {
         that.risked_history=that.chartData.history_high
         that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
       }
-
+    },
+    hisrecommendChange(vals){
+      let that=this
+      if (vals === 3) {
+        that.risked_history_=that.chartData.history_low
+      } else if (vals === 6) {
+        that.risked_history_=that.chartData.history_mid
+      } else if (vals === 9) {
+        that.risked_history_=that.chartData.history_high
+      }
+      this.getRecommendCombination()
     },
     // click to get recommend combination
     getRecommendCombination() {
-      for (let index = 0; index < this.risked_history.length; index++) {
-        const element = this.risked_history[this.risked_history.length-1-index];
+      for (let index = 0; index < this.risked_history_.length; index++) {
+        const element = this.risked_history_[this.risked_history_.length-1-index];
         if(this.year>=element['year'] && this.month>=element['month']){
           this.historyPie=element['pieData']
           break
         }
       }
       this.historyPieDisplay=true
-      console.log('getRecommendCombination')
     },
 
     // date Change
@@ -179,16 +353,16 @@ export default {
       var selectedDate=new Date(value)
       this.month=selectedDate.getMonth()+1
       this.year=selectedDate.getFullYear()
-      console.log(value)
+      // console.log(value)
     },
     async getChartData(){
       let that=this
-      console.log('getChartData')
+      // console.log('getChartData')
       this.chartData=await getChartAPI()
-      console.log(that.chartData)
+      // console.log(that.chartData)
       that.risked_history=that.chartData.history_low
       that.recommendPie=that.risked_history[that.risked_history.length-1]['pieData']
-      console.log(that.recommendPie)
+      // console.log(that.recommendPie)
     }
   },
 

@@ -17,7 +17,7 @@
         <el-header class="homepage-header" height="100px">
           <div class="div-logo">
             <a href="/homepage">
-              <img class="logo-img" src="../assets/zhinuo.png">
+              <img class="logo-img" src="../assets/nju.png">
             </a>
           </div>
           <div class="div-more-link">
@@ -35,7 +35,7 @@
             <h1 style="position: relative;top:40px; font-size:30px;">请选择您的用户类型</h1>
             <el-button class="choose-button" id="button1" @click="toAdvanced">我是理财经理</el-button>
             <el-button class="choose-button" id="button2" @click="toNormal">我是投资者</el-button>
-            <el-button class="choose-button" id="button3" @click="toAnalysis">分行数据分析</el-button>
+            <el-button class="choose-button" id="button3" @click="toAnalysis">组合详情分析</el-button>
           </div>
         </el-main>
       </el-container>
