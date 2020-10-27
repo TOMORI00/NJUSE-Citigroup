@@ -6,7 +6,7 @@
           <img class="logo-img" src="../assets/nju.png">
         </a>
       </div>
-      <div class="div-name"><h2 style="margin:auto;font-size: 30px">EPC</h2></div>
+      <div class="div-name"><h2 style="margin:auto;font-size: 25px">公募基金/理财复现与顾问组合系统（EPC）</h2></div>
     </div>
     <el-divider id="heading-divider" style="margin: 0;padding: 0;height: 2px"></el-divider>
   </div>
