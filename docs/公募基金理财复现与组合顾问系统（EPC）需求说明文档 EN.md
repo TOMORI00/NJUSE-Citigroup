@@ -28,7 +28,7 @@ Through the application of the public fund analysis and recommendation system, i
 
 #### 2.1.1 Background and opportunities
 
-Public funds, a relatively new form of investment, have gained greater attention in today's financial markets. For banks, staff need to show customers the investment history of funds and sell them products; while for individual customers, they need a system that provides fund portfolio recommendations
+Public funds, a relatively new form of investment, have gained greater attention in today's financial markets. For banks, staff need to show customers the investment history of funds and sell them products;  for individual customers, they need a system that provides fund portfolio recommendations; while for bank branch staff, they need to analyse the details of the fund portfolio.
 
 We noticed this and expected to assist both of these clients by developing a public fund analysis and recommendation system to achieve higher product sales and investment returns.
 
@@ -36,6 +36,7 @@ We noticed this and expected to assist both of these clients by developing a pub
 
 * **BR1**: Users will be able to visually compare and analyze the profits of their invesments after using this system.
 * **BR2**: Users will be able to get more ideal portfolio recommendations after using this system.
+* **BR3**: Users will be able to analyse the details of the fund portfolio.
 
 ### 2.2  System fuctions
 
@@ -43,6 +44,7 @@ We noticed this and expected to assist both of these clients by developing a pub
 * **SF2**: Comparing the user's investment history with the results of the recommendation system under different risks levels (comparative recurrence).
 * **SF3**: Providing users with portfolio recommendations for the current period.
 * **SF4**: Providing portfolio recommendations at a certain time in the past.
+* **SF5**: Providing a document with portfolio details can be viewed or downloaded
 
 ### 2.3 User characteristics
 
@@ -50,7 +52,7 @@ We noticed this and expected to assist both of these clients by developing a pub
 | ------------------------- | ------------------------------------------------------------ |
 | Bank staff                | This type of user uses the system for the purpose of showing her clients the history investment profile of the client, comparing the differences between the recommended fund investment products, then trying to convince the client to buy the fund products and thus provide recommendations for the fund portfolio. |
 | Ordinary individual users | The purpose of these users to use the system is to get fund portfolio recommendations based on the different risk levels they can bear, the system needs to provide high, medium and low risk levels of fund portfolio recommendations. |
-| Data analysts             | These users are using the system for research purposes, are concerned about the algorithms and data behind the system, and need to be provided with a system report. |
+| Data analysts             | These users are using the system for research purposes, are concerned about the algorithms and data behind the system, and need to be provided with a document with details about the portfolio. |
 
 ### 2.4 Constraints
 
@@ -183,33 +185,40 @@ The system provides the user with portfolio recommendations for a certain time p
 | ------------------------------- | ------------------------------------------------------------ |
 | 3.2.4 Portfolio recommendations | Comparison of recurrence needs to select the corresponding risk level. |
 
------
+#### 3.2.6 Accessing System Detalis
+
+##### 3.2.6.1 Characteristic decription
+
+The system provides the users with a document of the details about the portfolio in a certain time period, which can be viewed in a new page or downloaded.
+
+##### 3.2.6.2 Stimulus/Response Sequence
+
+* Simulation: User clicks the data-analyst button. 
+* Response: The system opens the fund portfolio details pdf file in a new tab.
+
+------
 
 ### 3.3 Non-funtional Requirements
 
 #### 3.3.1 Safety
 
+* **Safety1**: There are no security requirements for the current version of the system.
+
 #### 3.3.2 Modifiablity
 
-#### 3.3.3 Usablity
+* **Modifiablity1**: The system must be able to support the development of further functionality.
+
+#### 3.3.3 Usability
+
+* **Usability1**: The system needs to be easily accessible to users who are slightly proficient in using computers.
 
 #### 3.3.4 Reliability
 
+* **Reliability1**: The system cannot crash during presentation.
+
 #### 3.3.5 Business Rules
 
-#### 3.3.6 Constraints
-
-### 3.4 Data Requirements
-
-#### 3.4.1 Data Definition
-
-#### 3.4.2 Default Data
-
-None
-
-#### 3.4.3 Data Format Requirements
-
-### 3.5 Additional Requirements
+* **BR1**: Bank staff need to have access to customers' purchase and redemption records.
 
 ## 4. Appendies
 
