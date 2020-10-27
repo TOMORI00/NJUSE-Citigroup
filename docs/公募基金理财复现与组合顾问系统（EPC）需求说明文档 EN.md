@@ -1,4 +1,4 @@
-# Requirements of the Citi Cup Public Fund Analysis and Recommendation System
+# Requirements of Mutual fund/financial management reapperence and advisory  portfolio system (EPC)
 
 [toc]
 
@@ -8,7 +8,7 @@
 
 ### 1.1 Purpose
 
-The purpose of this document is to describe the functional and non-functional requirements of the public fund analysis and recommendation system. The developer team's software system implementation and verification work are based on this document.
+The purpose of this document is to describe the functional and non-functional requirements of the mutual fund/financial management reapperence and advisory  portfolio system(EPC). The developer team's software system implementation and verification work are based on this document.
 
 All requirements contained in this documentation have high priority unless noted.
 

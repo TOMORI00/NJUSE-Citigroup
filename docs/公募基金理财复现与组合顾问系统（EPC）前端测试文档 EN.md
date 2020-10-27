@@ -1,10 +1,10 @@
-# Front End Test Document of Citi Cup Public Fundraising Analysis and Recommendation System 
+# Front End Test Document of Mutual fund/financial management reapperence and advisory  portfolio system(EPC)
 
 ## 1. Introduction
 
 ### 1.1 Purpose
 
-The purpose of this document is to describe whether the final public fund analysis recommendation system meets all of the functional requirements listed in the requirements specification and summarize the deficiency in the development process.
+The purpose of this document is to describe whether the final mutual fund/financial management reapperence and advisory  portfolio system meets all of the functional requirements listed in the requirements specification and summarize the deficiency in the development process.
 
 ## 2. Scope of Testing
 
