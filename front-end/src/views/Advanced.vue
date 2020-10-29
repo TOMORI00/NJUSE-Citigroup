@@ -254,6 +254,7 @@ export default {
         width: 800,
         height: 480,
         is3D: true,
+        colors:['red','blue']
       },
 
       // 修改基金池
