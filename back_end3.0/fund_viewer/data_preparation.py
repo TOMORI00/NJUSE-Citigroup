@@ -501,7 +501,7 @@ def get_maxdrawdown(return_list):
 
 if __name__ == '__main__':
     #c.start("ForceLogin=1", 'TestLatency =1', '')
-    auth('13739188902', 'Zn20160801')
+    auth('13739188902', 'ZNnb20160801')
     #fund_pool = get_fund_pool(fund_pool_update=True, return_detail=True, fund_pool_fun='return',
     #                          update_date=datetime.strptime('20191225', "%Y%m%d").date())
     nav_rates = get_nav_rates(fund_nav_update=True, fund_pool_update=False, fund_pool_fun='return',

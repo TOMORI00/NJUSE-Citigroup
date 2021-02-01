@@ -15,7 +15,7 @@ import pandas as pd
 from jqdatasdk import finance
 from jqdatasdk import *
 
-auth('13739188902', 'Zn20160801')
+auth('13739188902','ZNnb20160801')
 def write_docx(filename, sd,risk,duration,fig1,p_per1, p_money1,fig2,p_per2, p_money2,md2,piename,w):
     document = Document()
     document.styles['Normal'].font.name = u'宋体'

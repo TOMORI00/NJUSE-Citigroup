@@ -14,7 +14,7 @@ from datetime import timedelta
 
 
 def start():
-    auth('13739188902', 'Zn20160801')
+    auth('13739188902', 'ZNnb20160801')
     timing = pd.read_table("timing_zn0.txt", dtype=str, header=None)
     _end_date = timing.iloc[:, 0].tolist()
     for _ in _end_date:

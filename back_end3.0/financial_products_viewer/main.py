@@ -25,7 +25,7 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
-auth('13739188902', 'Zn20160801')
+auth('13739188902', 'ZNnb20160801')
 
 
 # zym 
