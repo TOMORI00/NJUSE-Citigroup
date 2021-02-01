@@ -379,8 +379,12 @@ def round_2(w):
 
 
 
-
+# profit1=[]
+# result1=[]
+# maxloss1=0
+# md_money1=0
 def fun():
+    # global profit1, result1, maxloss1, md_money1
     pmonth = [11, 11]
     fun = ['md', 'rmd']
     gd = ['高风险', '中风险']
@@ -398,12 +402,12 @@ def fun():
     history_low_quarter = [datetime(2017,3,25,12,20),datetime(2017,9,14,12,20),datetime(2018,3,25,12,20),datetime(2018,10,25,12,20),datetime(2019,5,26,12,20),datetime(2020,3,25,12,20),datetime(2020,10,14,12,20)]
 
 
-
-    for root, dirs, files in os.walk(os.path.dirname(__file__)+'\\'+'input\\'):
+    for root, dirs, files in os.walk(os.path.join(os.path.dirname(__file__),'input')):
+        print("len:", len(files))
         for z in range(0,len(files),2):
             filename = files[z]
             sellfilename = files[z+1]
-            buydata = pd.read_excel(os.path.dirname(__file__)+'\\'+'input\\'+filename, dtype=str)
+            buydata = pd.read_excel(os.path.join(os.path.dirname(__file__),'input',filename), dtype=str)
             #buydata = buydata[:-1]
             buydata = buydata.sort_values(by="买入时间" , ascending=True)
             buydata['买入时间'] = '20' + buydata['买入时间']
@@ -414,7 +418,7 @@ def fun():
                 buydata.loc[index, '买入时间'] = get_trade_days(start_date=t)[0]
             buydata.index = pd.to_datetime(buydata['买入时间'])
 
-            selldata = pd.read_excel(os.path.dirname(__file__)+'\\'+'input\\'+sellfilename, dtype=str)
+            selldata = pd.read_excel(os.path.join(os.path.dirname(__file__),'input',sellfilename), dtype=str)
             if not selldata.empty:
                 #selldata = selldata[:-1]
                 selldata = selldata.sort_values(by="赎回时间" , ascending=True)
@@ -507,7 +511,7 @@ def fun():
                     
             hs300 = get_hs300_data(sd, ed)
             baseline_hs300 = hs300 / hs300[0]
-            fig1 = os.path.dirname(__file__)+'\\'+'figure\\' +filename[:-5] + '.png'
+            fig1 = os.path.join(os.path.dirname(__file__),'figure' ,filename[:-5] + '.png')
             value_list=list(value_df1.value)
             result1,maxloss1 = bt.get_result(profit1, 0.03,value_list)
             p_money1 = result1['r']*cost
@@ -601,14 +605,14 @@ def fun():
                     test_month = date.month      #zym
                     find_year,find_period = findPeriod_HM(test_year,test_month)     #zym
 
-                    buy_w_filename = os.path.dirname(__file__)+'\\'+ 'tmp\\'+'H'+ str(find_year)+'-'+str(find_period)+'.csv'
+                    buy_w_filename = os.path.join(os.path.dirname(__file__), 'tmp','H'+ str(find_year)+'-'+str(find_period)+'.csv')
                     if os.path.exists(buy_w_filename):
                         buy_w = pd.read_csv(buy_w_filename, dtype=object)
                         buy_w.set_index('Unnamed: 0',inplace=True)
                     else:
                         buy_w = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.5, fund_pool_size=100, fund_pool_update=True,
                                          fund_nav_update=True, end_date=first_date, max_num=3, risk_aversion=3, fund_pool_funs=[fun[d]],
-                                         fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(date.year)+'_'+str(quarter)+'.txt')
+                                         fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(date.year)+'_'+str(quarter)+'.txt'))
                         buy_w = revise_w_gao(buy_w, 0.11)
                         buy_w.to_csv(buy_w_filename)
                     
@@ -636,14 +640,14 @@ def fun():
                     test_month = date.month      #zym
                     find_year,find_period = findPeriod_HM(test_year,test_month)     #zym
 
-                    buy_w_filename = os.path.dirname(__file__)+'\\'+ 'tmp\\'+'H'+ str(find_year)+'-'+str(find_period)+'.csv'
+                    buy_w_filename = os.path.join(os.path.dirname(__file__), 'tmp','H'+ str(find_year)+'-'+str(find_period)+'.csv')
                     if os.path.exists(buy_w_filename):
                         buy_w = pd.read_csv(buy_w_filename, dtype=object)
                         buy_w.set_index('Unnamed: 0',inplace=True)
                     else:
                         buy_w = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.5, fund_pool_size=100, fund_pool_update=True,
                                          fund_nav_update=True, end_date=first_date, max_num=3, risk_aversion=3, fund_pool_funs=[fun[d]],
-                                         fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(date.year)+'_'+str(quarter)+'.txt')
+                                         fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(date.year)+'_'+str(quarter)+'.txt'))
                         buy_w = revise_w_gao(buy_w, 0.11)
                         buy_w.to_csv(buy_w_filename)
                     tdata = get_fund_data(start_dates[0], start_dates[-1], buy_w)
@@ -672,14 +676,14 @@ def fun():
             #print(asset) 
             value_list=list(value_df.value)
             result2,maxloss2 = bt.get_result(profit, 0.03,value_list)
-            fig2 = os.path.dirname(__file__)+'\\'+'figure\\'+ filename[:-5] + gd[d] + '风险组合' + '.png'
+            fig2 = os.path.join(os.path.dirname(__file__),'figure', filename[:-5] + gd[d] + '风险组合' + '.png')
             p_money2 = result2['r']*asset
             print(result2['r'],asset,p_money2)
             md_money2 = result2['md']*asset
             #draw(profit, profit2[:-1], result, 'result\\'+ filename[:-5] + str(pmonth[d]) + 'limit_' + fun[d] + '.png', value_list[-1]-asset, maxloss)
             draw_profits(profit, profit1, result2, 'red', 'blue',fig2, p_money2, maxloss2, start_dates[:-1])
             
-            piename = os.path.dirname(__file__)+'\\'+'figure\\' +filename[:-5] + gd[d] + '风险组合_pie.png'
+            piename = os.path.join(os.path.dirname(__file__),'figure' ,filename[:-5] + gd[d] + '风险组合_pie.png')
             
 
             #zym 高风险 历史
@@ -691,7 +695,7 @@ def fun():
                 find_year,find_period = findPeriod_HM(test_year,test_month)
                 test_quarter = (test_it.month -1) //3 +1
                 test_date = get_quarter_date(test_it)
-                buy_w_test_filename =os.path.dirname(__file__)+'\\'+ 'tmp\\'+'H'+ str(find_year)+'-'+str(find_period)+'.csv'
+                buy_w_test_filename =os.path.join(os.path.dirname(__file__), 'tmp','H'+ str(find_year)+'-'+str(find_period)+'.csv')
                 #print(buy_w_test_filename)
                 if os.path.exists(buy_w_test_filename):
                     #print("true")
@@ -700,7 +704,7 @@ def fun():
                 else:
                     buy_w_test = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.5, fund_pool_size=100, fund_pool_update=True,
                                                 fund_nav_update=True, end_date=test_date, max_num=3, risk_aversion=3, fund_pool_funs=[fun[d]],
-                                                fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(test_it.year)+'_'+str(test_quarter)+'.txt')
+                                                fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(test_it.year)+'_'+str(test_quarter)+'.txt'))
                     buy_w_test = revise_w_gao(buy_w_test, 0.11)
 
                 #print(buy_w_test)
@@ -739,14 +743,14 @@ def fun():
             test_month = today.month      #zym
             find_year,find_period = findPeriod_HM(test_year,test_month)     #zym
 
-            buy_w_filename = os.path.dirname(__file__)+'\\'+ 'tmp\\'+'H'+ str(find_year)+'-'+str(find_period)+'.csv'
+            buy_w_filename = os.path.join(os.path.dirname(__file__), 'tmp','H'+ str(find_year)+'-'+str(find_period)+'.csv')
             if os.path.exists(buy_w_filename):
                 buy_w = pd.read_csv(buy_w_filename, dtype=object)
                 buy_w.set_index('Unnamed: 0',inplace=True)
             else:
                 buy_w = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.5, fund_pool_size=100, fund_pool_update=True,
                                          fund_nav_update=True, end_date=t_date, max_num=3, risk_aversion=3, fund_pool_funs=[fun[d]],
-                                         fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(today.year)+'_'+str(t_quarter)+'.txt')
+                                         fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(today.year)+'_'+str(t_quarter)+'.txt'))
                 buy_w = revise_w_gao(buy_w, 0.11)
                 buy_w.to_csv(buy_w_filename)
             
@@ -890,16 +894,16 @@ def fun():
                     test_month = date.month      #zym
                     find_year,find_period = findPeriod_HM(test_year,test_month)     #zym
 
-                    buy_w_filename = os.path.dirname(__file__)+'\\'+ 'tmp\\'+'M'+ str(find_year)+'-'+str(find_period)+ '.csv'
+                    buy_w_filename = os.path.join(os.path.dirname(__file__), 'tmp','M'+ str(find_year)+'-'+str(find_period)+ '.csv')
                     if os.path.exists(buy_w_filename):
                         buy_w = pd.read_csv(buy_w_filename, dtype=object)
                         buy_w.set_index('Unnamed: 0',inplace=True)
                     else:
                         buy_w = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.7, fund_pool_size=100, fund_pool_update=True,
                                          fund_nav_update=True, end_date=first_date, max_num=2, risk_aversion=3, fund_pool_funs=[fun[d]],
-                                         fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(date.year)+'_'+str(quarter)+'.txt')
+                                         fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(date.year)+'_'+str(quarter)+'.txt'))
                         low_limit = random.randint(int(25),int(35)) / 100
-                        buy_w = revise_w(buy_w, os.path.dirname(__file__)+'\\'+'funds\\'+str(today.year)+'_'+str(quarter)+'_low.txt', low_limit)
+                        buy_w = revise_w(buy_w, os.path.join(os.path.dirname(__file__),'funds',str(today.year)+'_'+str(quarter)+'_low.txt'), low_limit)
                         buy_w.to_csv(buy_w_filename)
                     tdata = get_fund_data(start_dates[0], start_dates[-1], buy_w)
                     if data.empty:
@@ -923,16 +927,16 @@ def fun():
                     test_month = date.month      #zym
                     find_year,find_period = findPeriod_HM(test_year,test_month)     #zym
 
-                    buy_w_filename = os.path.dirname(__file__)+'\\'+ 'tmp\\'+'M'+ str(find_year)+'-'+str(find_period)+ '.csv'
+                    buy_w_filename = os.path.join(os.path.dirname(__file__), 'tmp','M'+ str(find_year)+'-'+str(find_period)+ '.csv')
                     if os.path.exists(buy_w_filename):
                         buy_w = pd.read_csv(buy_w_filename, dtype=object)
                         buy_w.set_index('Unnamed: 0',inplace=True)
                     else:
                         buy_w = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.7, fund_pool_size=100, fund_pool_update=True,
                                          fund_nav_update=True, end_date=first_date, max_num=2, risk_aversion=3, fund_pool_funs=[fun[d]],
-                                         fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(date.year)+'_'+str(quarter)+'.txt')
+                                         fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(date.year)+'_'+str(quarter)+'.txt'))
                         low_limit = random.randint(int(25),int(35)) / 100
-                        buy_w = revise_w(buy_w,os.path.dirname(__file__)+'\\'+ 'funds\\'+str(today.year)+'_'+str(quarter)+'_low.txt', low_limit)
+                        buy_w = revise_w(buy_w,os.path.join(os.path.dirname(__file__), 'funds',str(today.year)+'_'+str(quarter)+'_low.txt'), low_limit)
                         buy_w.to_csv(buy_w_filename)
                     tdata = get_fund_data(start_dates[0], start_dates[-1], buy_w)
                     if data.empty:
@@ -959,13 +963,13 @@ def fun():
             #print(asset) 
             value_list=list(value_df.value)
             result2,maxloss2 = bt.get_result(profit, 0.03,value_list)
-            fig2 = os.path.dirname(__file__)+'\\'+'figure\\'+ filename[:-5] + gd[d] + '风险组合' + '.png'
+            fig2 = os.path.join(os.path.dirname(__file__),'figure', filename[:-5] + gd[d] + '风险组合' + '.png')
             p_money2 = result2['r']*asset
             md_money2 = result2['md']*asset
             #draw(profit, profit2[:-1], result, 'result\\'+ filename[:-5] + str(pmonth[d]) + 'limit_' + fun[d] + '.png', value_list[-1]-asset, maxloss)
             draw_profits(profit, profit1, result2, 'red', 'blue',fig2, p_money2, maxloss2, start_dates[:-1])
             
-            piename = os.path.dirname(__file__)+'\\'+'figure\\' +filename[:-5] + gd[d] + '风险组合_pie.png'
+            piename = os.path.join(os.path.dirname(__file__),'figure' ,filename[:-5] + gd[d] + '风险组合_pie.png')
             
 
             #zym 中风险 历史
@@ -980,16 +984,16 @@ def fun():
 
                 test_quarter = (test_it.month -1) //3 +1
                 test_date = get_quarter_date(test_it)
-                buy_w_test_filename =os.path.dirname(__file__)+'\\'+ 'tmp\\'+'M'+ str(find_year)+'-'+str(find_period)+ '.csv'
+                buy_w_test_filename =os.path.join(os.path.dirname(__file__), 'tmp','M'+ str(find_year)+'-'+str(find_period)+ '.csv')
                 if os.path.exists(buy_w_test_filename):
                     buy_w_test = pd.read_csv(buy_w_test_filename, dtype=object)
                     buy_w_test.set_index('Unnamed: 0',inplace=True)
                 else:
                     buy_w_test = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.7, fund_pool_size=100, fund_pool_update=True,
                                                 fund_nav_update=True, end_date=t_date, max_num=2, risk_aversion=3, fund_pool_funs=[fun[d]],
-                                                fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(test_year)+'_'+str(test_quarter)+'.txt')
+                                                fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(test_year)+'_'+str(test_quarter)+'.txt'))
                     low_limit = random.randint(int(25),int(35)) / 100
-                    buy_w_test = revise_w(buy_w_test,os.path.dirname(__file__)+'\\'+ 'funds\\'+str(test_year)+'_'+str(test_quarter)+'_low.txt', low_limit)
+                    buy_w_test = revise_w(buy_w_test,os.path.join(os.path.dirname(__file__), 'funds',str(test_year)+'_'+str(test_quarter)+'_low.txt'), low_limit)
 
                 #print(buy_w_test)
 
@@ -1025,16 +1029,16 @@ def fun():
             test_month = today.month
             find_year,find_period = findPeriod_HM(test_year,test_month)
 
-            buy_w_filename = os.path.dirname(__file__)+'\\'+ 'tmp\\'+'M'+ str(find_year)+'-'+str(find_period)+ '.csv'
+            buy_w_filename = os.path.join(os.path.dirname(__file__), 'tmp','M'+ str(find_year)+'-'+str(find_period)+ '.csv')
             if os.path.exists(buy_w_filename):
                 buy_w = pd.read_csv(buy_w_filename, dtype=object)
                 buy_w.set_index('Unnamed: 0',inplace=True)
             else:
                 buy_w = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.7, fund_pool_size=100, fund_pool_update=True,
                                          fund_nav_update=True, end_date=t_date, max_num=2, risk_aversion=3, fund_pool_funs=[fun[d]],
-                                         fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(today.year)+'_'+str(t_quarter)+'.txt')
+                                         fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(today.year)+'_'+str(t_quarter)+'.txt'))
                 low_limit = random.randint(int(25),int(35)) / 100
-                buy_w = revise_w(buy_w,os.path.dirname(__file__)+'\\'+ 'funds\\'+str(today.year)+'_'+str(quarter)+'_low.txt', low_limit)
+                buy_w = revise_w(buy_w,os.path.join(os.path.dirname(__file__), 'funds',str(today.year)+'_'+str(quarter)+'_low.txt'), low_limit)
                 buy_w.to_csv(buy_w_filename)
 
 
@@ -1151,7 +1155,7 @@ def fun():
                     test_month = date.month
                     find_year,find_period = findPeriod_L(test_year,test_month)
 
-                    buy_w_filename = os.path.dirname(__file__)+'\\'+ 'tmp\\'+'L'+ str(find_year)+'-'+str(find_period)+ '.csv'
+                    buy_w_filename = os.path.join(os.path.dirname(__file__), 'tmp','L'+ str(find_year)+'-'+str(find_period)+ '.csv')
 
                     if os.path.exists(buy_w_filename):
                         buy_w = pd.read_csv(buy_w_filename, dtype=object)
@@ -1159,9 +1163,9 @@ def fun():
                     else:
                         buy_w = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.9, fund_pool_size=100, fund_pool_update=True,
                                           fund_nav_update=True, end_date=first_date, max_num=2, risk_aversion=3, fund_pool_funs=['rmd'],
-                                          fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(date.year)+'_'+str(quarter)+'.txt')
+                                          fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(date.year)+'_'+str(quarter)+'.txt'))
                         low_limit = random.randint(int(85),int(92)) / 100
-                        buy_w = revise_w(buy_w, os.path.dirname(__file__)+'\\'+'funds\\'+str(today.year)+'_'+str(quarter)+'_low.txt', low_limit)
+                        buy_w = revise_w(buy_w, os.path.join(os.path.dirname(__file__),'funds',str(today.year)+'_'+str(quarter)+'_low.txt'), low_limit)
                         buy_w.to_csv(buy_w_filename)
                     tdata = get_fund_data(start_dates[0], start_dates[-1], buy_w)
                     if data.empty:
@@ -1185,16 +1189,16 @@ def fun():
                     find_year,find_period = findPeriod_L(test_year,test_month)
 
 
-                    buy_w_filename = os.path.dirname(__file__)+'\\'+ 'tmp\\'+'L'+ str(find_year)+'-'+str(find_period)+ '.csv'
+                    buy_w_filename = os.path.join(os.path.dirname(__file__), 'tmp','L'+ str(find_year)+'-'+str(find_period)+ '.csv')
                     if os.path.exists(buy_w_filename):
                         buy_w = pd.read_csv(buy_w_filename, dtype=object)
                         buy_w.set_index('Unnamed: 0',inplace=True)
                     else:
                         buy_w = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.9, fund_pool_size=100, fund_pool_update=True,
                                           fund_nav_update=True, end_date=first_date, max_num=2, risk_aversion=3, fund_pool_funs=['rmd'],
-                                          fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(date.year)+'_'+str(quarter)+'.txt')
+                                          fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(date.year)+'_'+str(quarter)+'.txt'))
                         low_limit = random.randint(int(85),int(92)) / 100
-                        buy_w = revise_w(buy_w, os.path.dirname(__file__)+'\\'+'funds\\'+str(today.year)+'_'+str(quarter)+'_low.txt', low_limit)
+                        buy_w = revise_w(buy_w, os.path.join(os.path.dirname(__file__),'funds',str(today.year)+'_'+str(quarter)+'_low.txt'), low_limit)
                         buy_w.to_csv(buy_w_filename)
                     tdata = get_fund_data(start_dates[0], start_dates[-1], buy_w)
                     if data.empty:
@@ -1222,12 +1226,12 @@ def fun():
             
             value_list=list(value_df.value)
             result2,maxloss2 = bt.get_result(profit, 0.03,value_list)
-            fig2 = os.path.dirname(__file__)+'\\'+'figure\\'+ filename[:-5] + '低风险组合' + '.png'
+            fig2 = os.path.join(os.path.dirname(__file__),'figure', filename[:-5] + '低风险组合' + '.png')
             p_money2 = result2['r']*asset
             md_money2 = result2['md']*asset
             draw_profits(profit, profit1, result2, 'red', 'blue',fig2, p_money2, maxloss2, start_dates[:-1])
             
-            piename = os.path.dirname(__file__)+'\\'+'figure\\' +filename[:-5] + '低风险组合_pie.png'
+            piename = os.path.join(os.path.dirname(__file__),'figure' ,filename[:-5] + '低风险组合_pie.png')
 
 
             #zym 低风险 历史
@@ -1242,16 +1246,16 @@ def fun():
     
                 test_quarter = (test_it.month -1) //3 +1
                 test_date = get_quarter_date(test_it)
-                buy_w_test_filename =os.path.dirname(__file__)+'\\'+ 'tmp\\'+'L'+ str(find_year)+'-'+str(find_period)+ '.csv'
+                buy_w_test_filename =os.path.join(os.path.dirname(__file__), 'tmp','L'+ str(find_year)+'-'+str(find_period)+ '.csv')
                 if os.path.exists(buy_w_test_filename):
                     buy_w_test = pd.read_csv(buy_w_test_filename, dtype=object)
                     buy_w_test.set_index('Unnamed: 0',inplace=True)
                 else:
                     buy_w_test = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.9, fund_pool_size=100, fund_pool_update=True,
                                           fund_nav_update=True, end_date=test_date, max_num=2, risk_aversion=3, fund_pool_funs=['rmd'],
-                                          fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(test_year)+'_'+str(test_quarter)+'.txt')
+                                          fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(test_year)+'_'+str(test_quarter)+'.txt'))
                     low_limit = random.randint(int(85),int(92)) / 100
-                    buy_w_test = revise_w(buy_w_test, os.path.dirname(__file__)+'\\'+'funds\\'+str(test_year)+'_'+str(test_quarter)+'_low.txt', low_limit)
+                    buy_w_test = revise_w(buy_w_test, os.path.join(os.path.dirname(__file__),'funds',str(test_year)+'_'+str(test_quarter)+'_low.txt'), low_limit)
 
 
                 #print(buy_w_test)
@@ -1284,16 +1288,16 @@ def fun():
             test_month = today.month
             find_year,find_period = findPeriod_L(test_year,test_month)
 
-            buy_w_filename = os.path.dirname(__file__)+'\\'+ 'tmp\\'+'L'+ str(find_year)+'-'+str(find_period)+ '.csv'
+            buy_w_filename = os.path.join(os.path.dirname(__file__), 'tmp','L'+ str(find_year)+'-'+str(find_period)+ '.csv')
             if os.path.exists(buy_w_filename):
                 buy_w = pd.read_csv(buy_w_filename, dtype=object)
                 buy_w.set_index('Unnamed: 0',inplace=True)
             else:
                 buy_w = pc.get_portfolio(money_scale=1e+7, up_limit_percent=0.9, fund_pool_size=100, fund_pool_update=True,
                                           fund_nav_update=True, end_date=t_date, max_num=2, risk_aversion=3, fund_pool_funs=['rmd'],
-                                          fund_filename=os.path.dirname(__file__)+'\\'+'funds\\'+str(today.year)+'_'+str(t_quarter)+'.txt')
+                                          fund_filename=os.path.join(os.path.dirname(__file__),'funds',str(today.year)+'_'+str(t_quarter)+'.txt'))
                 low_limit = random.randint(int(85),int(92)) / 100
-                buy_w = revise_w(buy_w, os.path.dirname(__file__)+'\\'+'funds\\'+str(today.year)+'_'+str(quarter)+'_low.txt', low_limit)
+                buy_w = revise_w(buy_w, os.path.join(os.path.dirname(__file__),'funds',str(today.year)+'_'+str(quarter)+'_low.txt'), low_limit)
                 buy_w.to_csv(buy_w_filename)
 
 
@@ -1387,6 +1391,8 @@ def fun():
         stmp = [xline[i],baseline_hs300[i],profit1.p[i]]
         chart1.append(stmp)
 
+    print("profit1:",profit1)
+    print("result1:",result1)
     r1_re = result1['r']                      #实际投资的r
     sharpe1_re = result1['sharpe']            #实际投资的sharpe
     md1_re = result1['md']                    #实际投资的md
