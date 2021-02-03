@@ -212,11 +212,11 @@ def save_data(w, portfolio_scale=1e+8, fund_nav=None, details='', fun='', fund_p
     coefficient.columns = keys
     coefficient.index = keys
                                    #zym
-    coefficient.to_csv(os.path.dirname(__file__) + "\\vill\\results\\coefficient_" + fund_pool_fun + "_" + fun + ".csv", index=True,
+    coefficient.to_csv(os.path.join(os.path.dirname(__file__) , "vill","results","coefficient_" + fund_pool_fun + "_" + fun + ".csv"), index=True,
                        encoding="utf_8_sig")
     coefficient.to_csv(
-        os.path.dirname(__file__) + "\\vill\\snapshots\\coefficient_" + fund_pool_fun + "_" + fun + "_" + int(
-            portfolio_scale).__str__() + " " + end_date.__str__() + ".csv",
+        os.path.join(os.path.dirname(__file__) , "vill","snapshots","coefficient_" + fund_pool_fun + "_" + fun + "_" + int(
+            portfolio_scale).__str__() + " " + end_date.__str__() + ".csv"),
         index=True, encoding="utf_8_sig")
 
     logfile = open('log.txt', 'a')

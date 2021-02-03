@@ -50,7 +50,7 @@ def get_fund_pool(fund_pool_update=False, update_date=date.today(), return_detai
         print("--------------")
         # 读取候选基金池
         try:                           #zym
-            res = pd.read_csv(os.path.dirname(__file__) + "\\vill\\snapshots\\fundpool_" + fund_pool_fun + "_" + update_date.__str__() + ".csv", index_col=0, header=None, dtype=object)
+            res = pd.read_csv(os.path.join(os.path.dirname(__file__) , "vill","snapshots","fundpool_" + fund_pool_fun + "_" + update_date.__str__() + ".csv"), index_col=0, header=None, dtype=object)
             fund_pool = list(res.index)
             if return_detail:
                 return res
@@ -351,8 +351,8 @@ def get_fund_pool(fund_pool_update=False, update_date=date.today(), return_detai
     res.scores = res.scores / res.times
     res = res.sort_values("scores").iloc[:, 1]
     # 存储候选池基金全部信息
-    res.to_csv(os.path.dirname(__file__) +"\\vill\\results\\fundpool_" + fund_pool_fun + ".csv", index=True, encoding="utf_8_sig")
-    res.to_csv(os.path.dirname(__file__)+ "\\vill\\snapshots\\fundpool_" + fund_pool_fun + "_" + update_date.__str__() + ".csv", index=True,
+    res.to_csv(os.path.join(os.path.dirname(__file__) ,"vill","results","fundpool_" + fund_pool_fun + ".csv"), index=True, encoding="utf_8_sig")
+    res.to_csv(os.path.join(os.path.dirname(__file__), "vill","snapshots","fundpool_" + fund_pool_fun + "_" + update_date.__str__() + ".csv"), index=True,
               encoding="utf_8_sig")
 
     return res
@@ -421,7 +421,7 @@ def get_nav_rates(fund_nav_update=False, fund_pool_update=False, begin_date="201
         print("----------------")
 
         # 读取候选基金池
-        fund_nav_rates = pd.read_csv(os.path.dirname(__file__) + "\\vill\\snapshots\\fund_nav_rate_" + fund_pool_fun + "_" + end_date.__str__() + ".csv", index_col=0, header=None, dtype=object)  # 读取基金收益率数据
+        fund_nav_rates = pd.read_csv(os.path.join(os.path.dirname(__file__) , "vill","snapshots","fund_nav_rate_" + fund_pool_fun + "_" + end_date.__str__() + ".csv"), index_col=0, header=None, dtype=object)  # 读取基金收益率数据
         return fund_nav_rates
 
     print("----------------")
@@ -470,9 +470,9 @@ def get_nav_rates(fund_nav_update=False, fund_pool_update=False, begin_date="201
     fund_nav_rates = fund_nav_rates.sub(hs300.iloc[:, 0], axis=0)
     fund_nav_rates = pd.DataFrame(fund_nav_rates)
     # 净值信息进行存储
-    pd.DataFrame.to_csv(pd.DataFrame(fund_nav_rates), os.path.dirname(__file__) + "\\vill\\results\\fund_nav_rate_" + fund_pool_fun + ".csv", index=True)
+    pd.DataFrame.to_csv(pd.DataFrame(fund_nav_rates), os.path.join(os.path.dirname(__file__) , "vill","results","fund_nav_rate_" + fund_pool_fun + ".csv"), index=True)
     pd.DataFrame.to_csv(pd.DataFrame(fund_nav_rates),
-                        os.path.dirname(__file__) + "\\vill\\snapshots\\fund_nav_rate_" + fund_pool_fun + "_" + end_date.__str__() + ".csv", index=True)
+                        os.path.join(os.path.dirname(__file__) , "vill","snapshots","fund_nav_rate_" + fund_pool_fun + "_" + end_date.__str__() + ".csv"), index=True)
     # 读取基金收益率数据
     # fund_nav_rates = pd.read_csv(os.getcwd() + "\\vill\\snapshots\\fund_nav_rate_" + fund_pool_fun + "_" + end_date.__str__() + ".csv", index_col=0)
     print("----------------")

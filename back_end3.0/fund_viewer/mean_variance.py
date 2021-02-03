@@ -434,16 +434,16 @@ def draw_picture(results=None, details=None, portfolio_scale=0, end_date=date.to
     plt.title('Fund Portfolio', fontsize=20, fontweight='black', color='#065279')
     plt.axis('equal')  # 让保持圆形
     #plt.annotate(details, xy=(0, 0), xytext=(-1, -1.2), color='#065279', size=13)
-    plt.savefig(os.path.dirname(__file__) + "\\vill\\results\\portfolio_" + end_date.__str__() + ".png",
+    plt.savefig(os.path.join(os.path.dirname(__file__) , "vill","results","portfolio_" + end_date.__str__() + ".png"),
                 format='png', bbox_inches='tight')
-    plt.savefig(os.path.dirname(__file__) + "\\vill\\snapshots\\portfolio_" + end_date.__str__() + ".png",
+    plt.savefig(os.path.join(os.path.dirname(__file__) , "vill","snapshots","portfolio_" + end_date.__str__() + ".png"),
                 format='png', bbox_inches='tight')
     #plt.show()  # 让图形显现
     # plt.close()
 
 
 if __name__ == '__main__':           #zym
-    df = pd.read_csv(os.path.dirname(__file__) + "\\vill\\results\\fund_nav_rate.csv", index_col=0)  # 读取基金收益率数据
+    df = pd.read_csv(os.path.join(os.path.dirname(__file__) , "vill","results","fund_nav_rate.csv"), index_col=0)  # 读取基金收益率数据
     df = df.iloc[:, 0:10]
 
 #    describe(df, is_print=True)
