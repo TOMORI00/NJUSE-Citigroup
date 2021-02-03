@@ -106,7 +106,7 @@ def get_fpv_data():
 # 推荐组合及历史推荐组合 请注意先经过test_fv或test_fpv才能得到组合数据
 @app.route('/api/output/getChart')
 def get_chart():
-    f = open("history.txt", "r",encoding='gbk')
+    f = open("history.txt", "r",encoding='utf-8')
     history = f.readlines()
     f.close()
     history[0] = eval(history[0].rstrip('\n'))
