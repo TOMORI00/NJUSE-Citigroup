@@ -40,7 +40,7 @@ python-docx==0.8.10
 pytz==2020.5
 requests==2.25.1
 requests-file==1.5.1
-scipy==1.6.0
+scipy==1.5.4
 six==1.15.0
 SQLAlchemy==1.3.22
 thriftpy2==0.4.14
