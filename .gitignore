@@ -36,3 +36,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/input/
+/result/
+/figure/
+/funds/
+/vill/
+/tmp/
+
