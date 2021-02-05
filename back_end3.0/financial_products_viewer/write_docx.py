@@ -88,7 +88,7 @@ def write_docx(filename, sd,risk,duration,fig1,p_per1, p_money1,fig2,p_per2, p_m
         stri=w.index[i]+name[0]+'——'+str(round(float(w.iloc[i][0])*100))+'万'
         document.add_paragraph(stri)
     
-    document.save(os.path.dirname(__file__)+'\\result\\'+filename + '理财与基金对比报告'+'('+risk+').docx')
+    document.save(os.path.join(os.path.dirname(__file__),'result',filename+ '理财与基金对比报告'+'('+risk+').docx'))
     
 
 def change(last, now):
