@@ -1,7 +1,7 @@
 此页为入口页
 - 本页元素与交互
   - 图片背景
-  - 左上图标》跳转至某页面（目前为NJU主页）
+  - 左上图标》跳转至某页面
   - 上方中央软件名称
   - 右上“关于”按钮》跳转至“关于”页面
   - 中央登录框
@@ -11,45 +11,42 @@
 
 <template>
   <div class="div-background-image">
-    <div class="div-homepage">
-      <el-container height="617px">
-        <el-header class="homepage-header" height="130px">
-          <div class="div-logo">
-            <a href="/homepage">
-              <img class="logo-img" src="../assets/zhinuo.png">
-            </a>
+    <el-container height="600px">
+      <el-header class="homepage-header" height="130px">
+        <div class="div-logo">
+          <a href="/homepage">
+            <img class="logo-img" src="../assets/nju.png">
+          </a>
+        </div>
+        <div class="div-more-link">
+          <div class="link-text">
+            <a href="/about"><h2>关于</h2></a>
           </div>
-          <div class="div-more-link">
-            <div class="link-text">
-              <a href="/about"><h2>关于</h2></a>
-            </div>
-          </div>
-        </el-header>
-                
-        <div class="title">公募基金/理财复现与顾问组合系统（EPC）</div>
+        </div>
+      </el-header>
+              
+      <div class="title">公募基金/理财复现与顾问组合系统（EPC）</div>
 
-        <el-divider></el-divider>
-        <el-container>
-          <el-aside></el-aside>
-          <el-main class="input-form">
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="div-choose">
-              <el-form-item prop="name">
-                <el-input v-model="ruleForm.name" placeholder="用户名"></el-input>
-              </el-form-item>
-              <el-form-item prop="password">
-                <el-input v-model="ruleForm.password" placeholder="密码" show-password></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button type='primary' @click="login('ruleForm')" class="choose-button">登录</el-button>
-              </el-form-item>
-            </el-form>
-          </el-main>
-          <el-aside></el-aside>
-        </el-container>
+      <el-divider></el-divider>
+
+      <el-container>
         <el-aside></el-aside>
+        <el-main class="input-form">
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="div-choose">
+            <el-form-item prop="name">
+              <el-input v-model="ruleForm.name" placeholder="用户名"></el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+              <el-input v-model="ruleForm.password" placeholder="密码" show-password></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type='primary' @click="login('ruleForm')" class="choose-button">登录</el-button>
+            </el-form-item>
+          </el-form>
+        </el-main>
         <el-aside></el-aside>
       </el-container>
-    </div>
+    </el-container>
   </div>
 </template>
 

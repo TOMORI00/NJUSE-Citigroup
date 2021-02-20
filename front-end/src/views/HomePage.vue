@@ -17,7 +17,7 @@
         <el-header class="homepage-header" height="100px">
           <div class="div-logo">
             <a href="/homepage">
-              <img class="logo-img" src="../assets/zhinuo.png">
+              <img class="logo-img" src="../assets/nju.png">
             </a>
           </div>
           <div class="div-more-link">
