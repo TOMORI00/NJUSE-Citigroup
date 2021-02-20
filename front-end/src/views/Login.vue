@@ -30,7 +30,7 @@
       <el-divider></el-divider>
 
       <el-container>
-        <el-aside></el-aside>
+        
         <el-main class="input-form">
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="div-choose">
             <el-form-item prop="name">
@@ -44,8 +44,9 @@
             </el-form-item>
           </el-form>
         </el-main>
-        <el-aside></el-aside>
+        
       </el-container>
+
     </el-container>
   </div>
 </template>
@@ -164,7 +165,7 @@ export default {
   border-radius: 10px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   background: rgba(0, 0, 0, 0.20);
-  padding: 5% 15% 0%;
+  padding: 2% 15% 0%;
 }
 
 .title {
@@ -180,17 +181,5 @@ export default {
   font-size:40px;
 }
 
-@media screen and (max-width: 1170px) {
-  .div-choose {
-    position: absolute;
-    right: 50px;
-  }
-}
 
-@media screen and (max-width: 900px) {
-  .div-choose {
-    position: absolute;
-    left: 50px;
-  }
-}
 </style>
