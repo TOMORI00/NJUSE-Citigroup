@@ -1,6 +1,8 @@
 import os
 import shutil
 
+import pymongo
+
 from flask import Flask
 from flask_cors import CORS
 
@@ -106,7 +108,7 @@ def get_fpv_data():
 # 推荐组合及历史推荐组合 请注意先经过test_fv或test_fpv才能得到组合数据
 @app.route('/api/output/getChart')
 def get_chart():
-    f = open("history.txt", "r",encoding='utf-8')
+    f = open("history.txt", "r", encoding='utf-8')
     history = f.readlines()
     f.close()
     history[0] = eval(history[0].rstrip('\n'))
@@ -233,6 +235,74 @@ def save_excel(files, dir_path):
             message = '上传失败'
             break
     return success, message
+
+
+# 登录函数
+@app.route("/api/upload/loginIn", methods=['GET', 'POST'])
+def login_in():
+    success = True
+    message = ""
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        dataClient = pymongo.MongoClient('mongodb://localhost:27017/')
+        if "citidb" not in dataClient.list_database_names():
+            success = False
+            message = "数据库不存在"
+        else:
+            db = dataClient['citidb']
+            if 'user' not in db.list_collection_names():
+                success = False
+                message = "用户表不存在"
+            else:
+                collection = db['user']
+                result = collection.find({"username": username})
+                if len(result) == 0:
+                    success = False
+                    message = "用户名不存在"
+                else:
+                    if password != result[0]['password']:
+                        success = False
+                        message = "密码不正确"
+        data = {
+            "success": success,
+            "message": message
+        }
+        print(data)
+        return jsonify(data)
+
+
+# 注册函数
+@app.route("/api/upload/signUp", methods=['GET', 'POST'])
+def sign_up():
+    success = True
+    message = ""
+    if request.method == 'GET':
+        username = request.form['username']
+        password = request.form['password']
+        dataClient = pymongo.MongoClient('mongodb://localhost:27017/')
+        if "citidb" not in dataClient.list_database_names():
+            success = False
+            message = "数据库不存在"
+        else:
+            db = dataClient['citidb']
+            if 'user' not in db.list_collection_names():
+                success = False
+                message = "用户表不存在"
+            else:
+                collection = db['user']
+                insertData = {"username": username, "password": password}
+                result = collection.find({"username": username})
+                if len(result) != 0:
+                    success = False
+                    message = "用户名已存在"
+                else:
+                    collection.insert_one(insertData)
+        data = {
+            "success": success,
+            "message": message
+        }
+        return jsonify(data)
 
 
 if __name__ == '__main__':
