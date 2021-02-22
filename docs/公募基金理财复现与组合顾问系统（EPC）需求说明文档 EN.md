@@ -18,10 +18,6 @@ The Public Fund Analysis and Recommendation System is a business system develope
 
 Through the application of the public fund analysis and recommendation system, it is expected that staff and clients will improve their ability to analyze the investment history of the subject being analyzed, thus realize a more reasonable investment portfolio and gain more profits.
 
-### 1.3 References
-
-[//TODO]
-
 ## 2. General description
 
 ### 2.1 Product Outlook
@@ -35,16 +31,21 @@ We noticed this and expected to assist both of these clients by developing a pub
 #### 2.1.2 Business requirements
 
 * **BR1**: Users will be able to visually compare and analyze the profits of their invesments after using this system.
-* **BR2**: Users will be able to get more ideal portfolio recommendations after using this system.
-* **BR3**: Users will be able to analyse the details of the fund portfolio.
+* **BR2**: Users will be able to get more ideal portfolio recommendations after using this system, receive higher investment return.
 
 ### 2.2  System fuctions
 
 * **SF1**: Visualization of historical investment data (wealth management or funds) uploaded by users (historical reproduction)
+
 * **SF2**: Comparing the user's investment history with the results of the recommendation system under different risks levels (comparative recurrence).
+
 * **SF3**: Providing users with portfolio recommendations for the current period.
+
 * **SF4**: Providing portfolio recommendations at a certain time in the past.
+
 * **SF5**: Providing a document with portfolio details can be viewed or downloaded
+
+* **SF6**: Providing a customer tracing blank to customer manager for help
 
 ### 2.3 User characteristics
 
@@ -58,7 +59,6 @@ We noticed this and expected to assist both of these clients by developing a pub
 
 * **CON1**: System interacts using a web interface.
 * **CON2**:  The server side is developed using Python, while the client side using Vue framework.
-* **CON3**:  The system runs in a local environment thus does not provide cross-domain network services.
 
 ### 2.5 Assumptions and dependencies
 
@@ -74,7 +74,12 @@ We noticed this and expected to assist both of these clients by developing a pub
 * **UI1**: Login sreen
 * **UI2**: User-type-selection screen
 * **UI3**: Professional User Interface
+  * Historical investment input Interface
+  * historical reproduction Interface
+  * portfolio recommendations Interface
+  * customer tracing blank Interface
 * **UI4**: Ordinary User Interface
+  * portfolio recommendations Interface
 
 #### 3.1.2 Communication Interface
 
@@ -196,13 +201,26 @@ The system provides the users with a document of the details about the portfolio
 * Simulation: User clicks the data-analyst button. 
 * Response: The system opens the fund portfolio details pdf file in a new tab.
 
+#### 3.2.7 maintaining customer tracing blank
+
+##### 3.2.7.1 Characteristic decription
+
+The system maintains the customer tracing blank base on user actions
+
+##### 3.2.7.2 Stimulus/Response Sequence
+
+- Simulation: User edit customer tracing blank
+- Response: The system displays the blank after editing
+- Simulation: User choose to save the blank
+- Response: The system saves the blank
+
 ------
 
 ### 3.3 Non-funtional Requirements
 
 #### 3.3.1 Safety
 
-* **Safety1**: There are no security requirements for the current version of the system.
+* **Safety1**: There are no high security requirements for the current version of the system.
 
 #### 3.3.2 Modifiablity
 
@@ -219,6 +237,3 @@ The system provides the users with a document of the details about the portfolio
 #### 3.3.5 Business Rules
 
 * **BR1**: Bank staff need to have access to customers' purchase and redemption records.
-
-## 4. Appendies
-

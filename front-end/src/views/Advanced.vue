@@ -192,7 +192,7 @@ export default {
 
       //默认先上传文件
       activeTab: 'first',
-      uploaded: false,
+      uploaded: true,
 
       // 上传的文件列表
       fileList: [],

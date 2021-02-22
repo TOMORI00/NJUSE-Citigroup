@@ -18,7 +18,7 @@ The function points contained in different interfaces are shown in the following
 | ----------------------------- | ------------------------------------------------------------ |
 | User Login Interface          | None                                                         |
 | User type selection interface | Download analysis document                                   |
-| Professional User Interface   | 1. Uploading Investment History<br/>2. User Investment History Recurrence<br/>3. Comparison Recurrence<br/>4. Portfolio Recommendations |
+| Professional User Interface   | 1. Uploading Investment History<br/>2. User Investment History Recurrence<br/>3. Comparison Recurrence<br/>4. Portfolio Recommendations<br>5. Using customer tracing blank |
 | Ordinary User Interface       | Portfolio Recommendations                                    |
 
 ## 3. Testing Results
@@ -31,6 +31,7 @@ The function points contained in different interfaces are shown in the following
      - Professional User Interface
          - Investment suggestion tab-pane
          - Investment recurrence tab-pane
+         - User tracing blank tab-pane
      - Ordinary User Interface
          - Current recommendation tab-pane
          - History recommendation tab-pane
@@ -47,3 +48,4 @@ The following table shows the test results for different function points.
 | User Investment History Recurrence | None                                                         | Line chart showing user investment history                   | PASSED      |
 | Comparison Recurrence              | Select high, medium and low risk level                       | Line chart showing the profits under certain risk level      | PASSED      |
 | Portfolio Recommendations          | Select high, medium and low risk level                       | Provide portfolio recommendations under certain risk level.  | PASSED      |
+| Using customer tracing blank       | add、delete、edit、search customer info and customer communicate info | record info correctly                                        | PASSED      |
