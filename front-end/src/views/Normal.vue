@@ -251,7 +251,7 @@
 </template>
 
 <script>
-import Heading from "../components/Heading";
+import Heading_2 from "../components/Heading_2";
 import XLSX from 'xlsx'
 import {importExcelAPI} from "@/api/upload";
 import {getChartAPI} from "@/api/output";
@@ -302,7 +302,7 @@ export default {
     // console.log('created')
   },
   components: {
-    Heading
+    Heading: Heading_2
   },
   methods: {
     recommendChange(val){

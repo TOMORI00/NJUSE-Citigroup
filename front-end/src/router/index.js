@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Global from "../global";
 
 Vue.use(VueRouter)
 
@@ -7,7 +8,7 @@ const routes = [
     {
         path: '/',
         name: 'Login',
-        component:() => import('../views/Login')
+        component: () => import('../views/Login')
     },
     {
         path: '/homepage',
@@ -24,13 +25,13 @@ const routes = [
     },
     {
         path: '/advanced',
-        name:'Advanced',
-        component: ()=>import('../views/Advanced')
+        name: 'Advanced',
+        component: () => import('../views/Advanced')
     },
     {
         path: '/normal',
-        name:'Normal',
-        component: ()=>import('../views/Normal')
+        name: 'Normal',
+        component: () => import('../views/Normal')
     }
 ]
 
@@ -38,6 +39,14 @@ const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes
+})
+
+router.beforeEach((to, from, next) => {
+    if (to.name !== 'Login' && !Global.isAuthenticated) {
+        next({name: 'Login'})
+    } else {
+        next()
+    }
 })
 
 export default router
