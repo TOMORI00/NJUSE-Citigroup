@@ -15,160 +15,160 @@
 - 推荐历史
 
 <template>
-    <div>
-        <div class="div-bg"></div>
-        <div class="div-main">
+  <div>
+    <div class="div-bg"></div>
+    <div class="div-main">
 
-            <heading></heading>
+      <heading></heading>
 
-            <el-container>
-                <el-aside></el-aside>
-                <el-main>
-                    <div class="mainblock">
-                        <el-tabs v-model="activeTab">
+      <el-container>
+        <el-aside></el-aside>
+        <el-main>
+          <div class="mainblock">
+            <el-tabs v-model="activeTab">
 
-                            <el-tab-pane label="投资记录上传" name="first" v-if='!uploaded'>
+              <el-tab-pane label="投资记录上传" name="first" v-if='!uploaded'>
 
-                                <el-container id="my-container">
-                                    <el-header height="40px" style="margin: 20px">
-                                        <el-select v-model="type" @change="handleTypeChange">
-                                            <el-option v-for="item in options" :key="item.value" :label="item.label"
-                                                       :value="item.value"></el-option>
-                                        </el-select>
-                                    </el-header>
-                                </el-container>
+                <el-container id="my-container">
+                  <el-header height="40px" style="margin: 20px">
+                    <el-select v-model="type" @change="handleTypeChange">
+                      <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                 :value="item.value"></el-option>
+                    </el-select>
+                  </el-header>
+                </el-container>
 
-                                <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange"
-                                           :on-preview="handlePreview"
-                                           :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList"
-                                           :auto-upload="false">
-                                    <i class="el-icon-upload"></i>
-                                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                                    <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
-                                </el-upload>
-                                <br>
-                                <el-button id="upload-ack" @click="uploadAck"
-                                           style="margin: auto;width:73.9px;height: 39.6px">确 认
-                                </el-button>
+                <el-upload id="importExcel" drag action="#" multiple :on-change="handleChange"
+                           :on-preview="handlePreview"
+                           :before-remove="beforeRemove" :on-remove="handleRemove" :file-list="fileList"
+                           :auto-upload="false">
+                  <i class="el-icon-upload"></i>
+                  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                  <div class="el-upload__tip" slot="tip">（只能上传Excel文件）</div>
+                </el-upload>
+                <br>
+                <el-button id="upload-ack" @click="uploadAck"
+                           style="margin: auto;width:73.9px;height: 39.6px">确 认
+                </el-button>
 
-                            </el-tab-pane>
+              </el-tab-pane>
 
-                            <el-tab-pane label="投资复现" name="second" v-if='uploaded'>
+              <el-tab-pane label="投资复现" name="second" v-if='uploaded'>
 
-                                <div class="div-analysis">
-                                    <p style="font-weight:bold;
+                <div class="div-analysis">
+                  <p style="font-weight:bold;
                           font-size:20px;
                           border-radius: 15px;
                           box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
                           background: rgba(0, 0, 0, 0.2);
                           margin-top: 25px;
                           padding:1%;"
-                                    >历史复现</p>
-                                    <div style="width: 800px;height: 480px;margin: auto">
-                                        <GChart type="LineChart" :data=historyLine :options="LineChartOptions"/>
-                                    </div>
-                                </div>
+                  >历史复现</p>
+                  <div style="width: 800px;height: 480px;margin: auto">
+                    <GChart type="LineChart" :data=historyLine :options="LineChartOptions"/>
+                  </div>
+                </div>
 
-                                <el-divider></el-divider>
+                <el-divider></el-divider>
 
-                                <div class="div-analysis">
-                                    <p style="font-weight:bold;
+                <div class="div-analysis">
+                  <p style="font-weight:bold;
                           font-size:20px;
                           border-radius: 15px;
                           box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
                           background: rgba(0, 0, 0, 0.2);
                           margin-top: 25px;
                           padding:1%;"
-                                    >对比复现</p>
-                                    <div class="div-risk">
-                                        <el-radio-group v-model="compRadio" @change="compareLineChange">
-                                            <el-radio :label="3">低风险</el-radio>
-                                            <el-radio :label="6">中风险</el-radio>
-                                            <el-radio :label="9">高风险</el-radio>
-                                        </el-radio-group>
-                                    </div>
-                                    <div style="width: 800px;height: 480px;margin: auto">
-                                        <GChart type="LineChart" :data=compareLine :options="LineChartOptions"/>
-                                    </div>
+                  >对比复现</p>
+                  <div class="div-risk">
+                    <el-radio-group v-model="compRadio" @change="compareLineChange">
+                      <el-radio :label="3">低风险</el-radio>
+                      <el-radio :label="6">中风险</el-radio>
+                      <el-radio :label="9">高风险</el-radio>
+                    </el-radio-group>
+                  </div>
+                  <div style="width: 800px;height: 480px;margin: auto">
+                    <GChart type="LineChart" :data=compareLine :options="LineChartOptions"/>
+                  </div>
 
-                                </div>
+                </div>
 
-                                <!-- 备用的修改基金池功能 -->
-                                <!-- <el-button @click="changeFund" v-if="false">修改基金池</el-button>
-                                <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
-                                <span>修改基金池细节</span>
-                                <span slot="footer" class="dialog-footer">
-                                <el-button @click="dialogVisible = false">取 消</el-button>
-                                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-                                </span>
-                                </el-dialog> -->
-                            </el-tab-pane>
+                <!-- 备用的修改基金池功能 -->
+                <!-- <el-button @click="changeFund" v-if="false">修改基金池</el-button>
+                <el-dialog title="修改基金池" :visible.sync="dialogVisible" width="30%">
+                <span>修改基金池细节</span>
+                <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                </span>
+                </el-dialog> -->
+              </el-tab-pane>
 
-                            <el-tab-pane label="投资建议" name="third" v-if='uploaded'>
+              <el-tab-pane label="投资建议" name="third" v-if='uploaded'>
 
-                                <p style="font-weight:bold;
+                <p style="font-weight:bold;
                           font-size:20px;
                           border-radius: 15px;
                           box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
                           background: rgba(0, 0, 0, 0.2);
                           margin-top: 25px;
                           padding:1%;"
-                                >投资建议</p>
-                                <div class="div-risk">
-                                    <el-radio-group v-model="recRadio" @change="recommendChange">
-                                        <el-radio :label="3">低风险</el-radio>
-                                        <el-radio :label="6">中风险</el-radio>
-                                        <el-radio :label="9">高风险</el-radio>
-                                    </el-radio-group>
-                                </div>
+                >投资建议</p>
+                <div class="div-risk">
+                  <el-radio-group v-model="recRadio" @change="recommendChange">
+                    <el-radio :label="3">低风险</el-radio>
+                    <el-radio :label="6">中风险</el-radio>
+                    <el-radio :label="9">高风险</el-radio>
+                  </el-radio-group>
+                </div>
 
-                                <div style="width: 800px;height: 480px;margin: auto">
-                                    <GChart type="PieChart" :data=recommendPie :options="PieChartOptions"/>
-                                </div>
+                <div style="width: 800px;height: 480px;margin: auto">
+                  <GChart type="PieChart" :data=recommendPie :options="PieChartOptions"/>
+                </div>
 
-                                <el-divider></el-divider>
+                <el-divider></el-divider>
 
-                                <p style="font-weight:bold;
+                <p style="font-weight:bold;
                         font-size:20px;
                         border-radius: 15px;
                         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
                         background: rgba(0, 0, 0, 0.2);
                         margin-top: 25px;
                         padding:1%;"
-                                >历史推荐</p>
-                                <div class="div-risk">
-                                    <el-radio-group v-model="hisRadio" @change="hisrecommendChange">
-                                        <el-radio :label="3">低风险</el-radio>
-                                        <el-radio :label="6">中风险</el-radio>
-                                        <el-radio :label="9">高风险</el-radio>
-                                    </el-radio-group>
-                                </div>
-                                <div class="timeblock">
-                                    <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
-                                    <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月"
-                                                    placeholder="请选择时段"
-                                                    @change="handleDateChange">
-                                    </el-date-picker>
-                                    <br>
-                                    <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合
-                                    </el-button>
-                                </div>
-                                <div style="width: 800px;height: 480px;margin: auto">
-                                    <GChart type="PieChart" :data=historyPie :options="PieChartOptions"
-                                            v-if="historyPieDisplay"/>
-                                </div>
-                            </el-tab-pane>
+                >历史推荐</p>
+                <div class="div-risk">
+                  <el-radio-group v-model="hisRadio" @change="hisrecommendChange">
+                    <el-radio :label="3">低风险</el-radio>
+                    <el-radio :label="6">中风险</el-radio>
+                    <el-radio :label="9">高风险</el-radio>
+                  </el-radio-group>
+                </div>
+                <div class="timeblock">
+                  <span style="font-weight:bold; font-size:15px;">开始时间:   </span>
+                  <el-date-picker v-model="dateValue" type="month" format="yyyy年MM月"
+                                  placeholder="请选择时段"
+                                  @change="handleDateChange">
+                  </el-date-picker>
+                  <br>
+                  <el-button @click="getRecommendCombination" style="margin-top: 20px">查看历史推荐组合
+                  </el-button>
+                </div>
+                <div style="width: 800px;height: 480px;margin: auto">
+                  <GChart type="PieChart" :data=historyPie :options="PieChartOptions"
+                          v-if="historyPieDisplay"/>
+                </div>
+              </el-tab-pane>
 
-                        </el-tabs>
-                    </div>
-                    <el-divider></el-divider>
-                </el-main>
-                <el-aside></el-aside>
-            </el-container>
+            </el-tabs>
+          </div>
+          <el-divider></el-divider>
+        </el-main>
+        <el-aside></el-aside>
+      </el-container>
 
-            <div>{{ loading }}</div>
-        </div>
+      <div>{{ loading }}</div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -489,78 +489,78 @@
 
 <style>
 
-    .el-tabs__item.is-active {
-        color: rgb(0, 0, 0);
-        padding: 2%;
-        border-radius: 5px;
-        font-size: 18px;
-    }
+  .el-tabs__item.is-active {
+    color: rgb(0, 0, 0);
+    padding: 2%;
+    border-radius: 5px;
+    font-size: 18px;
+  }
 
-    .el-tabs__item {
-        font-weight: bold;
-        font-size: 15px;
-    }
+  .el-tabs__item {
+    font-weight: bold;
+    font-size: 15px;
+  }
 
-    .el-tabs__active-bar {
-        background-color: rgb(0, 0, 0);
-    }
+  .el-tabs__active-bar {
+    background-color: rgb(0, 0, 0);
+  }
 
-    .el-radio {
-        font-weight: bold;
-    }
+  .el-radio {
+    font-weight: bold;
+  }
 
-    .div-bg {
-        z-index: -1;
-        width: 100%;
-        position: fixed;
-        background-image: url("../assets/1542.jpg");
-        /* background-image: url("../assets/background.jpg"); */
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100%;
-    }
+  .div-bg {
+    z-index: -1;
+    width: 100%;
+    position: fixed;
+    background-image: url("../assets/1542.jpg");
+    /* background-image: url("../assets/background.jpg"); */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+  }
 
+  .div-main {
+    width: 100%;
+    /*background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/1542.jpg");*/
+    /*background-position: center center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100%;*/
+    /*background-attachment: fixed;*/
+  }
+
+  @media screen and (max-width: 1440px) {
     .div-main {
-        width: 100%;
-        /*background-image: url("https://mjh1.oss-cn-hangzhou.aliyuncs.com/1542.jpg");*/
-        /*background-position: center center;*/
-        /*background-repeat: no-repeat;*/
-        /*background-size: 100%;*/
-        /*background-attachment: fixed;*/
+      width: 1440px;
+      /*background-size: 1440px;*/
     }
+  }
 
-    @media screen and (max-width: 1440px) {
-        .div-main {
-            width: 1440px;
-            /*background-size: 1440px;*/
-        }
-    }
+  .mainblock {
+    border-radius: 15px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.15);
+    /*margin-top: 25px;*/
+    padding: 5%;
+  }
 
-    .mainblock {
-        border-radius: 15px;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-        background: rgba(0, 0, 0, 0.15);
-        /*margin-top: 25px;*/
-        padding: 5%;
-    }
+  .div-risk {
+    border-radius: 15px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.09);
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 2%;
+  }
 
-    .div-risk {
-        border-radius: 15px;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-        background: rgba(0, 0, 0, 0.09);
-        margin-top: 25px;
-        margin-bottom: 25px;
-        padding: 2%;
-    }
-
-    .timeblock {
-        border-radius: 15px;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-        background: rgba(0, 0, 0, 0.092);
-        margin-top: 25px;
-        margin-bottom: 25px;
-        padding: 2%;
-    }
+  .timeblock {
+    border-radius: 15px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.092);
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 2%;
+  }
 
 </style>

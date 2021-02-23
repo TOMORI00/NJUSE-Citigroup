@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Global from "../global";
+import Global from "../components/Global";
 
 Vue.use(VueRouter)
 
@@ -32,7 +32,24 @@ const routes = [
         path: '/normal',
         name: 'Normal',
         component: () => import('../views/Normal')
-    }
+    },
+    {
+        path: '/signup',
+        name: 'SignUp',
+        component: () => import('../views/SignUp')
+    },
+    {
+        path: '/customer',
+        name: 'Customer',
+        component: () => import('../views/Customer')
+    },
+]
+
+// 2021-2-23 mjh 不登录就可以访问的页面
+const freePages = [
+    'Login',
+    'SignUp',
+    'About'
 ]
 
 const router = new VueRouter({
@@ -42,8 +59,12 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.name !== 'Login' && !Global.isAuthenticated) {
-        next({name: 'Login'})
+    if (freePages.indexOf(to.name) < 0) {
+        if (!Global.isAuthenticated) {
+            next({name: 'Login'})
+        } else {
+            next()
+        }
     } else {
         next()
     }

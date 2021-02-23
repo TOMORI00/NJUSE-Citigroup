@@ -37,7 +37,8 @@
                             <el-input v-model="ruleForm.password" placeholder="密码" show-password></el-input>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type='primary' @click="login('ruleForm')" class="choose-button">登录</el-button>
+                            <el-button type='primary' @click="login('ruleForm')" class="choose-button" style="margin-right: 20px">登录</el-button>
+                            <el-button type='primary' @click="toSignUp" class="choose-button" style="margin-left: 20px">注册</el-button>
                         </el-form-item>
                     </el-form>
                 </el-main>
@@ -48,7 +49,7 @@
 </template>
 
 <script>
-    import Global from "../global";
+    import Global from "../components/Global";
     import Heading_1 from "../components/Heading_1";
     import Heading_2 from "../components/Heading_2";
 
@@ -74,13 +75,18 @@
             login(formName) {
                 Global.isAuthenticated = true
                 this.$refs[formName].validate((valid) => {
-                    if (valid) {
+                    if (valid) {Global.userName = this.ruleForm.name
+
                         this.$router.push('/homepage')
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
+            },
+
+            toSignUp(){
+                this.$router.push('/signup')
             }
         },
         components: {
