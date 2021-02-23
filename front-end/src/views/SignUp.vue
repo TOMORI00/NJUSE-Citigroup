@@ -33,7 +33,7 @@
     import Heading_1 from "../components/Heading_1";
     import BackGround from "../components/BackGround";
 
-    import Global from "../components/Global";
+    import Global from "../components/GlobalData";
 
     export default {
         name: "SignUp",
@@ -90,5 +90,5 @@
 </script>
 
 <style scoped>
-  @import url('../components/Global_Style.css');
+  @import url('../components/GlobalStyle.css');
 </style>

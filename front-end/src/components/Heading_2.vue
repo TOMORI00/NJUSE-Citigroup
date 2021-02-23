@@ -2,20 +2,46 @@
   <div>
     <div class="div-heading">
       <div class="div-logo">
-        <a href="/homepage">
+        <a @click="toHomepage">
           <img class="logo-img" src="../assets/nju.png">
         </a>
       </div>
-      <div class="div-name"><h2 style="margin:auto;font-size: 25px">公募基金/理财复现与顾问组合系统（EPC）</h2></div>
+      <div class="div-name">
+        <h2 style="margin:auto;font-size: 25px">公募基金/理财复现与顾问组合系统（EPC）</h2>
+        <el-dropdown style="float: right;margin-top: 10px;margin-right: 20px">
+          <el-avatar icon="el-icon-user-solid"></el-avatar>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item disabled>{{this.userName}}</el-dropdown-item>
+            <el-dropdown-item divided @click="signOut"><a @click="signOut">退出登录</a></el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+        <!--        <h3>{{this.userName}}</h3>-->
+      </div>
     </div>
     <el-divider id="heading-divider" style="margin: 0;padding: 0;height: 2px"></el-divider>
   </div>
 </template>
 
 <script>
+    import Global from "./GlobalData";
+
     export default {
         name: "Heading",
-        methods: {}
+        data() {
+            return {
+                userName: Global.userName
+            }
+        },
+        methods: {
+            toHomepage() {
+                this.$router.push('/homepage')
+            },
+            signOut(){
+                console.log("sign out")
+                Global.isAuthenticated = false
+                this.$router.push('/login')
+            },
+        },
     }
 </script>
 
@@ -66,7 +92,7 @@
     right: 40px;
   }
 
-  #heading-divider{
+  #heading-divider {
     margin: 0;
     padding: 0;
     height: 1px;

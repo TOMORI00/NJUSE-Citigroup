@@ -49,7 +49,7 @@
 </template>
 
 <script>
-    import Global from "../components/Global";
+    import Global from "../components/GlobalData";
     import Heading_1 from "../components/Heading_1";
     import Heading_2 from "../components/Heading_2";
 

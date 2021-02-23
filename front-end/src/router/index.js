@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Global from "../components/Global";
+import Global from "../components/GlobalData";
 
 Vue.use(VueRouter)
 
