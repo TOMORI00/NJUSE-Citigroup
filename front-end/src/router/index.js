@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Global from "../components/Global";
 
 Vue.use(VueRouter)
 
@@ -7,7 +8,7 @@ const routes = [
     {
         path: '/',
         name: 'Login',
-        component:() => import('../views/Login')
+        component: () => import('../views/Login')
     },
     {
         path: '/homepage',
@@ -24,20 +25,49 @@ const routes = [
     },
     {
         path: '/advanced',
-        name:'Advanced',
-        component: ()=>import('../views/Advanced')
+        name: 'Advanced',
+        component: () => import('../views/Advanced')
     },
     {
         path: '/normal',
-        name:'Normal',
-        component: ()=>import('../views/Normal')
-    }
+        name: 'Normal',
+        component: () => import('../views/Normal')
+    },
+    {
+        path: '/signup',
+        name: 'SignUp',
+        component: () => import('../views/SignUp')
+    },
+    {
+        path: '/customer',
+        name: 'Customer',
+        component: () => import('../views/Customer')
+    },
+]
+
+// 2021-2-23 mjh 不登录就可以访问的页面
+const freePages = [
+    'Login',
+    'SignUp',
+    'About'
 ]
 
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes
+})
+
+router.beforeEach((to, from, next) => {
+    if (freePages.indexOf(to.name) < 0) {
+        if (!Global.isAuthenticated) {
+            next({name: 'Login'})
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
 })
 
 export default router
