@@ -35,6 +35,8 @@
 
     import Global from "../components/GlobalData";
 
+    import {signUpAPI} from "../api/upload";
+
     export default {
         name: "SignUp",
         data() {
@@ -62,11 +64,31 @@
             BackGround
         },
         methods: {
-            ackSignUp(signUpDataForm) {
-                this.$refs[signUpDataForm].validate((valid) => {
+            // 2021-2-24 mjh
+            // 确认注册函数，向后端发送注册信息
+            async ackSignUp(signUpDataForm) {
+                await this.$refs[signUpDataForm].validate((valid) => {
                     if (valid) {
                         if (this.signUpDataForm.pwd === this.signUpDataForm.pwdAck) {
-                            this.$router.push('/login')
+                            let res = true;
+                            // res = signUpAPI({
+                            //     name: this.signUpDataForm.name,
+                            //     pwd: this.signUpDataForm.pwd,
+                            // })
+                            if (res) {
+                                this.$notify.info({
+                                    title: '信息',
+                                    message: '注册成功',
+                                })
+                                setTimeout((res => {
+                                    this.$router.push('/login')
+                                }), 3000)
+                            } else {
+                                this.$notify.error({
+                                    title: '错误',
+                                    message: '注册失败'
+                                });
+                            }
                         } else {
                             this.$notify.error({
                                 title: '错误',

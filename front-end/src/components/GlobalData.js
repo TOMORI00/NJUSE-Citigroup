@@ -3,9 +3,11 @@
 let isAuthenticated = false
 let userId = -1
 let userName = ''
+let userPwd = ''
 
 export default {
     isAuthenticated,
     userId,
     userName,
+    userPwd,
 }
