@@ -59,7 +59,7 @@
     import {signInAPI} from "../api/upload"
 
     export default {
-        name: 'Home',
+        name: 'Login',
         data() {
             return {
                 ruleForm: {

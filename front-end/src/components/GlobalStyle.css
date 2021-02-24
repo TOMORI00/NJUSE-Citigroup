@@ -1,5 +1,6 @@
 /*2021-2-23 mjh 全局css设置*/
 
+/*注册输入div格式*/
 .signup-input{
     width: 800px;
     height: 300px;
@@ -11,3 +12,12 @@
     background: rgba(0, 0, 0, 0.20);
     padding: 2% 15% 0%;
 }
+
+/*理财经理、客户经理和投资者等界面主题阴影部分div的格式*/
+.main-block {
+    border-radius: 15px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.15);
+    /*margin-top: 25px;*/
+    padding: 5%;
+  }

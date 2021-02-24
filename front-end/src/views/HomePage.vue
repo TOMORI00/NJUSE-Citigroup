@@ -63,7 +63,7 @@
                 this.$router.push('/normal')
             },
             toCustomer() {
-                this.$router.push('/customer')
+                this.$router.push('/acctmgr')
             },
             toAnalysis() {
                 //TODO，下载pdf

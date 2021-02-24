@@ -39,9 +39,9 @@ const routes = [
         component: () => import('../views/SignUp')
     },
     {
-        path: '/customer',
-        name: 'Customer',
-        component: () => import('../views/Customer')
+        path: '/acctmgr',
+        name: 'AcctMgr',
+        component: () => import('../views/AcctMgr')
     },
 ]
 
