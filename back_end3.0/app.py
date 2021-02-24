@@ -238,14 +238,14 @@ def save_excel(files, dir_path):
 
 
 # 登录函数
-@app.route("/api/upload/loginIn", methods=['GET', 'POST'])
+@app.route("/api/upload/signInAPI", methods=['GET', 'POST'])
 def login_in():
     success = True
     message = ""
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        dataClient = pymongo.MongoClient('mongodb://localhost:27017/')
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='1234')
         if "citidb" not in dataClient.list_database_names():
             success = False
             message = "数据库不存在"
@@ -273,14 +273,14 @@ def login_in():
 
 
 # 注册函数
-@app.route("/api/upload/signUp", methods=['GET', 'POST'])
+@app.route("/api/upload/signUpAPI", methods=['GET', 'POST'])
 def sign_up():
     success = True
     message = ""
     if request.method == 'GET':
         username = request.form['username']
         password = request.form['password']
-        dataClient = pymongo.MongoClient('mongodb://localhost:27017/')
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='1234')
         if "citidb" not in dataClient.list_database_names():
             success = False
             message = "数据库不存在"
