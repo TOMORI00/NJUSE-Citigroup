@@ -68,17 +68,18 @@ export default {
         // 2021-2-24 mjh
         // 确认注册函数，向后端发送注册信息
         async ackSignUp(signUpDataForm) {
-            await this.$refs[signUpDataForm].validate((valid) => {
+            await this.$refs[signUpDataForm].validate(async (valid) =>  {
                 if (valid) {
                     if (this.signUpDataForm.pwd === this.signUpDataForm.pwdAck) {
-                        let res = {
-                            success: 'success',
-                            message: '',
-                        };
-                        // res = signUpAPI({
-                        //     name: this.signUpDataForm.name,
-                        //     pwd: this.signUpDataForm.pwd,
-                        // })
+                        // let res = {
+                        //     success: 'success',
+                        //     message: '',
+                        // };
+                        const res = await signUpAPI({
+                            name: this.signUpDataForm.name,
+                            pwd: this.signUpDataForm.pwd,
+                        })
+                        console.log(res)
                         if (res) {
                             this.$notify.info({
                                 title: '信息',

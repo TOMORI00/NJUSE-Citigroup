@@ -238,14 +238,15 @@ def save_excel(files, dir_path):
 
 
 # 登录函数
-@app.route("/api/upload/signInAPI", methods=['GET', 'POST'])
+@app.route("/api/upload/signIn", methods=['GET', 'POST'])
 def login_in():
     success = True
     message = ""
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='1234')
+        data=request.get_json(silent=True)
+        username = data['name']
+        password = data['pwd']
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
         if "citidb" not in dataClient.list_database_names():
             success = False
             message = "数据库不存在"
@@ -257,7 +258,7 @@ def login_in():
             else:
                 collection = db['user']
                 result = collection.find({"username": username})
-                if len(result) == 0:
+                if result.count() == 0:
                     success = False
                     message = "用户名不存在"
                 else:
@@ -266,21 +267,23 @@ def login_in():
                         message = "密码不正确"
         data = {
             "success": success,
-            "message": message
+            "message": message,
+            "content":True
         }
         print(data)
         return jsonify(data)
 
 
 # 注册函数
-@app.route("/api/upload/signUpAPI", methods=['GET', 'POST'])
+@app.route("/api/upload/signUp", methods=['GET', 'POST'])
 def sign_up():
     success = True
     message = ""
-    if request.method == 'GET':
-        username = request.form['username']
-        password = request.form['password']
-        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='1234')
+    if request.method == 'POST':
+        data=request.get_json(silent=True)
+        username = data['name']
+        password = data['pwd']
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
         if "citidb" not in dataClient.list_database_names():
             success = False
             message = "数据库不存在"
@@ -293,16 +296,19 @@ def sign_up():
                 collection = db['user']
                 insertData = {"username": username, "password": password}
                 result = collection.find({"username": username})
-                if len(result) != 0:
+                print(result.count())
+                if result.count() != 0:
                     success = False
                     message = "用户名已存在"
                 else:
                     collection.insert_one(insertData)
-        data = {
-            "success": success,
-            "message": message
-        }
-        return jsonify(data)
+    data = {
+        "success": success,
+        "message": message,
+        "content":True
+    }
+    print(data)
+    return jsonify(data)
 
 
 # 查看用户追踪表，根据经理用户名，返回所有客户数据
@@ -312,7 +318,7 @@ def get_client():
     message = ""
     if request.method == 'POST':
         managerName = request.form['managerName']
-        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='1234')
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
         if "citidb" not in dataClient.list_database_names():
             success = False
             message = "数据库不存在"
@@ -345,7 +351,7 @@ def delete_client():
     if request.method == 'POST':
         managerName = request.form['managerName']
         clientName = request.form['clientName']
-        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='1234')
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
         if "citidb" not in dataClient.list_database_names():
             success = False
             message = "数据库不存在"
@@ -381,7 +387,7 @@ def add_client():
             'nextTime': request.form['nextTime'],
             'remark': request.form['remark']
         }
-        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='1234')
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
         if "citidb" not in dataClient.list_database_names():
             success = False
             message = "数据库不存在"

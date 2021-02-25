@@ -82,19 +82,16 @@ export default {
         // 2021-2-24 mjh 修改login方法
         // 增加向后端发送数据验证登录信息环节
         async login(formName) {
-            await this.$refs[formName].validate((valid) => {
+            await this.$refs[formName].validate(async (valid) => {
                 if (valid) {
                     Global.userName = this.ruleForm.name
                     Global.userPwd = this.ruleForm.password
-                    let res = {
-                        success: 'success',
-                        message: '',
-                    };
-                    // res = signInAPI({
-                    //     name: Global.userName,
-                    //     pwd: Global.userPwd,
-                    // })
-                    if (res.success === 'success') {
+                    const res =await signInAPI({
+                        name: Global.userName,
+                        pwd: Global.userPwd,
+                    })
+                    console.log(res);
+                    if (res) {
                         Global.isAuthenticated = true
                         this.$router.push('/homepage')
                     } else {
