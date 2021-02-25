@@ -22,7 +22,7 @@
 
 在下拉菜单中选择基金/理财类型，在上传模块选择或拖入文件上传用户的买入记录和赎回记录excel文件，点击确认开始计算
 
-![image-20201027102817096](C:%5CUsers%5CDaiqj%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201027102817096.png)
+![image-20210225143216546](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20210225143216546.png)
 
 #### 3.1.2 投资历史记录复现
 
@@ -62,6 +62,14 @@
 
 ![image-20201027112728955](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112728955.png)
 
+#### 3.1.6 理财经理客户追踪
+
+为理财经理用户提供客户追踪表，为其定期联络客户提供方便
+
+![image-20210225143050954](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20210225143050954.png)
+
+![image-20210225143142472](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20210225143142472.png)
+
 ### 3.2 个人投资者
 
 #### 3.2.1 投资组合推荐
@@ -72,7 +80,7 @@
 
 ![image-20201027112914969](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112914969.png)
 
-![image-20201027112923788](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112923788.png
+![image-20201027112923788](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112923788.png)
 
 #### 3.2.2 历史投资组合查看
 
