@@ -21,3 +21,8 @@
     /*margin-top: 25px;*/
     padding: 5%;
   }
+
+.el-table__body tr.current-row>td{
+background-color: #aabccf !important;
+color: #fff;
+}
