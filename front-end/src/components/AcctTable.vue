@@ -146,6 +146,7 @@ export default {
         async ackAcctAdd() {
             this.acctAddData.priority.value = this.priorityChange(this.acctAddData.priority.message)
             const res = await acctAddAPI({
+                managerName:GlobalData.userName,
                 acctData:this.acctAddData,
                 type:'add',
             })
@@ -204,6 +205,7 @@ export default {
         async ackAcctChange() {
             this.acctChangeData.priority.value = this.priorityChange(this.acctChangeData.priority.message)
             const res = await acctChangeAPI({
+                managerName:GlobalData.userName,
                 acctData:this.acctChangeData,
                 type:'change',
             })
@@ -263,12 +265,15 @@ export default {
             }
         },
         async getAcctTableData(){
-            if(!GlobalData.isTableGot) {
-                const res = await ackSignIn(GlobalData.userName)
-                this.tableData = await getAcctTableAPI()
-                GlobalData.isTableGot = true
+            // if(!GlobalData.isTableGot) {
+                // const res = await ackSignIn(GlobalData.userName)
+                const data={managerName:GlobalData.userName}
+                console.log(data)
+                this.tableData = await getAcctTableAPI(data)
+                // this.tableData={}
+                // GlobalData.isTableGot = true
                 console.log('create')
-            }
+            // }
         }
     },
     components: {},

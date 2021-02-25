@@ -34,9 +34,10 @@ export function getPDFAPI(){
 }
 
 // 2021-2-25 mjh 前端获取客户追踪表信息API
-export function getAcctTableAPI(){
+export function getAcctTableAPI(data){
     return axios({
         url: `/api/output/getAcctTable`,
-        method:'GET',
+        method:'POST',
+        data
     })
 }
