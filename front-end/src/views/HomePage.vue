@@ -11,7 +11,7 @@
 - Analysis：分析用户》数据分析者
 
 <template>
-    <div class="div-background-image">
+    <div>
         <!--        <div class="div-homepage">-->
         <!--            <el-container height="617px">-->
         <!--                <el-header class="homepage-header" height="100px">-->
@@ -30,6 +30,7 @@
         <!--                <div class="title">公募基金/理财复现与顾问组合系统（EPC）</div>-->
 
         <!--                <el-divider></el-divider>-->
+        <BackGround></BackGround>
         <Heading_1></Heading_1>
         <el-container>
             <div class="div-choose" id="div-choose">
@@ -46,6 +47,7 @@
 
 <script>
 import Heading_1 from "../components/Heading_1";
+import BackGround from "../components/BackGround";
 
 export default {
     name: "HomePage",
@@ -67,7 +69,8 @@ export default {
         }
     },
     components: {
-        Heading_1
+        Heading_1,
+        BackGround,
     }
 }
 
