@@ -196,7 +196,7 @@
 
                 //默认先上传文件
                 activeTab: 'first',
-                uploaded: true,
+                uploaded: false,
 
                 // 上传的文件列表
                 fileList: [],

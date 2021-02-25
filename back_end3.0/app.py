@@ -45,8 +45,8 @@ def get_fv_data():
     history_low = str(history_low) + "\n"
     history = [history_high, history_mid, history_low]
 
-    f = open("history.txt", 'w').close()  # 先清空
-    f = open('history.txt', 'a')
+    f = open("history.txt", 'w',encoding='utf-8').close()  # 先清空
+    f = open('history.txt', 'a',encoding='utf-8')
     f.writelines(history)
     f.close()
 
@@ -84,8 +84,8 @@ def get_fpv_data():
     history_low = str(history_low) + "\n"
     history = [history_high, history_mid, history_low]
 
-    f = open("history.txt", 'w').close()  # 先清空
-    f = open('history.txt', 'a')
+    f = open("history.txt", 'w',encoding='utf-8').close()  # 先清空
+    f = open('history.txt', 'a',encoding='utf-8')
     f.writelines(history)
     f.close()
 
