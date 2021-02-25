@@ -145,10 +145,10 @@ export default {
         },
         async ackAcctAdd() {
             this.acctAddData.priority.value = this.priorityChange(this.acctAddData.priority.message)
-            // const res = await acctAddAPI({
-            //     acctData:this.acctAddData,
-            //     type:'add',
-            // })
+            const res = await acctAddAPI({
+                acctData:this.acctAddData,
+                type:'add',
+            })
             let tmpData = Object.assign({}, this.acctAddData)
             this.tableData.push(tmpData)
             this.acctAddData = ({
@@ -203,10 +203,10 @@ export default {
         },
         async ackAcctChange() {
             this.acctChangeData.priority.value = this.priorityChange(this.acctChangeData.priority.message)
-            // const res = await acctChangeAPI({
-            //     acctData:this.acctChangeData,
-            //     type:'change',
-            // })
+            const res = await acctChangeAPI({
+                acctData:this.acctChangeData,
+                type:'change',
+            })
             this.acctChangeVisible = false
         },
         cancelAcctChange() {
@@ -223,20 +223,20 @@ export default {
         },
         async handleAcctDel() {
             if (this.multipleSelection.length > 0) {
-                // const res = await acctDelAPI({
-                //     acctData: this.multipleSelection,
-                //     type: 'multiDelete',
-                // })
+                const res = await acctDelAPI({
+                    acctData: this.multipleSelection,
+                    type: 'multiDelete',
+                })
                 for (let i = 0; i < this.multipleSelection.length; i++) {
                     this.deleteRow(this.multipleSelection[i])
                 }
             } else {
                 if (this.currentRow !== null) {
                     this.acctDelData = this.currentRow
-                    // const res = await acctDelAPI({
-                    //     acctData: this.acctDelData,
-                    //     type: 'delete',
-                    // })
+                    const res = await acctDelAPI({
+                        acctData: this.acctDelData,
+                        type: 'delete',
+                    })
                     this.deleteRow(this.acctDelData)
                 } else {
                     this.$notify.error({
@@ -264,8 +264,8 @@ export default {
         },
         async getAcctTableData(){
             if(!GlobalData.isTableGot) {
-                // const res = await ackSignIn(GlobalData.userName)
-                // this.tableData = await getAcctTableAPI()
+                const res = await ackSignIn(GlobalData.userName)
+                this.tableData = await getAcctTableAPI()
                 GlobalData.isTableGot = true
                 console.log('create')
             }
