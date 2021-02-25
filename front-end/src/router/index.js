@@ -38,11 +38,6 @@ const routes = [
         name: 'SignUp',
         component: () => import('../views/SignUp')
     },
-    {
-        path: '/customer',
-        name: 'Customer',
-        component: () => import('../views/Customer')
-    },
 ]
 
 // 2021-2-23 mjh 不登录就可以访问的页面
