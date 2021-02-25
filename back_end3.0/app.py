@@ -306,7 +306,7 @@ def sign_up():
 
 
 # 查看用户追踪表，根据经理用户名，返回所有客户数据
-@app.route("api/upload/getClientAPI", method=['GET', 'POST'])
+@app.route("/api/upload/getClientAPI", methods=['GET', 'POST'])
 def get_client():
     success = True
     message = ""
@@ -338,7 +338,7 @@ def get_client():
 
 
 # 删除用户追踪信息
-@app.route("api/upload/deleteClientAPI", methods=['GET', 'POST'])
+@app.route("/api/upload/deleteClientAPI", methods=['GET', 'POST'])
 def delete_client():
     success = True
     message = ""
@@ -367,7 +367,7 @@ def delete_client():
 
 
 # 添加用户追踪信息
-@app.route("api/upload/addClientAPI", methods=['GET', 'POST'])
+@app.route("/api/upload/addClientAPI", methods=['GET', 'POST'])
 def add_client():
     success = True
     message = ""
@@ -402,7 +402,7 @@ def add_client():
 
 
 # 修改客户追踪表数据
-@app.route('api/upload/changeClientAPI', methods=['GET', 'POST'])
+@app.route('/api/upload/changeClientAPI', methods=['GET', 'POST'])
 def change_client():
     success = True
     message = ""
