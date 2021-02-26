@@ -2,6 +2,7 @@ import os
 import shutil
 
 import pymongo
+from bson import json_util, ObjectId
 
 from flask import Flask
 from flask_cors import CORS
@@ -333,21 +334,23 @@ def get_client():
                 message = "用户追踪表不存在"
             else:
                 collection = db['clientInfo']
-                result = collection.find({"managerName": managerName},{"_id":0})
+                result = collection.find({"managerName": managerName})
                 # if result.count() == 0:
                 #     success = False
                 #     message = "客户经理不存在"
                 # else:
                 #     content = result
-                res_list=[doc for doc in result]
-                print(res_list)
+                # res_list=[doc for doc in result]
+                # print(res_list)
         data = {
             "success": success,
             "message": message,
-            "content": res_list
+            "content": result
         }
         print(data)
-        return jsonify(data)
+        data=json_util.dumps(data)
+        print(data)
+        return data
 
 
 # 删除用户追踪信息
@@ -357,8 +360,14 @@ def delete_client():
     message = ""
     content = ""
     if request.method == 'POST':
-        managerName = request.form['managerName']
-        clientName = request.form['clientName']
+        data=request.get_json(silent=True)
+        print(data)
+        acctData=data['acctData']
+        uids=[]
+        for doc in acctData:
+            uids.append(doc['_id']['$oid'])
+        print(uids)
+        managerName = data['managerName']
         dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
         if "citidb" not in dataClient.list_database_names():
             success = False
@@ -371,7 +380,9 @@ def delete_client():
             else:
                 collection = db['clientInfo']
                 result = collection.find({"managerName": managerName})
-                collection.delete_one({'managerName': managerName, 'clientName': clientName})
+                for uid in uids:
+                    ouid=ObjectId(uid)
+                    collection.delete_one({'managerName': managerName, '_id': ouid})
         data = {
             "success": success,
             "message": message,
@@ -427,16 +438,17 @@ def change_client():
     message = ""
     if request.method == 'POST':
         data=request.get_json(silent=True)
-        print(data)
         acctData=data['acctData']
-        print(acctData)
+        uid=acctData['_id']['$oid']
+        uid=ObjectId(uid)
         queryData = {
             'managerName': data['managerName'],
-            'name': acctData['name']
+            "_id":uid
         }
         updateData = {
             "$set":
             {
+                'name': acctData['name'],
                 'contact': acctData['contact'],
                 'signUpTime': acctData['signUpTime'],
                 'priority': acctData['priority'],

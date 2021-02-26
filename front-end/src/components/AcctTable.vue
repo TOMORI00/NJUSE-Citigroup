@@ -150,8 +150,9 @@ export default {
                 acctData:this.acctAddData,
                 type:'add',
             })
-            let tmpData = Object.assign({}, this.acctAddData)
-            this.tableData.push(tmpData)
+            // let tmpData = Object.assign({}, this.acctAddData)
+            // this.tableData.push(tmpData)
+            await this.getAcctTableData()
             this.acctAddData = ({
                 name: '',
                 contact: '',
@@ -226,6 +227,7 @@ export default {
         async handleAcctDel() {
             if (this.multipleSelection.length > 0) {
                 const res = await acctDelAPI({
+                    managerName: GlobalData.userName,
                     acctData: this.multipleSelection,
                     type: 'multiDelete',
                 })
@@ -236,6 +238,7 @@ export default {
                 if (this.currentRow !== null) {
                     this.acctDelData = this.currentRow
                     const res = await acctDelAPI({
+                        managerName: GlobalData.userName,
                         acctData: this.acctDelData,
                         type: 'delete',
                     })
@@ -270,6 +273,7 @@ export default {
                 const data={managerName:GlobalData.userName}
                 console.log(data)
                 this.tableData = await getAcctTableAPI(data)
+                console.log(this.tableData)
                 // this.tableData={}
                 // GlobalData.isTableGot = true
                 console.log('create')
