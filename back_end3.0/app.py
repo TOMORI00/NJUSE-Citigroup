@@ -2,6 +2,7 @@ import os
 import shutil
 
 import pymongo
+from bson import json_util, ObjectId
 
 from flask import Flask
 from flask_cors import CORS
@@ -45,8 +46,8 @@ def get_fv_data():
     history_low = str(history_low) + "\n"
     history = [history_high, history_mid, history_low]
 
-    f = open("history.txt", 'w').close()  # 先清空
-    f = open('history.txt', 'a')
+    f = open("history.txt", 'w', encoding='utf-8').close()  # 先清空
+    f = open('history.txt', 'a', encoding='utf-8')
     f.writelines(history)
     f.close()
 
@@ -84,8 +85,8 @@ def get_fpv_data():
     history_low = str(history_low) + "\n"
     history = [history_high, history_mid, history_low]
 
-    f = open("history.txt", 'w').close()  # 先清空
-    f = open('history.txt', 'a')
+    f = open("history.txt", 'w', encoding='utf-8').close()  # 先清空
+    f = open('history.txt', 'a', encoding='utf-8')
     f.writelines(history)
     f.close()
 
@@ -238,14 +239,15 @@ def save_excel(files, dir_path):
 
 
 # 登录函数
-@app.route("/api/upload/signInAPI", methods=['GET', 'POST'])
+@app.route("/api/upload/signIn", methods=['GET', 'POST'])
 def login_in():
     success = True
     message = ""
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='1234')
+        data = request.get_json(silent=True)
+        username = data['name']
+        password = data['pwd']
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
         if "citidb" not in dataClient.list_database_names():
             success = False
             message = "数据库不存在"
@@ -257,7 +259,7 @@ def login_in():
             else:
                 collection = db['user']
                 result = collection.find({"username": username})
-                if len(result) == 0:
+                if result.count() == 0:
                     success = False
                     message = "用户名不存在"
                 else:
@@ -266,21 +268,23 @@ def login_in():
                         message = "密码不正确"
         data = {
             "success": success,
-            "message": message
+            "message": message,
+            "content": True
         }
         print(data)
         return jsonify(data)
 
 
 # 注册函数
-@app.route("/api/upload/signUpAPI", methods=['GET', 'POST'])
+@app.route("/api/upload/signUp", methods=['GET', 'POST'])
 def sign_up():
     success = True
     message = ""
-    if request.method == 'GET':
-        username = request.form['username']
-        password = request.form['password']
-        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='1234')
+    if request.method == 'POST':
+        data = request.get_json(silent=True)
+        username = data['name']
+        password = data['pwd']
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
         if "citidb" not in dataClient.list_database_names():
             success = False
             message = "数据库不存在"
@@ -293,15 +297,182 @@ def sign_up():
                 collection = db['user']
                 insertData = {"username": username, "password": password}
                 result = collection.find({"username": username})
-                if len(result) != 0:
+                print(result.count())
+                if result.count() != 0:
                     success = False
                     message = "用户名已存在"
                 else:
                     collection.insert_one(insertData)
+    data = {
+        "success": success,
+        "message": message,
+        "content": True
+    }
+    print(data)
+    return jsonify(data)
+
+
+# 查看用户追踪表，根据经理用户名，返回所有客户数据
+@app.route("/api/output/getAcctTable", methods=['GET', 'POST'])
+def get_client():
+    success = True
+    message = ""
+    content = ""
+    if request.method == 'POST':
+        data=request.get_json(silent=True)
+        print(data)
+        res_list=[]
+        managerName = data['managerName']
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
+        if "citidb" not in dataClient.list_database_names():
+            success = False
+            message = "数据库不存在"
+        else:
+            db = dataClient['citidb']
+            if 'clientInfo' not in db.list_collection_names():
+                success = False
+                message = "用户追踪表不存在"
+            else:
+                collection = db['clientInfo']
+                result = collection.find({"managerName": managerName})
+                # if result.count() == 0:
+                #     success = False
+                #     message = "客户经理不存在"
+                # else:
+                #     content = result
+                # res_list=[doc for doc in result]
+                # print(res_list)
+        data = {
+            "success": success,
+            "message": message,
+            "content": result
+        }
+        print(data)
+        data=json_util.dumps(data)
+        print(data)
+        return data
+
+
+# 删除用户追踪信息
+@app.route("/api/upload/acctDel", methods=['GET', 'POST'])
+def delete_client():
+    success = True
+    message = ""
+    content = ""
+    if request.method == 'POST':
+        data=request.get_json(silent=True)
+        print(data)
+        acctData=data['acctData']
+        uids=[]
+        for doc in acctData:
+            uids.append(doc['_id']['$oid'])
+        print(uids)
+        managerName = data['managerName']
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
+        if "citidb" not in dataClient.list_database_names():
+            success = False
+            message = "数据库不存在"
+        else:
+            db = dataClient['citidb']
+            if 'clientInfo' not in db.list_collection_names():
+                success = False
+                message = "用户追踪表不存在"
+            else:
+                collection = db['clientInfo']
+                result = collection.find({"managerName": managerName})
+                for uid in uids:
+                    ouid=ObjectId(uid)
+                    collection.delete_one({'managerName': managerName, '_id': ouid})
+        data = {
+            "success": success,
+            "message": message,
+            "content": content
+        }
+        print(data)
+        return jsonify(data)
+
+
+# 添加用户追踪信息
+@app.route("/api/upload/acctAdd", methods=['GET', 'POST'])
+def add_client():
+    success = True
+    message = ""
+    if request.method == 'POST':
+        data=request.get_json(silent=True)
+        print(data)
+        acctData=data['acctData']
+        print(acctData)
+        insertData = {
+            'managerName': data['managerName'],
+            'name': acctData['name'],
+            'contact': acctData['contact'],
+            'signUpTime': acctData['signUpTime'],
+            'priority': acctData['priority'],
+            'nextTime': acctData['nextTime'],
+            'detail': acctData['detail']
+        }
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
+        if "citidb" not in dataClient.list_database_names():
+            success = False
+            message = "数据库不存在"
+        else:
+            db = dataClient['citidb']
+            if 'clientInfo' not in db.list_collection_names():
+                success = False
+                message = "用户追踪表不存在"
+            else:
+                collection = db['clientInfo']
+                collection.insert_one(insertData)
         data = {
             "success": success,
             "message": message
         }
+        print(data)
+        return jsonify(data)
+
+
+# 修改客户追踪表数据
+@app.route('/api/upload/acctChange', methods=['GET', 'POST'])
+def change_client():
+    success = True
+    message = ""
+    if request.method == 'POST':
+        data=request.get_json(silent=True)
+        acctData=data['acctData']
+        uid=acctData['_id']['$oid']
+        uid=ObjectId(uid)
+        queryData = {
+            'managerName': data['managerName'],
+            "_id":uid
+        }
+        updateData = {
+            "$set":
+            {
+                'name': acctData['name'],
+                'contact': acctData['contact'],
+                'signUpTime': acctData['signUpTime'],
+                'priority': acctData['priority'],
+                'nextTime': acctData['nextTime'],
+                'detail': acctData['detail']
+            }
+        }
+        dataClient = pymongo.MongoClient(host='8.129.234.40:27017', username='root', password='123456')
+        if "citidb" not in dataClient.list_database_names():
+            success = False
+            message = "数据库不存在"
+        else:
+            db = dataClient['citidb']
+            if 'clientInfo' not in db.list_collection_names():
+                success = False
+                message = "用户追踪表不存在"
+            else:
+                collection = db['clientInfo']
+                collection.update_one(queryData, updateData)
+        data = {
+            "success": success,
+            "message": message
+        }
+        print(data)
         return jsonify(data)
 
 
