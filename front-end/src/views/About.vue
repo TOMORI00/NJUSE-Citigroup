@@ -1,10 +1,7 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    <el-button id="getData" @click="getData">getChart测试</el-button>
-    <div>{{chartData}}</div>
-
-    <div>{{pieData}}</div>
+    本系统由NJU花旗杯团队-“精神小伙”提供
   </div>
 </template>
 
