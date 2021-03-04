@@ -30,8 +30,9 @@ We noticed this and expected to assist both of these clients by developing a pub
 
 #### 2.1.2 Business requirements
 
-* **BR1**: Users will be able to visually compare and analyze the profits of their invesments after using this system.
-* **BR2**: Users will be able to get more ideal portfolio recommendations after using this system, receive higher investment return.
+* **BR1**: After six months of using the system, account manager users will be able to better conduct fund product sales operations, and business volume and business revenue will increase.
+* **BR2**: After six months of using the system, individual investor users will be able to achieve a more than satisfactory return on their investment.
+* **BR3**: When using the system at any time, analyst users will be able to easily analyze fund portfolio details.
 
 ### 2.2  System fuctions
 
@@ -64,6 +65,7 @@ We noticed this and expected to assist both of these clients by developing a pub
 
 * **AE1**: All users can oprate computer proficiently.
 * **AE2**: Bank staff has access to her costumers' investment history.
+* **AE3**: The system only provides recommendations for fund investment, and does not force or act as an agent for the user's investment behavior
 
 ## 3. Detailed description of demands
 
@@ -71,7 +73,8 @@ We noticed this and expected to assist both of these clients by developing a pub
 
 #### 3.1.1 User Interface
 
-* **UI1**: Login sreen
+* **UI1**: Login screen
+  * Signup screen
 * **UI2**: User-type-selection screen
 * **UI3**: Professional User Interface
   * Historical investment input Interface
@@ -80,6 +83,8 @@ We noticed this and expected to assist both of these clients by developing a pub
   * customer tracing blank Interface
 * **UI4**: Ordinary User Interface
   * portfolio recommendations Interface
+
+* **UI5**: Data Analysis Interface
 
 #### 3.1.2 Communication Interface
 
@@ -203,7 +208,7 @@ The system provides the users with a document of the details about the portfolio
 
 #### 3.2.7 maintaining customer tracing blank
 
-##### 3.2.7.1 Characteristic decription
+##### 3.2.7.1 Characteristic description
 
 The system maintains the customer tracing blank base on user actions
 
@@ -216,15 +221,15 @@ The system maintains the customer tracing blank base on user actions
 
 ------
 
-### 3.3 Non-funtional Requirements
+### 3.3 Non-functional Requirements
 
 #### 3.3.1 Safety
 
 * **Safety1**: There are no high security requirements for the current version of the system.
 
-#### 3.3.2 Modifiablity
+#### 3.3.2 Modifiability
 
-* **Modifiablity1**: The system must be able to support the development of further functionality.
+* **Modifiability1**: The system must be able to support the development of further functionality.
 
 #### 3.3.3 Usability
 

@@ -2,122 +2,121 @@
 
 [toc]
 
-# 1. 引言
+# 1. Introduction
 
-### 1.1 编写目的
+### 1.1 Document Purposes
 
-本文档旨在为公募基金/理财复现与组合顾问系统（EPC）软件的使用者提供使用说明
+This document is intended to provide instructions for users of the Public Funds / Wealth Management Recurring and Portfolio Advisor (EPC) software
 
-### 1.2 项目背景
+### 1.2 Project background
 
-本项目为2020花旗杯竞赛南京大学“精神小伙”团队软件部分的产品，供演示使用
+This project is a product of the software part of the "Spirit Guy" team of Nanjing University in the 2020 Citi Cup competition, for demonstration purposes.
 
-## 2. 软件概述
+## 2. Software Overview
 
-本软件能为银行客户经理提供客户咨询分析服务，为他的客户提供投资历史复现与比较复现服务，为其提供用户追踪表功能，进而为其推销公募基金和理财产品提供方便，同时提供投资组合顾问服务。
+This software can provide customer consultation and analysis services for bank account managers, investment history recurrence and comparison recurrence services for his customers, user tracking table functions for them, which in turn facilitate their marketing of public funds and financial products, and portfolio advisory services.
 
-本软件能为个人投资者提供投资组合顾问，在不同风险等级下提供基金投资组合推荐服务。
+The software can provide portfolio advisory services for individual investors, providing fund portfolio recommendation services under different risk levels.
 
-本软件能为银行网点的分析人员提供系统性的分析报告服务。
+This software can provide systematic analysis report service for analysts in bank branches.
 
-## 3. 运行环境
+## 3. Running Environment
 
-### 3.1 硬件
+### 3.1 Hardware
 
 常见现代通用计算机即可
 
-### 3.2 支持软件
+### 3.2 Supporting Software
 
 - python运行环境，版本3.0以上，并需要flask库相关运行环境
 - NodeJS运行环境，最新稳定版本即可，需要使用npm安装相关依赖
 - Windows7及以上版本
 - Chrome或EDGE等主流浏览器
 
-## 4. 使用说明
+## 4. Using Instructions
 
-### 4.1 启动
+### 4.1 Initiate
 
-- 运行app.py文件
+- run app.py
+- start the terminal in the front-end project location and run npm run serve to start the vue framework
 
-- 在前端项目位置启动终端，运行npm run serve启动vue框架
+### 4.2 Using
 
-### 4.2 实际使用
+#### 4.2.1 Login, Signup
 
-#### 4.2.1 登录、注册
+Fill in the user name field and password field, and click the login button to complete the login process
 
-填写用户名字段和密码字段，点击登录按钮即可完成登录流程
-
-填写用户名字段和密码字段、选择用户类型，点击注册按钮即可完成注册流程
+Fill in the user name field and password field, select the user type, and click the Register button to complete the registration process
 
 ![image-20210303105809439](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20210303105809439.png)
 
-#### 4.2.2 选择用户角色
+#### 4.2.2 Choosing User
 
-在银行客户经理、个人投资者、银行网点分析人员三个选项中选择，点击进入
+Select from the three options of bank account manager, individual investor, and bank branch analyst, and click to enter
 
 ![image-20201027102428060](C:%5CUsers%5CDaiqj%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201027102428060.png)
 
-#### 4.2.3 银行客户经理
+#### 4.2.3 Bank Account Manager
 
-- ##### 4.2.3.1 投资记录上传
+- ##### 4.2.3.1 Investment Record Upload
 
-  选择基金、理财选项后在上传模块上传用户的买入记录和赎回记录
+  Select the fund and wealth management options and upload the user's purchase and redemption records in the upload module
 
-  点击确认开始计算复现
+  Click on Confirm to start calculating recurrence
 
   ![image-20210225143216546](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20210225143216546.png)
 
-- ##### 4.2.3.2 投资历史复现
+- ##### 4.2.3.2 Investment History Replay
 
-  根据用户上传的投资历史记录生成投资历史记录
+  Generate investment history based on the investment history uploaded by users
 
-  若为基金类型，红线为用户历史收益曲线，蓝线为沪深三百指数曲线
+  If it is a fund type, the red line is the user's historical return curve, and the blue line is the CSI 300 index curve
 
   ![image-20201027103335771](C:%5CUsers%5CDaiqj%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201027103335771.png)
 
-  若为理财类型，蓝线为理财产品收益曲线即用户历史收益曲线
+  If it is a financial type, the blue line is the financial product return curve that is the user's historical return curve
 
   ![image-20201027112246743](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112246743.png)
 
-- ##### 4.2.3.3 比较复现
+- ##### 4.2.3.3 Comparative Reproduction
 
-  根据用户选择的不同风险等级展示在对应等级下投资组合推荐的收益曲线与用户历史收益曲线（以某用户C的基金投资为例），红线为用户历史收益曲线，蓝线为对应风险投资组合的收益曲线。可以在高中低风险情况下进行推荐的投资组合与用户投资历史的收益情况比较，显示出推荐的投资组合的优越性![image-20201027111726786](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027111726786.png)
+  According to the different risk levels selected by the user, the recommended return curve of the portfolio under the corresponding level and the user's historical return curve are displayed (take the fund investment of a user C as an example), the red line is the user's historical return curve and the blue line is the return curve of the corresponding risk portfolio. The recommended portfolio can be compared with the user's investment history in the case of high, medium and low risks, showing the superiority of the recommended portfolio
+  
+  ![image-20201027111726786](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027111726786.png)
   
   ![image-20201027111715706](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027111715706.png)
   
   ![image-20201027111651231](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027111651231.png)
   
-- ##### 4.2.3.4 投资组合推荐
+- ##### 4.2.3.4 Portfolio Recommendations
   
-  根据选择的高中低风险提供不同风险等级的投资组合推荐，并附有用户案例供参考
-  
-  
+  Provide portfolio recommendations with different risk levels according to the selected high, medium and low risks, with user cases for reference
   
   ![image-20201027112358360](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112358360.png)
   
   ![image-20201027112408628](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112408628.png)
   
-- ##### 4.2.3.5 推荐历史查看
+- ##### 4.2.3.5 Recommended History View
   
-  可选择查看历史上某月份所对应的投资组合推荐情况，选择风险等级并在日期选择栏中选择对应月份点击查看按钮即可查看
+  Users can choose to view the portfolio recommendations for a particular month in history by selecting the risk level and choosing the corresponding month in the date selection field and clicking the View button.
   
   ![image-20201027112637500](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112637500.png)
   
   ![image-20201027112728955](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112728955.png)
   
-- ##### 4.2.3.6 客户追踪表
+- ##### 4.2.3.6 Customer Tracking Form
 
-  为理财经理用户提供客户追踪表，为其定期联络客户提供方便
+  Provide client tracking forms for money manager users to facilitate regular contact with their clients
   
   ![image-20210225143050954](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20210225143050954.png)
   
   ![image-20210225143142472](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20210225143142472.png)
 
-#### 4.2.4 个人投资者
+#### 4.2.4 Individual Investors
 
-- ##### 4.2.4.1 投资组合推荐
+- ##### 4.2.4.1 Portfolio Recommendations
   
-  根据选择的高中低风险提供不同风险等级的投资组合推荐，同时以案例的形式展示该风险等级的投资组合的投资表现
+  Provide portfolio recommendations for different risk levels according to the selected high, medium and low risks, and also show the investment performance of the portfolio for that risk level in the form of case studies
   
   ![image-20201027112903360](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112903360.png)
   
@@ -125,9 +124,9 @@
   
   ![image-20201027112923788](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112923788.png)
   
-- ##### 4.2.4.2 推荐历史查看
+- ##### 4.2.4.2 Recommended History View
   
-  可选择查看历史上某月份所对应的投资组合推荐情况，选择风险等级并在日期选择栏中选择对应月份点击查看按钮即可查看
+  Users can choose to view the portfolio recommendations for a particular month in history by selecting the risk level and choosing the corresponding month in the date selection field and clicking the View button.
   
   ![image-20201027112637500](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027112637500.png) 
   
@@ -135,11 +134,11 @@
   
   ![image-20201027113340853](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027113340853.png)
 
-#### 4.2.3 银行网点分析人员
+#### 4.2.3 Bank branch analysts
 
-- ##### 4.2.3.1 查看投资组合推荐详情
+- ##### 4.2.3.1 View portfolio recommendation details
 
-  点击组合详情分析选项即可在新标签页打开投资组合推荐详情pdf，并可通过浏览器进行下载（以下为部分内容展示）
+  Click on the portfolio details analysis option to open the portfolio recommendation details pdf in a new tab and download it via your browser (some of the contents are shown below)
 
 ![image-20201027113406898](C:/Users/Daiqj/AppData/Roaming/Typora/typora-user-images/image-20201027113406898.png)
 

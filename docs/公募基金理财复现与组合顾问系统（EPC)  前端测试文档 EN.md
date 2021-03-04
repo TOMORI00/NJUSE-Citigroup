@@ -16,8 +16,9 @@ The function points contained in different interfaces are shown in the following
 
 | Interface                     | Function Points                                              |
 | ----------------------------- | ------------------------------------------------------------ |
-| User Login Interface          | None                                                         |
-| User type selection interface | Download analysis document                                   |
+| User Login Interface          | 1. Login<br>2. Navigate to signup interface                  |
+| User Signup Interface         | 1. Signup<br>2. Navigate to login interface                  |
+| User type selection interface | 1. Navigate to professional user interface<br>2. Navigate to ordinary user interface |
 | Professional User Interface   | 1. Uploading Investment History<br/>2. User Investment History Recurrence<br/>3. Comparison Recurrence<br/>4. Portfolio Recommendations<br>5. Using customer tracing blank |
 | Ordinary User Interface       | Portfolio Recommendations                                    |
 
@@ -27,14 +28,19 @@ The function points contained in different interfaces are shown in the following
 
 ```
      - Login Screen
+      	 - Signup Screen
      - User Type Selection Screen
      - Professional User Interface
-         - Investment suggestion tab-pane
+         - Investment history upload tab-pane
+         - User-tracking form tab-pane
          - Investment recurrence tab-pane
-         - User tracing blank tab-pane
+         - Investment suggestion tab-pane
      - Ordinary User Interface
          - Current recommendation tab-pane
          - History recommendation tab-pane
+     - Data Analysis Screen
+     
+     Test Result: Pass
 ```
 
 ### 3.2 Testing of function points
@@ -43,6 +49,8 @@ The following table shows the test results for different function points.
 
 | Function Point                     | Input                                                        | Expected Results                                             | Test Result |
 | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------- |
+| User Login                         | 1. Correct username and password<br>2. Missing username and password<br>3. Wrong username and password | 1. Successfully login,navigate to user type choosing screen<br>2. Hints to input username and password<br>3. Hints that username or password is wrong | PASSED      |
+| User Signup                        | 1. Username, password, user type<br>2. Missing username, password or user type | 1. Successfully signup, navigate to user login screen<br>2. Hints to input username, password or user type | PASSED      |
 | Download Analysis File             | None                                                         | Successfully download analysis file to local disk.           | PASSED      |
 | Uploading Investment History       | 1. No document uploaded<br>2. Upload document in incorrect format | 1. Prompt no document uploaded<br>2. Prompt document format error | PASSED      |
 | User Investment History Recurrence | None                                                         | Line chart showing user investment history                   | PASSED      |
