@@ -1,4 +1,4 @@
-# 公募基金/理财复现与组合顾问系统（EPC）软件用户手册
+# GuideBook of Mutual fund/financial management reapperence and advisory  portfolio system (EPC)
 
 [toc]
 
