@@ -24,14 +24,14 @@ This software can provide systematic analysis report service for analysts in ban
 
 ### 3.1 Hardware
 
-常见现代通用计算机即可
+Common modern general-purpose computers
 
 ### 3.2 Supporting Software
 
-- python运行环境，版本3.0以上，并需要flask库相关运行环境
-- NodeJS运行环境，最新稳定版本即可，需要使用npm安装相关依赖
-- Windows7及以上版本
-- Chrome或EDGE等主流浏览器
+- Python runtime environment: version 3.0 or above, and requires flask library related runtime environment
+- Node.js runtime environment: the latest stable version，also need to use npm to install dependencies
+- Windows7 and above
+- Major broser such as Chorme or Edge
 
 ## 4. Using Instructions
 
